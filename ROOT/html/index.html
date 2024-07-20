@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="kr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="../common/common.css">
+    <link rel="stylesheet" type="text/css" href="../css/index.css">
+    <title>스케줄러</title>
+  </head>
+  <body>
+    <div id="main_container"style="display: none;" >
+      <button id="login_logo_btn"></button>
+      <div id="box_container">
+        <input id="tmp_login_id">
+        <input id="tmp_login_pw">
+        <button id="login_btn">로그인</button>
+        <div id="move_btn_box">
+          <button id="find_move_btn" class="move_btn">비밀번호를 잊으셨나요?</button>
+          <button id="join_move_btn" class="move_btn">새로 가입하기</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="find_container">
+      <div id="find_header_list">
+        <button id="find_btn_red"></button>
+        <button id="find_btn_gray"></button>
+        <button id="find_btn_gray"></button>
+      </div>
+      <div id="find_main_list">
+        <button id="find_back_btn"></button>
+        <div id="find_file_container">
+          <div id="find_tab_box">
+            <div id="find_tab_id_box">
+              <div id="find_tab_id_content">아이디</div>
+              <div id="find_tab_id_back"></div>
+            </div>
+            <div id="find_tab_pw_box">
+              <div id="find_tab_pw_content">비밀번호</div>
+              <div id="find_tab_pw_back"></div>
+            </div>
+          </div>
+            <div id ="find_file_back"></div>
+        </div>
+      </div>
+
+    </div>
+    <script src="../common/common.js"></script>
+    <script src="../js/index.js"></script>
+</html>

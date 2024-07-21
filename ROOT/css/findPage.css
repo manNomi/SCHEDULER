@@ -1,0 +1,149 @@
+#find_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  height: 90%;
+  border: solid 2px #999999;
+}
+
+#find_header_list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #425c73;
+  width: 80%;
+  height: 40px;
+  border-radius: 10px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  margin-top: 2vh;
+}
+
+#find_btn_red {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: #f24822;
+  border-radius: 50%;
+  margin-left: 30px;
+  cursor: pointer;
+}
+
+#find_btn_gray {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: #b3b3b3;
+  border-radius: 50%;
+  margin-left: 10px;
+}
+
+/* 메인 테두리  */
+#find_file_container {
+  position: relative;
+  margin-left: 60px;
+}
+
+/* 탭박스 모음 */
+#find_tab_box {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  margin-top: 15px;
+  margin-left: 15px;
+  margin-bottom: 5px;
+}
+
+#find_tab_id_box {
+  position: relative;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+#find_tab_id_back {
+  background-color: #89ccf6;
+  width: 160px;
+  height: 25px;
+  -webkit-transform: skew(-20deg);
+}
+#find_tab_id_content {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  pointer-events: none;
+  font-size: 15px;
+  z-index: 1;
+}
+
+#find_tab_pw_box {
+  position: relative;
+  cursor: pointer;
+}
+
+#find_tab_pw_back {
+  width: 160px;
+  height: 0px;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-bottom: 25px solid #89ccf6;
+}
+#find_tab_pw_content {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  pointer-events: none;
+  font-size: 15px;
+  z-index: 1;
+}
+
+/* 해더 아래 메인 전체 */
+#find_main_list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#find_back_btn {
+  width: 30px;
+  height: 30px;
+  background-image: url("../image/join/arrow.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 50%;
+  background-color: white;
+  transform: rotate(90deg);
+  cursor: pointer;
+}
+
+/* 파일 내용 칸 */
+#find_file_back {
+  width: 400px;
+  height: 300px;
+  background-color: #89ccf6;
+  border-radius: 3px;
+}
+
+#find_search_box {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-end;
+}
+
+#find_search_btn {
+  width: 30px;
+  height: 30px;
+  background-image: url("../image/join/search.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 50%;
+  background-color: white;
+  cursor: pointer;
+  margin-right: 40px;
+}

@@ -4,10 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="../common/common.css">
-    <link rel="stylesheet" type="text/css" href="../css/index.css">
+    <link rel="stylesheet" type="text/css" href="../css/login_page.css">
+    <link rel="stylesheet" type="text/css" href="../css/findPage.css">
+    <link rel="stylesheet" type="text/css" href="../css/join_page.css">
     <title>스케줄러</title>
   </head>
   <body>
+
     <div id="main_container"style="display: none;" >
       <button id="login_logo_btn"></button>
       <div id="box_container">
@@ -21,7 +24,7 @@
       </div>
     </div>
 
-    <div id="find_container">
+    <div id="find_container" style="display: none;">
       <div id="find_header_list">
         <button id="find_btn_red"></button>
         <button id="find_btn_gray"></button>
@@ -40,10 +43,39 @@
               <div id="find_tab_pw_back"></div>
             </div>
           </div>
-            <div id ="find_file_back"></div>
+            <div id ="find_file_back">
+            </div>
         </div>
       </div>
+    </div>
 
+
+    <div id="join_container">
+      <div id="join_header_list">
+        <button id="join_btn_red"></button>
+        <button id="join_btn_gray"></button>
+        <button id="join_btn_gray"></button>
+      </div>
+      <div id="join_main_list">
+        <div id="join_file_container">
+          <div id="join_tab_box">
+            <div id="join_tab_id_box">
+              <div id="join_tab_id_content">아이디</div>
+              <div id="join_tab_id_back"></div>
+            </div>
+            <div id="join_tab_privacy_box">
+              <div id="join_tab_privacy_content">개인정보</div>
+              <div id="join_tab_privacy_back"></div>
+            </div>
+            <div id="join_tab_profile_box">
+              <div id="join_tab_profile_content">프로필</div>
+              <div id="join_tab_profile_back"></div>
+            </div>
+          </div>
+          <div id="join_file_back"></div>
+        </div>
+        <button id="join_back_btn"></button>
+      </div>
     </div>
     <script src="../common/common.js"></script>
     <script src="../js/index.js"></script>

@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="../common/common.css">
     <link rel="stylesheet" type="text/css" href="../css/login_page.css">
-    <link rel="stylesheet" type="text/css" href="../css/findPage.css">
+    <link rel="stylesheet" type="text/css" href="../css/find_page.css">
     <link rel="stylesheet" type="text/css" href="../css/join_page.css">
     <title>스케줄러</title>
   </head>
   <body>
 
-    <div id="main_container"style="display: none;" >
+    <div id="main_container"style="display: flex;" >
       <button id="login_logo_btn"></button>
       <div id="box_container">
         <input id="tmp_login_id">
@@ -50,7 +50,7 @@
     </div>
 
 
-    <div id="join_container">
+    <div id="join_container" style="display: none;">
       <div id="join_header_list">
         <button id="join_btn_red"></button>
         <button id="join_btn_gray"></button>
@@ -78,5 +78,7 @@
       </div>
     </div>
     <script src="../common/common.js"></script>
-    <script src="../js/index.js"></script>
+    <script src="../js/login_page.js"></script>
+    <script src="../js/find_page.js"></script>
+
 </html>

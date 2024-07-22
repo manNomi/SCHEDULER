@@ -52,7 +52,7 @@ body {
 /* 메인 테두리  */
 #join_file_container {
   position: relative;
-  margin-left: 60px;
+  margin-right: 60px;
 }
 
 /* 탭박스 모음 */
@@ -148,7 +148,7 @@ body {
   background-size: cover;
   border-radius: 50%;
   background-color: white;
-  transform: rotate(90deg);
+  transform: rotate(-90deg);
   cursor: pointer;
 }
 

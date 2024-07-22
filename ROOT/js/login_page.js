@@ -19,7 +19,6 @@ function makeInputPlaceHorder() {
     "#425c73",
     "solid 0px #b6b6b6"
   );
-  console.log(pwInput);
   pwInput.querySelector(".placehorder_box").type = "password";
   container.replaceChild(pwInput, document.getElementById("tmp_login_pw"));
 }

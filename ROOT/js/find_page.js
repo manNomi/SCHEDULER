@@ -45,7 +45,6 @@ function makeSearchBtn() {
   var findSearchBtn = document.createElement("button");
   findSearchBtn.id = "find_search_btn";
   searchBtnBox.appendChild(findSearchBtn);
-
   return searchBtnBox;
 }
 function setFindPageEvent() {
@@ -87,6 +86,4 @@ function setFindEvnet() {
 }
 
 var tabState = "";
-makeInputFindId();
-makeInputFindPw();
 setFindPageEvent();

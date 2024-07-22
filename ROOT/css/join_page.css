@@ -63,6 +63,7 @@ body {
   margin-top: 15px;
   margin-left: 15px;
   margin-bottom: 5px;
+  color: white;
 }
 
 #join_tab_id_box {
@@ -72,7 +73,7 @@ body {
 }
 
 #join_tab_id_back {
-  background-color: #89ccf6;
+  background-color: #758694;
   width: 120px;
   height: 25px;
   -webkit-transform: skew(-20deg);
@@ -94,7 +95,7 @@ body {
 }
 
 #join_tab_privacy_back {
-  background-color: #89ccf6;
+  background-color: #758694;
   width: 120px;
   height: 25px;
   -webkit-transform: skew(-20deg);
@@ -120,7 +121,7 @@ body {
   height: 0px;
   border-left: 9px solid transparent;
   border-right: 9px solid transparent;
-  border-bottom: 25px solid #89ccf6;
+  border-bottom: 25px solid #758694;
 }
 #join_tab_profile_content {
   top: 50%;
@@ -153,11 +154,15 @@ body {
 }
 
 /* 파일 내용 칸 */
-#join_file_back {
+#join_file_shape {
   width: 400px;
   height: 300px;
-  background-color: #89ccf6;
+  background-color: #758694;
   border-radius: 3px;
+}
+
+#join_file_content {
+  width: fit-content;
 }
 
 #join_search_box {
@@ -169,6 +174,7 @@ body {
 }
 
 #join_search_btn {
+  position: absolute;
   width: 30px;
   height: 30px;
   background-image: url("../image/join/search.png");
@@ -179,4 +185,75 @@ body {
   background-color: white;
   cursor: pointer;
   margin-right: 40px;
+  top: 90%;
+  left: 90%;
+  transform: translate(-50%, -50%);
+}
+
+#class_container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+}
+
+.class_box {
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.class_text {
+  display: inline;
+  font-size: 10px;
+  margin: 8px;
+  text-align: center;
+}
+
+.class_select {
+  position: relative;
+  width: 300px;
+  height: 50px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 10px;
+  color: black;
+  line-height: 30px;
+  background-color: #eeeeee;
+  cursor: pointer;
+}
+
+#check_img {
+  position: absolute;
+  right: 30px; /* select의 오른쪽에 위치 */
+  top: 40%;
+  transform: translateY(-50%);
+  transform: rotate(90deg);
+  pointer-events: none; /* 아이콘 클릭 무시 */
+}
+
+#select_container {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+}
+
+input[type="radio"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border: 1px solid white;
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+}
+input[type="radio"]:checked {
+  background-color: #373a40;
+  border: 3px solid #373a40;
+  box-shadow: 0 0 0 1.6px white;
 }

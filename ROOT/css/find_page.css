@@ -53,6 +53,7 @@
   margin-top: 15px;
   margin-left: 15px;
   margin-bottom: 5px;
+  color: white;
 }
 
 #find_tab_id_box {
@@ -62,7 +63,7 @@
 }
 
 #find_tab_id_back {
-  background-color: #89ccf6;
+  background-color: #758694;
   width: 160px;
   height: 25px;
   -webkit-transform: skew(-20deg);
@@ -87,7 +88,7 @@
   height: 0px;
   border-left: 9px solid transparent;
   border-right: 9px solid transparent;
-  border-bottom: 25px solid #89ccf6;
+  border-bottom: 25px solid #758694;
 }
 #find_tab_pw_content {
   top: 50%;
@@ -114,16 +115,15 @@
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 50%;
-  background-color: white;
   transform: rotate(90deg);
   cursor: pointer;
 }
 
 /* 파일 내용 칸 */
-#find_file_back {
+#find_file_shape {
   width: 400px;
   height: 300px;
-  background-color: #89ccf6;
+  background-color: #758694;
   border-radius: 3px;
 }
 
@@ -136,6 +136,7 @@
 }
 
 #find_search_btn {
+  position: absolute;
   width: 30px;
   height: 30px;
   background-image: url("../image/join/search.png");
@@ -143,7 +144,13 @@
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 50%;
-  background-color: white;
   cursor: pointer;
   margin-right: 40px;
+  top: 90%;
+  left: 90%;
+  transform: translate(-50%, -50%);
+}
+
+#find_file_content {
+  width: fit-content;
 }

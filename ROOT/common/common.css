@@ -23,6 +23,13 @@
   line-height: 30px;
 }
 
+.error_guide_message {
+  width: 100%;
+  text-align: end;
+  color: black;
+  font-size: 13px;
+}
+
 @keyframes placehorder_to_small {
   from {
     font-size: 16px;

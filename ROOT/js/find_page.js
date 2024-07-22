@@ -1,41 +1,46 @@
 function makeInputFindId() {
-  var fibdBox = document.getElementById("find_file_back");
+  var fibdBox = document.getElementById("find_file_content");
   while (fibdBox.firstChild) {
     fibdBox.removeChild(fibdBox.firstChild);
   }
   fibdBox.appendChild(
-    makePlacehorder("find_phone", "전화번호", "#BDE3FF", "solid 1px #22B4FF")
+    makePlacehorder("find_phone", "전화번호", "#EEEEEE", "black")
   );
+  fibdBox.appendChild(makeInputError("find", "phone"));
   fibdBox.appendChild(makeSearchBtn());
 }
 function makeInputFindPw() {
-  var fibdBox = document.getElementById("find_file_back");
+  var fibdBox = document.getElementById("find_file_content");
   while (fibdBox.firstChild) {
     fibdBox.removeChild(fibdBox.firstChild);
   }
+  fibdBox.appendChild(makePlacehorder("find_id", "아이디", "#EEEEEE", "black"));
+  fibdBox.appendChild(makeInputError("find", "id"));
+  var error = document.createElement("p");
+  error.id = "find_id_error";
+  fibdBox.appendChild(error);
   fibdBox.appendChild(
-    makePlacehorder("find_id", "아이디", "#BDE3FF", "solid 1px #22B4FF")
+    makePlacehorder("find_phone", "전화번호", "#EEEEEE", "black")
   );
-  fibdBox.appendChild(
-    makePlacehorder("find_phone", "전화번호", "#BDE3FF", "solid 1px #22B4FF")
-  );
+  fibdBox.appendChild(makeInputError("find", "phone"));
+
   fibdBox.appendChild(makeSearchBtn());
 }
 
 function tabIDClick() {
   var tabId = document.getElementById("find_tab_id_back");
   var tabPw = document.getElementById("find_tab_pw_back");
-  tabId.style.backgroundColor = "#425c73";
+  tabId.style.backgroundColor = "#373A40";
   tabPw.style.cssText =
-    "border-left: 9px solid transparent; border-right: 9px solid transparent; border-bottom: 25px solid #89ccf6;";
+    "border-left: 9px solid transparent; border-right: 9px solid transparent; border-bottom: 25px solid #758694;";
   makeInputFindId();
 }
 function tabPWClick() {
   var tabId = document.getElementById("find_tab_id_back");
   var tabPw = document.getElementById("find_tab_pw_back");
-  tabId.style.backgroundColor = "#89ccf6";
+  tabId.style.backgroundColor = "#758694";
   tabPw.style.cssText =
-    "border-left: 9px solid transparent; border-right: 9px solid transparent; border-bottom: 25px solid #425c73;";
+    "border-left: 9px solid transparent; border-right: 9px solid transparent; border-bottom: 25px solid #373A40;";
   makeInputFindPw();
 }
 

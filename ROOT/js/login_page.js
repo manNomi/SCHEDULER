@@ -6,19 +6,9 @@ var joinContainer = document.getElementById("join_container");
 function makeInputPlaceHorder() {
   var container = document.getElementById("box_container");
   // tmp 태그와 placehorder 새로 만들어 교체
-  var idInput = makePlacehorder(
-    "login_id",
-    "아이디",
-    "#425c73",
-    "solid 0px #26303e"
-  );
+  var idInput = makePlacehorder("login_id", "아이디", "#425c73", "white");
   container.replaceChild(idInput, document.getElementById("tmp_login_id"));
-  var pwInput = makePlacehorder(
-    "login_pw",
-    "비밀번호",
-    "#425c73",
-    "solid 0px #b6b6b6"
-  );
+  var pwInput = makePlacehorder("login_pw", "비밀번호", "#425c73", "white");
   pwInput.querySelector(".placehorder_box").type = "password";
   container.replaceChild(pwInput, document.getElementById("tmp_login_pw"));
 }

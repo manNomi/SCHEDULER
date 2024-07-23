@@ -3,11 +3,42 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>스케줄러</title>
+    <link rel="stylesheet" type="text/css" href="../common/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/schedule_page.css" />
   </head>
   <body>
-    <div>
-      이예빈 내가 기억할거야 이예빈 내가 기억할거야ㅐ 이예빈 내가 기억할거야
+    <div id="page_container">
+      <div id="btn_lsit">
+        <button id="red_btn"></button>
+        <button id="yellow_btn"></button>
+        <button id="green_btn"></button>
+        <div id="speech_icon">
+          <div id="speech_menu_container">
+            <button id="watch_all_box">
+              <img
+                src="../image/schedule/full_battery.png"
+                class="speech_menu_icon" />
+              <div class="speech_menu_text">전체 보기</div>
+            </button>
+            <button id="watch_profile_box">
+              <img
+                src="../image/schedule/profile.png"
+                class="speech_menu_icon" />
+              <div class="speech_menu_text">프로필 확인</div>
+            </button>
+            <button id="set_theme_box">
+              <div id="theme_btn"></div>
+              <div class="speech_menu_text">테마색 설정</div>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <input id="choose_date" type="date" />
+      </div>
+      <table id="month"></table>
     </div>
+    <script src="../js/schedule.js"></script>
   </body>
 </html>

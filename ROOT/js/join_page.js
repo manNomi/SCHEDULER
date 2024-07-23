@@ -15,8 +15,9 @@ function joinTabReset(type) {
   boxList.forEach(function (element) {
     element.style.display = "none";
   });
-  if (type == null) {
-    var joinBox = document.getElementById("tab_" + type + "_join");
+  var joinBox = document.getElementById("tab_" + type + "_join");
+
+  if (type != null) {
     joinBox.style.display = "block";
   }
 }
@@ -26,13 +27,14 @@ function makeInputjoinID() {
   var joinBox = document.getElementById("tab_id_join");
   joinBox.classList = "join_file_content";
   var IDBox = makePlacehorder("join_id", "아이디 입력", "#EEEEEE", "black");
+
   joinBox.appendChild(IDBox);
 
   var PWBox = makePlacehorder("join_pw", "비밀번호 입력", "#EEEEEE", "black");
   joinBox.appendChild(PWBox);
 
   var PwCheckBox = makePlacehorder(
-    "join_pw_check",
+    "join_pw-check",
     "비밀번호 확인",
     "#EEEEEE",
     "black"
@@ -42,6 +44,7 @@ function makeInputjoinID() {
   joinBox.querySelectorAll(".placehorder_box").forEach(function (e) {
     e.type = "password";
   });
+  IDBox.querySelector("input").type = "text";
   joinBox.appendChild(makeNextBtn());
   joinContainer.appendChild(joinBox);
 }
@@ -64,20 +67,6 @@ function makeInputJoinPrivacy() {
 
   joinBox.appendChild(makeNextBtn());
   joinContainer.appendChild(joinBox);
-}
-
-function setSelectBoxEvnet() {
-  var selectBox = document.getElementById("select_box");
-  selectBox.addEventListener("click", function (element) {
-    var scroll = document.getElementById("class_scroll"); // 첫 번째 자식 요소를 선택
-    if (scrollState == "block") {
-      scroll.style.display = "none";
-      scrollState = "none";
-    } else {
-      scroll.style.display = "block";
-      scrollState = "block";
-    }
-  });
 }
 
 function makeInputJoinProfile() {
@@ -119,11 +108,11 @@ function makeInputJoinProfile() {
 function makeInputSelect() {
   var classNameList = [
     "욜로 부서",
-    "예빈 부서",
-    "예머니 부서",
-    "예라버니 부서",
-    "예버지 부서",
-    "욜로 부서",
+    "재걸 부서",
+    "재걸3 부서",
+    "재걸4 부서",
+    "재걸5 부서",
+    "재걸6 부서",
   ];
 
   var classScroll = document.createElement("div");
@@ -138,6 +127,7 @@ function makeInputSelect() {
       selectClass.innerHTML = element;
       classScroll.style.display = "none";
       scrollState = "none";
+      teamValue = element;
     });
     classScroll.appendChild(className);
   });
@@ -188,12 +178,67 @@ function raidoBtnRepeatCheck() {
   });
 }
 
+function errorCheck() {
+  var comparisonId = ["id", "pw", "pw-check"];
+  var comparisonPrivacy = ["id", "pw", "pw-check", "name", "phone"];
+  var comparisonProfile = ["id", "pw", "pw-check"];
+  console.log(errorCount);
+  if (tabState == "ID") {
+    const inputSet = new Set(errorCount);
+    const comparisonSet = new Set(comparisonId);
+    const additionalValues = [...comparisonSet].filter(
+      (value) => !inputSet.has(value)
+    );
+    if (errorCount.length == 3) {
+      setPrivacyTab();
+      tapPrivacyBox.addEventListener("click", function (e) {
+        setPrivacyTab();
+      });
+    } else {
+      alert(additionalValues + "를 입력해주세요");
+    }
+  } else if (tabState == "Privacy") {
+    const inputSet = new Set(errorCount);
+    const comparisonSet = new Set(comparisonPrivacy);
+    const additionalValues = [...comparisonSet].filter(
+      (value) => !inputSet.has(value)
+    );
+    if (errorCount.length == 5) {
+      setProfileTab();
+      tapProfileBox.addEventListener("click", function (e) {
+        setProfileTab();
+      });
+    } else {
+      alert(additionalValues + "를 입력해주세요");
+    }
+  } else if (tabState == "Profile") {
+    const inputSet = new Set(errorCount);
+    const comparisonSet = new Set(comparisonProfile);
+    const additionalValues = [...comparisonSet].filter(
+      (value) => !inputSet.has(value)
+    );
+    if (errorCount.length == 5 && teamValue != "") {
+      alert("회원가입 성공");
+      location.href = "../html/index.html";
+    } else {
+      if (teamValue == "") {
+        alert("부서를 선택하세요");
+      } else {
+        alert(additionalValues + "를 입력해주세요");
+      }
+    }
+  }
+}
+
 function makeNextBtn() {
   var nextBtnBox = document.createElement("div");
   nextBtnBox.id = "join_next_box";
   var joinnextBtn = document.createElement("button");
   joinnextBtn.id = "join_next_btn";
   nextBtnBox.appendChild(joinnextBtn);
+  joinnextBtn.onclick = function () {
+    errorCheck();
+  };
   return nextBtnBox;
 }
 
@@ -206,7 +251,6 @@ function setIdTab() {
   tapProfileBox.style.cssText =
     "  width: 120px;height: 0px;border-left: 9px solid transparent;border-right: 9px solid transparent;border-bottom: 25px solid #758694;";
   joinTabReset("id");
-  setNextBtnEvnet();
   tabState = "ID";
 }
 function setPrivacyTab() {
@@ -215,7 +259,6 @@ function setPrivacyTab() {
   tapProfileBox.style.cssText =
     "  width: 120px;height: 0px;border-left: 9px solid transparent;border-right: 9px solid transparent;border-bottom: 25px solid #758694;";
   joinTabReset("privacy");
-  setNextBtnEvnet();
   tabState = "Privacy";
 }
 function setProfileTab() {
@@ -224,7 +267,6 @@ function setProfileTab() {
   tapProfileBox.style.cssText =
     "  width: 120px;height: 0px;border-left: 9px solid transparent;border-right: 9px solid transparent;border-bottom: 25px solid #373A40;";
   joinTabReset("profile");
-  setNextBtnEvnet();
   tabState = "Profile";
 }
 
@@ -233,40 +275,26 @@ function setJoinPageEvent() {
     setIdTab();
   });
 
-  tapPrivacyBox.addEventListener("click", function (e) {
-    setPrivacyTab();
-  });
-
-  tapProfileBox.addEventListener("click", function (e) {
-    setProfileTab();
-  });
-
   var exitBtn = document.getElementById("join_btn_red");
   exitBtn.addEventListener("click", function () {
     location.href = "../html/index.html";
   });
 }
 
-function setNextBtnEvnet() {
-  var nextBtn = document.getElementById("join_next_box");
-  nextBtn.addEventListener("click", function () {
-    if (tabState == "ID") {
-      if (errorCount.length == 3) {
-        setPrivacyTab();
-        errorCount = [];
-      } else {
-        alert("모두 입력해주세요");
-      }
-    } else if (tabState == "Privacy") {
-      if (errorCount.length == 2) {
-        setProfileTab();
-        errorCount = [];
-      } else {
-        alert("모두 입력해주세요");
-      }
+function setSelectBoxEvnet() {
+  var selectBox = document.getElementById("select_box");
+  selectBox.addEventListener("click", function (element) {
+    var scroll = document.getElementById("class_scroll"); // 첫 번째 자식 요소를 선택
+    if (scrollState == "block") {
+      scroll.style.display = "none";
+      scrollState = "none";
+    } else {
+      scroll.style.display = "block";
+      scrollState = "block";
     }
   });
 }
+
 makeInputjoinID();
 makeInputJoinPrivacy();
 makeInputJoinProfile();

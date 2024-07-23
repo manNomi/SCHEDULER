@@ -68,38 +68,70 @@ function makeInputError(page, type, box) {
   } else if (type == "name") {
     regex = regexName;
     valid = validName;
-  } else if (type == "pw_check") {
+  } else if (type == "pw-check") {
     regex = regexPWCheck;
     valid = validPWCheck;
   }
 
-  if (type == "pw_check") {
+  if (type == "pw-check") {
     var pw_box = document.getElementById(page + "_pw_box");
-    box.addEventListener("blur", function (event) {
-      if (pw_box.value == event.target.value) {
+    function handleBlur(event) {
+      if (pw_box.value == box.value) {
         error.innerHTML = "";
         box.style.border = "none";
-        errorCount.push(valid);
+        if (errorCount[0] != null) {
+          var count = 0;
+          errorCount.forEach(function (element) {
+            if (element == type) {
+              count++;
+            }
+          });
+          if (count == 0) {
+            errorCount.push(type);
+          }
+        } else {
+          errorCount.push(type);
+        }
       } else {
         error.innerHTML = valid;
         box.style.border = "solid 1px #DC5F00";
-        errorCount.pop(valid);
+        var newErrorCount = errorCount.filter(function (value) {
+          return value !== type; // 값이 2가 아닌 요소들만 남김
+        });
+        errorCount = newErrorCount;
       }
       if (event.target.value == "") {
         error.innerHTML = "";
         box.style.border = "none";
       }
-    });
+    }
+    box.addEventListener("blur", handleBlur);
+    pw_box.addEventListener("blur", handleBlur);
   } else {
     box.addEventListener("blur", function (event) {
       if (regex.test(event.target.value)) {
         error.innerHTML = "";
         box.style.border = "none";
-        errorCount.push(valid);
+        if (errorCount[0] != null) {
+          var count = 0;
+          errorCount.forEach(function (element) {
+            if (element == type) {
+              count++;
+            }
+          });
+          if (count == 0) {
+            errorCount.push(type);
+          }
+        } else {
+          errorCount.push(type);
+        }
       } else {
         error.innerHTML = valid;
         box.style.border = "solid 1px #DC5F00";
-        errorCount.pop(valid);
+        var newErrorCount = errorCount.filter(function (value) {
+          return value !== type; // 값이 2가 아닌 요소들만 남김
+        });
+        errorCount = newErrorCount;
       }
       if (event.target.value == "") {
         error.innerHTML = "";

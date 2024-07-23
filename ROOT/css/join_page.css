@@ -286,10 +286,11 @@ input[type="radio"]:checked {
 ::-webkit-scrollbar {
   background-color: #e1e1e1;
   width: 10px;
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
   background-color: #373a40;
-  border-radius: 2px;
+  border-radius: 10px;
   height: 40px;
 }

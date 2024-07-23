@@ -1,30 +1,29 @@
 function makeInputFindId() {
   var fibdBox = document.getElementById("find_file_content");
-  while (fibdBox.firstChild) {
-    fibdBox.removeChild(fibdBox.firstChild);
-  }
-  fibdBox.appendChild(
+  var findIdBox = document.createElement("div");
+  findIdBox.id = "find_id_box";
+  findIdBox.style.display = "none";
+  findIdBox.appendChild(
     makePlacehorder("find_phone", "전화번호", "#EEEEEE", "black")
   );
-  fibdBox.appendChild(makeInputError("find", "phone"));
-  fibdBox.appendChild(makeSearchBtn());
+  findIdBox.appendChild(makeSearchBtn());
+  fibdBox.appendChild(findIdBox);
 }
 function makeInputFindPw() {
   var fibdBox = document.getElementById("find_file_content");
-  while (fibdBox.firstChild) {
-    fibdBox.removeChild(fibdBox.firstChild);
-  }
-  fibdBox.appendChild(makePlacehorder("find_id", "아이디", "#EEEEEE", "black"));
-  fibdBox.appendChild(makeInputError("find", "id"));
-  var error = document.createElement("p");
-  error.id = "find_id_error";
-  fibdBox.appendChild(error);
-  fibdBox.appendChild(
+  var findPwBox = document.createElement("div");
+  findPwBox.id = "find_pw_box";
+  findPwBox.style.display = "none";
+
+  findPwBox.appendChild(
+    makePlacehorder("find_id", "아이디", "#EEEEEE", "black")
+  );
+  findPwBox.appendChild(
     makePlacehorder("find_phone", "전화번호", "#EEEEEE", "black")
   );
-  fibdBox.appendChild(makeInputError("find", "phone"));
 
-  fibdBox.appendChild(makeSearchBtn());
+  findPwBox.appendChild(makeSearchBtn());
+  fibdBox.appendChild(findPwBox);
 }
 
 function tabIDClick() {
@@ -33,7 +32,8 @@ function tabIDClick() {
   tabId.style.backgroundColor = "#373A40";
   tabPw.style.cssText =
     "border-left: 9px solid transparent; border-right: 9px solid transparent; border-bottom: 25px solid #758694;";
-  makeInputFindId();
+  document.getElementById("find_id_box").style.display = "block";
+  document.getElementById("find_pw_box").style.display = "none";
 }
 function tabPWClick() {
   var tabId = document.getElementById("find_tab_id_back");
@@ -41,7 +41,8 @@ function tabPWClick() {
   tabId.style.backgroundColor = "#758694";
   tabPw.style.cssText =
     "border-left: 9px solid transparent; border-right: 9px solid transparent; border-bottom: 25px solid #373A40;";
-  makeInputFindPw();
+  document.getElementById("find_id_box").style.display = "none";
+  document.getElementById("find_pw_box").style.display = "block";
 }
 
 function makeSearchBtn() {
@@ -59,8 +60,6 @@ function setFindPageEvent() {
     tapIDBox.style.paddingLeft = "5px";
     tapPWBox.style.paddingLeft = "0px";
     tabIDClick();
-    makeInputFindId();
-    setFindEvnet();
     tabState = "ID";
   });
 
@@ -68,8 +67,6 @@ function setFindPageEvent() {
     tapIDBox.style.paddingLeft = "0px";
     tapPWBox.style.paddingLeft = "5px";
     tabPWClick();
-    makeInputFindPw();
-    setFindEvnet();
     tabState = "PW";
   });
 
@@ -83,12 +80,29 @@ function setFindEvnet() {
   var findBtn = document.getElementById("find_search_btn");
   findBtn.addEventListener("click", function (e) {
     if (tabState == "ID") {
-      alert("찾으시려는 아이디는 이겁니다");
+      console.log(errorCount);
+      if (errorCount.length == 1) {
+        alert("찾으시려는 아이디는 이겁니다");
+        errorCount = [];
+        location.href = "../html/index.html";
+      } else {
+        alert("잘못된 입력입니다");
+      }
     } else if (tabState == "PW") {
-      alert("찾으시려는 비밀번호는 이겁니다");
+      console.log(errorCount);
+      if (errorCount.length == 2) {
+        alert("찾으시려는 비밀번호는 이겁니다");
+        errorCount = [];
+        location.href = "../html/index.html";
+      } else {
+        alert("잘못된 입력입니다");
+      }
     }
   });
 }
 
 var tabState = "";
 setFindPageEvent();
+makeInputFindId();
+makeInputFindPw();
+setFindEvnet();

@@ -1,0 +1,145 @@
+@import "../common/reset.css";
+
+body {
+  background-color: #ffcceb;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#page_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  height: 90%;
+  border: solid 2px #999999;
+  background-color: white;
+}
+
+#btn_lsit {
+  position: relative;
+  display: flex;
+  width: 100%;
+  margin: 10px;
+}
+
+#red_btn {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: #f24822;
+  border-radius: 50%;
+  margin-left: 10px;
+  cursor: pointer;
+}
+#yellow_btn {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: #ffcd29;
+  border-radius: 50%;
+  margin-left: 10px;
+  cursor: pointer;
+}
+#green_btn {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: #14ae5c;
+  border-radius: 50%;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+input[type="date"] {
+  border: none;
+  position: relative;
+  width: 100%;
+  padding: 10px;
+  content: attr(data-placeholder);
+  background-color: #bbbbbb;
+  box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  text-align: center;
+  font-size: 100%;
+  margin-bottom: 20px;
+}
+
+#month {
+  width: 80%;
+  height: 80%;
+}
+tr {
+  border: solid 1px;
+}
+td {
+  border: solid 1px;
+  padding: 10px;
+}
+th {
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+}
+.opacity_box {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  background-color: white;
+}
+#speech_icon {
+  display: none;
+  background-image: url("../image/schedule/speech.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 400px;
+  height: 280px;
+  position: absolute;
+  background-size: contain;
+  z-index: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+}
+
+#speech_menu_container {
+  background-color: beige;
+  width: fit-content;
+  margin-left: 15%;
+}
+
+.speech_menu_icon {
+  width: 50px;
+}
+.speech_menu_text {
+  line-height: 50px;
+  margin-left: 10px;
+}
+#watch_all_box {
+  cursor: pointer;
+  border: none;
+  display: flex;
+  flex-direction: row;
+}
+#watch_profile_box {
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+}
+#set_theme_box {
+  cursor: pointer;
+  border: none;
+  display: flex;
+  flex-direction: row;
+}
+
+#theme_btn {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: #ffcceb;
+}

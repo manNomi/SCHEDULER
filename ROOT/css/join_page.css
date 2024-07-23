@@ -160,7 +160,7 @@ body {
   border-radius: 3px;
 }
 
-#join_file_content {
+.join_file_content {
   width: fit-content;
 }
 

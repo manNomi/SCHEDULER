@@ -16,7 +16,6 @@ function makePlacehorder(name, placeText, color, text) {
   placehorderBox.id = name + "_box";
 
   container.appendChild(palcehorderText);
-  container.appendChild(placehorderBox);
   placehorderBox.addEventListener("input", function () {
     palcehorderText.style.animation = "placehorder_to_small 0.3s forwards";
     placehorderBox.style.fontSize = "13px";
@@ -28,11 +27,18 @@ function makePlacehorder(name, placeText, color, text) {
       placehorderBox.style.paddingTop = "0px";
     }
   });
+  container.appendChild(placehorderBox);
+
+  var nameList = name.split("_");
+  if (nameList[0] != "login") {
+    var error = makeInputError(nameList[0], nameList[1], placehorderBox);
+    container.appendChild(error);
+  }
   return container;
 }
 
 var errorCount = [];
-function makeInputError(page, type) {
+function makeInputError(page, type, box) {
   const regexID = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z0-9]{5,20}$/;
   const validID = "5~20자 영어 숫자 포함";
   const regexPhone = /^01([0|1|6|7|8|9]?)([0-9]{3,4})([0-9]{4})$/;
@@ -50,41 +56,34 @@ function makeInputError(page, type) {
   error.classList = "error_guide_message";
   var regex = "";
   var valid = "";
-  var box = "";
   if (type == "id") {
     regex = regexID;
     valid = validID;
-    box = page + "_id_box";
   } else if (type == "phone") {
     regex = regexPhone;
     valid = validPhone;
-    box = page + "_phone_box";
   } else if (type == "pw") {
     regex = regexPassword;
     valid = validPassword;
-    box = page + "_pw_box";
   } else if (type == "name") {
     regex = regexName;
     valid = validName;
-    box = page + "_name_box";
   } else if (type == "pw_check") {
     regex = regexPWCheck;
     valid = validPWCheck;
-    box = page + "_pw_check_box";
   }
 
   if (type == "pw_check") {
-    var box = document.getElementById(box);
     var pw_box = document.getElementById(page + "_pw_box");
     box.addEventListener("blur", function (event) {
       if (pw_box.value == event.target.value) {
         error.innerHTML = "";
         box.style.border = "none";
-        errorCount.push(error);
+        errorCount.push(valid);
       } else {
         error.innerHTML = valid;
         box.style.border = "solid 1px #DC5F00";
-        errorCount.pop(error);
+        errorCount.pop(valid);
       }
       if (event.target.value == "") {
         error.innerHTML = "";
@@ -92,16 +91,15 @@ function makeInputError(page, type) {
       }
     });
   } else {
-    var box = document.getElementById(box);
     box.addEventListener("blur", function (event) {
       if (regex.test(event.target.value)) {
         error.innerHTML = "";
         box.style.border = "none";
-        errorCount.push(error);
+        errorCount.push(valid);
       } else {
         error.innerHTML = valid;
         box.style.border = "solid 1px #DC5F00";
-        errorCount.pop(error);
+        errorCount.pop(valid);
       }
       if (event.target.value == "") {
         error.innerHTML = "";
@@ -109,6 +107,5 @@ function makeInputError(page, type) {
       }
     });
   }
-
   return error;
 }

@@ -7,21 +7,29 @@ var phoneValue = "";
 var classValue = "";
 var teamValue = "";
 
-function makeInputjoinID() {
-  var joinBox = document.getElementById("join_file_content");
-  if (joinBox.children.length != 0) {
-    while (joinBox.firstChild) {
-      joinBox.removeChild(joinBox.firstChild);
-    }
+function joinTabReset(type) {
+  var joinIDBox = document.getElementById("tab_id_join");
+  var joinPrivacyBox = document.getElementById("tab_privacy_join");
+  var joinProfileBox = document.getElementById("tab_profile_join");
+  var boxList = [joinIDBox, joinPrivacyBox, joinProfileBox];
+  boxList.forEach(function (element) {
+    element.style.display = "none";
+  });
+  if (type == null) {
+    var joinBox = document.getElementById("tab_" + type + "_join");
+    joinBox.style.display = "block";
   }
-  var IDBox = makePlacehorder("join_id", "아이디 입력", "#EEEEEE", "black");
+}
 
+function makeInputjoinID() {
+  var joinContainer = document.getElementById("join_file_content");
+  var joinBox = document.getElementById("tab_id_join");
+  joinBox.classList = "join_file_content";
+  var IDBox = makePlacehorder("join_id", "아이디 입력", "#EEEEEE", "black");
   joinBox.appendChild(IDBox);
-  joinBox.appendChild(makeInputError("join", "id"));
 
   var PWBox = makePlacehorder("join_pw", "비밀번호 입력", "#EEEEEE", "black");
   joinBox.appendChild(PWBox);
-  joinBox.appendChild(makeInputError("join", "pw"));
 
   var PwCheckBox = makePlacehorder(
     "join_pw_check",
@@ -30,24 +38,22 @@ function makeInputjoinID() {
     "black"
   );
   joinBox.appendChild(PwCheckBox);
-  joinBox.appendChild(makeInputError("join", "pw_check"));
 
   joinBox.querySelectorAll(".placehorder_box").forEach(function (e) {
     e.type = "password";
   });
-  document.getElementById("join_id_box").type = "text";
   joinBox.appendChild(makeNextBtn());
+  joinContainer.appendChild(joinBox);
 }
+
 function makeInputJoinPrivacy() {
-  var joinBox = document.getElementById("join_file_content");
-  if (joinBox.children.length != 0) {
-    while (joinBox.firstChild) {
-      joinBox.removeChild(joinBox.firstChild);
-    }
-  }
+  var joinContainer = document.getElementById("join_file_content");
+
+  var joinBox = document.getElementById("tab_privacy_join");
+
+  joinBox.classList = "join_file_content";
   var nameBox = makePlacehorder("join_name", "이름 입력", "#EEEEEE", "black");
   joinBox.appendChild(nameBox);
-  joinBox.appendChild(makeInputError("join", "name"));
   var phoneBox = makePlacehorder(
     "join_phone",
     "전화번호 입력",
@@ -55,9 +61,9 @@ function makeInputJoinPrivacy() {
     "black"
   );
   joinBox.appendChild(phoneBox);
-  joinBox.appendChild(makeInputError("join", "phone"));
 
   joinBox.appendChild(makeNextBtn());
+  joinContainer.appendChild(joinBox);
 }
 
 function setSelectBoxEvnet() {
@@ -75,6 +81,11 @@ function setSelectBoxEvnet() {
 }
 
 function makeInputJoinProfile() {
+  var joinContainer = document.getElementById("join_file_content");
+
+  var joinBox = document.getElementById("tab_profile_join");
+  joinBox.classList = "join_file_content";
+
   var selectContainer = document.createElement("div");
   selectContainer.id = "select_container";
 
@@ -95,17 +106,14 @@ function makeInputJoinProfile() {
   slectList.style.display = "none";
   selectContainer.appendChild(slectList);
 
-  var joinBox = document.getElementById("join_file_content");
-  if (joinBox.children.length != 0) {
-    while (joinBox.firstChild) {
-      joinBox.removeChild(joinBox.firstChild);
-    }
-  }
   joinBox.appendChild(makeJoinRadioBtn());
   joinBox.appendChild(makeNextBtn());
   joinBox.appendChild(selectContainer);
+
   setSelectBoxEvnet();
   raidoBtnRepeatCheck();
+
+  joinContainer.appendChild(joinBox);
 }
 
 function makeInputSelect() {
@@ -197,7 +205,7 @@ function setIdTab() {
   tapPrivacyBox.style.backgroundColor = "#758694";
   tapProfileBox.style.cssText =
     "  width: 120px;height: 0px;border-left: 9px solid transparent;border-right: 9px solid transparent;border-bottom: 25px solid #758694;";
-  makeInputjoinID();
+  joinTabReset("id");
   setNextBtnEvnet();
   tabState = "ID";
 }
@@ -206,7 +214,7 @@ function setPrivacyTab() {
   tapPrivacyBox.style.backgroundColor = "#373A40";
   tapProfileBox.style.cssText =
     "  width: 120px;height: 0px;border-left: 9px solid transparent;border-right: 9px solid transparent;border-bottom: 25px solid #758694;";
-  makeInputJoinPrivacy();
+  joinTabReset("privacy");
   setNextBtnEvnet();
   tabState = "Privacy";
 }
@@ -215,7 +223,7 @@ function setProfileTab() {
   tapPrivacyBox.style.backgroundColor = "#758694";
   tapProfileBox.style.cssText =
     "  width: 120px;height: 0px;border-left: 9px solid transparent;border-right: 9px solid transparent;border-bottom: 25px solid #373A40;";
-  makeInputJoinProfile();
+  joinTabReset("profile");
   setNextBtnEvnet();
   tabState = "Profile";
 }
@@ -243,13 +251,25 @@ function setNextBtnEvnet() {
   var nextBtn = document.getElementById("join_next_box");
   nextBtn.addEventListener("click", function () {
     if (tabState == "ID") {
-      console.log(errorCount);
-
-      setPrivacyTab();
+      if (errorCount.length == 3) {
+        setPrivacyTab();
+        errorCount = [];
+      } else {
+        alert("모두 입력해주세요");
+      }
     } else if (tabState == "Privacy") {
-      setProfileTab();
+      if (errorCount.length == 2) {
+        setProfileTab();
+        errorCount = [];
+      } else {
+        alert("모두 입력해주세요");
+      }
     }
   });
 }
-
+makeInputjoinID();
+makeInputJoinPrivacy();
+makeInputJoinProfile();
+joinTabReset();
+setIdTab();
 setJoinPageEvent();

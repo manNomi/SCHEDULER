@@ -31,6 +31,7 @@ function makePlacehorder(name, placeText, color, text) {
   return container;
 }
 
+var errorCount = [];
 function makeInputError(page, type) {
   const regexID = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z0-9]{5,20}$/;
   const validID = "5~20자 영어 숫자 포함";
@@ -79,9 +80,11 @@ function makeInputError(page, type) {
       if (pw_box.value == event.target.value) {
         error.innerHTML = "";
         box.style.border = "none";
+        errorCount.push(error);
       } else {
         error.innerHTML = valid;
         box.style.border = "solid 1px #DC5F00";
+        errorCount.pop(error);
       }
       if (event.target.value == "") {
         error.innerHTML = "";
@@ -94,9 +97,11 @@ function makeInputError(page, type) {
       if (regex.test(event.target.value)) {
         error.innerHTML = "";
         box.style.border = "none";
+        errorCount.push(error);
       } else {
         error.innerHTML = valid;
         box.style.border = "solid 1px #DC5F00";
+        errorCount.pop(error);
       }
       if (event.target.value == "") {
         error.innerHTML = "";

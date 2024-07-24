@@ -1,0 +1,155 @@
+@import "../common/reset.css";
+
+body {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 화면 */
+#profile_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  height: 90%;
+  border: solid 2px #999999;
+  background-color: white;
+}
+#btn_list {
+  position: relative;
+  display: flex;
+  width: 100%;
+  margin: 10px;
+}
+#red_btn {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: #f24822;
+  border-radius: 50%;
+  margin-left: 10px;
+  cursor: pointer;
+}
+#yellow_btn {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: #ffcd29;
+  border-radius: 50%;
+  margin-left: 10px;
+  cursor: pointer;
+}
+#green_btn {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: #14ae5c;
+  border-radius: 50%;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+#profile_content_container {
+  width: 80%;
+  height: 80%;
+  position: relative;
+}
+#front_container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+#back_container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  backface-visibility: hidden;
+  transform: rotateY(-180deg);
+}
+#profile_content_container:hover #front_container {
+  animation: rotateYAnimationtomin 1s ease-in forwards;
+}
+
+#profile_content_container:hover #back_container {
+  animation: rotateYAnimationtoplus 1s ease-in forwards;
+}
+
+#content_back {
+  width: 100%;
+  height: 100%;
+  border: 3px solid black;
+  display: flex;
+  font-size: 30px;
+  align-items: center;
+}
+
+@keyframes rotateYAnimationtomin {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(-180deg);
+  }
+}
+@keyframes rotateYAnimationtoplus {
+  from {
+    transform: rotateY(-180deg);
+  }
+  to {
+    transform: rotateY(0deg);
+  }
+}
+
+#content_front {
+  width: 100%;
+  height: 100%;
+  border: 3px solid black;
+  display: flex;
+  font-size: 30px;
+}
+
+#front_text {
+  width: 60%;
+}
+#front_box {
+  width: 100%;
+}
+
+#user_text_list {
+  display: flex;
+  width: 100%;
+  margin: 20px;
+}
+
+#front_img {
+  width: 40%;
+  height: 90%;
+  object-fit: contain;
+}
+
+#front_box {
+  padding: 80px;
+}
+
+#user_name {
+  font-weight: 900;
+}
+
+#profile_img_back {
+  width: 40%;
+  object-fit: contain;
+}
+#profile_text_back {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

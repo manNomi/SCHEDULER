@@ -44,7 +44,11 @@ function makeInputjoinID() {
   joinBox.querySelectorAll(".placehorder_box").forEach(function (e) {
     e.type = "password";
   });
+  // 위험한코드
+
   IDBox.querySelector("input").type = "text";
+  // 위험한 코드
+
   joinBox.appendChild(makeNextBtn());
   joinContainer.appendChild(joinBox);
 }

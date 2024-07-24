@@ -9,7 +9,9 @@
   </head>
   <body>
     <div id="page_container">
-      <div id="btn_lsit">
+      <div></div>
+
+      <div id="btn_list">
         <button id="red_btn"></button>
         <button id="yellow_btn"></button>
         <button id="green_btn"></button>
@@ -37,8 +39,42 @@
       <div>
         <input id="choose_date" type="date" />
       </div>
+
       <table id="month"></table>
+
+      <div id="modal_theme">
+        <div id="modal_btn_lsit">
+          <button id="modal_red_btn"></button>
+          <button class="grey_btn"></button>
+          <button class="grey_btn"></button>
+        </div>
+        <div id="choose_container">
+          <div id="choose_box">
+            <input type="color" id="color_choose_input" />
+            <p>색상 선택</p>
+          </div>
+          <button id="color_check_btn">확인</button>
+        </div>
+      </div>
+
+      <div id="modal_detail">
+        <div id="detail_btn_list">
+          <button id="detail_red_btn"></button>
+          <button class="grey_btn"></button>
+          <button class="grey_btn"></button>
+        </div>
+        <div id="date"></div>
+        <div id="insert_container">
+          <div id="insert_box">
+            <input type="time" id="time_input" />
+            <input type="text" id="schedule_input" />
+          </div>
+          <button id="insert_btn" class="img_btn"></button>
+        </div>
+        <div id="shcedule_container"></div>
+      </div>
     </div>
+
     <script src="../js/schedule.js"></script>
   </body>
 </html>

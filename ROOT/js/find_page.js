@@ -26,10 +26,13 @@ function makeInputFindPw() {
   fibdBox.appendChild(findPwBox);
 }
 
+// event 단어 적기
 function tabIDClick() {
   var tabId = document.getElementById("find_tab_id_back");
   var tabPw = document.getElementById("find_tab_pw_back");
   tabId.style.backgroundColor = "#373A40";
+  // 클래스를 바꿔주는 방식으로 사용하는 것이 좋다
+  // 자바 스크립트에서 클래스 넣어주는 방식
   tabPw.style.cssText =
     "border-left: 9px solid transparent; border-right: 9px solid transparent; border-bottom: 25px solid #758694;";
   document.getElementById("find_id_box").style.display = "block";
@@ -53,7 +56,7 @@ function makeSearchBtn() {
   searchBtnBox.appendChild(findSearchBtn);
   return searchBtnBox;
 }
-function setFindPageEvent() {
+function setFindPage() {
   var tapIDBox = document.getElementById("find_tab_id_box");
   var tapPWBox = document.getElementById("find_tab_pw_box");
   tapIDBox.addEventListener("click", function (e) {
@@ -102,7 +105,7 @@ function setFindEvnet() {
 }
 
 var tabState = "";
-setFindPageEvent();
+setFindPage();
 makeInputFindId();
 makeInputFindPw();
 setFindEvnet();

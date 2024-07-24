@@ -39,8 +39,8 @@ function makePlacehorder(name, placeText, color, text) {
 
 var errorCount = [];
 function makeInputError(page, type, box) {
-  const regexID = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z0-9]{5,20}$/;
-  const validID = "5~20자 영어 숫자 포함";
+  const regexID = /^[0-9]{6,20}$/;
+  const validID = "6~20자 숫자만 ";
   const regexPhone = /^01([0|1|6|7|8|9]?)([0-9]{3,4})([0-9]{4})$/;
   const validPhone = "예시)01012345678";
   const regexPassword = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,20}$/;

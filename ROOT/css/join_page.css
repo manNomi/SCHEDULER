@@ -290,7 +290,6 @@ input[type="radio"]:checked {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #373a40;
   border-radius: 10px;
   height: 40px;
 }

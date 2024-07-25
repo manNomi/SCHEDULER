@@ -1,111 +1,67 @@
-function makeInputFindId() {
-  var fibdBox = document.getElementById("find_file_content");
-  var findIdBox = document.createElement("div");
-  findIdBox.id = "find_id_box";
+var findIdBox = document.getElementById("find_id_box");
+var findPwBox = document.getElementById("find_pw_box");
+var tabId = document.getElementById("find_tab_id_back");
+var tabPw = document.getElementById("find_tab_pw_back");
+var tapIDBox = document.getElementById("find_tab_id_box");
+var tapPWBox = document.getElementById("find_tab_pw_box");
+
+function initPlaceHorder() {
   findIdBox.style.display = "none";
-  findIdBox.appendChild(
-    makePlacehorder("find_phone", "전화번호", "#EEEEEE", "black")
+  findIdBox.replaceChild(
+    makePlacehorder("find_phone", "전화번호", "#EEEEEE", "black"),
+    document.getElementById("tmp_find_id_phone")
   );
-  findIdBox.appendChild(makeSearchBtn());
-  fibdBox.appendChild(findIdBox);
-}
-function makeInputFindPw() {
-  var fibdBox = document.getElementById("find_file_content");
-  var findPwBox = document.createElement("div");
-  findPwBox.id = "find_pw_box";
   findPwBox.style.display = "none";
-
-  findPwBox.appendChild(
-    makePlacehorder("find_id", "아이디", "#EEEEEE", "black")
+  findPwBox.replaceChild(
+    makePlacehorder("find_id", "아이디", "#EEEEEE", "black"),
+    document.getElementById("tmp_find_pw_id")
   );
-  findPwBox.appendChild(
-    makePlacehorder("find_phone", "전화번호", "#EEEEEE", "black")
+  findPwBox.replaceChild(
+    makePlacehorder("find_phone", "전화번호", "#EEEEEE", "black"),
+    document.getElementById("tmp_find_pw_phone")
   );
-
-  findPwBox.appendChild(makeSearchBtn());
-  fibdBox.appendChild(findPwBox);
 }
 
-// event 단어 적기
-function tabIDClick() {
-  var tabId = document.getElementById("find_tab_id_back");
-  var tabPw = document.getElementById("find_tab_pw_back");
+function tabIdBoxClickEvent() {
+  tapIDBox.style.paddingLeft = "5px";
+  tapPWBox.style.paddingLeft = "0px";
   tabId.style.backgroundColor = "#373A40";
-  // 클래스를 바꿔주는 방식으로 사용하는 것이 좋다
-  // 자바 스크립트에서 클래스 넣어주는 방식
-  tabPw.style.cssText =
-    "border-left: 9px solid transparent; border-right: 9px solid transparent; border-bottom: 25px solid #758694;";
-  document.getElementById("find_id_box").style.display = "block";
-  document.getElementById("find_pw_box").style.display = "none";
+  tabPw.classList = "find_tab_pw";
+  findIdBox.style.display = "block";
+  findPwBox.style.display = "none";
 }
-function tabPWClick() {
-  var tabId = document.getElementById("find_tab_id_back");
-  var tabPw = document.getElementById("find_tab_pw_back");
+
+function tabPWBoxClickEvent() {
+  tapIDBox.style.paddingLeft = "0px";
+  tapPWBox.style.paddingLeft = "5px";
   tabId.style.backgroundColor = "#758694";
-  tabPw.style.cssText =
-    "border-left: 9px solid transparent; border-right: 9px solid transparent; border-bottom: 25px solid #373A40;";
-  document.getElementById("find_id_box").style.display = "none";
-  document.getElementById("find_pw_box").style.display = "block";
+  tabPw.classList = "find_tab_pw_click";
+  findIdBox.style.display = "none";
+  findPwBox.style.display = "block";
 }
 
-function makeSearchBtn() {
-  var searchBtnBox = document.createElement("div");
-  searchBtnBox.id = "find_search_box";
-  var findSearchBtn = document.createElement("button");
-  findSearchBtn.id = "find_search_btn";
-  searchBtnBox.appendChild(findSearchBtn);
-  return searchBtnBox;
+function exitBtnClickEvent() {
+  location.href = "../html/index.html";
 }
-function setFindPage() {
-  var tapIDBox = document.getElementById("find_tab_id_box");
-  var tapPWBox = document.getElementById("find_tab_pw_box");
-  tapIDBox.addEventListener("click", function (e) {
-    tapIDBox.style.paddingLeft = "5px";
-    tapPWBox.style.paddingLeft = "0px";
-    tabIDClick();
-    tabState = "ID";
-  });
 
-  tapPWBox.addEventListener("click", function (e) {
-    tapIDBox.style.paddingLeft = "0px";
-    tapPWBox.style.paddingLeft = "5px";
-    tabPWClick();
-    tabState = "PW";
-  });
-
-  var exitBtn = document.getElementById("find_btn_red");
-  exitBtn.addEventListener("click", function () {
+function setFindIDEvnet() {
+  console.log(errorCount);
+  if (errorCount.length == 1) {
+    alert("찾으시려는 아이디는 이겁니다");
+    errorCount = [];
     location.href = "../html/index.html";
-  });
+  } else {
+    alert("잘못된 입력입니다");
+  }
 }
 
-function setFindEvnet() {
-  var findBtn = document.getElementById("find_search_btn");
-  findBtn.addEventListener("click", function (e) {
-    if (tabState == "ID") {
-      console.log(errorCount);
-      if (errorCount.length == 1) {
-        alert("찾으시려는 아이디는 이겁니다");
-        errorCount = [];
-        location.href = "../html/index.html";
-      } else {
-        alert("잘못된 입력입니다");
-      }
-    } else if (tabState == "PW") {
-      console.log(errorCount);
-      if (errorCount.length == 2) {
-        alert("찾으시려는 비밀번호는 이겁니다");
-        errorCount = [];
-        location.href = "../html/index.html";
-      } else {
-        alert("잘못된 입력입니다");
-      }
-    }
-  });
+function setFindPWEvnet() {
+  if (errorCount.length == 2) {
+    alert("찾으시려는 비밀번호는 이겁니다");
+    errorCount = [];
+    location.href = "../html/index.html";
+  } else {
+    alert("잘못된 입력입니다");
+  }
 }
-
-var tabState = "";
-setFindPage();
-makeInputFindId();
-makeInputFindPw();
-setFindEvnet();
+initPlaceHorder();

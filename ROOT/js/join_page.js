@@ -30,24 +30,23 @@ function makeInputjoinID() {
 
   joinBox.appendChild(IDBox);
 
-  var PWBox = makePlacehorder("join_pw", "비밀번호 입력", "#EEEEEE", "black");
+  var PWBox = makePlacehorder(
+    "join_pw",
+    "비밀번호 입력",
+    "#EEEEEE",
+    "black",
+    "password"
+  );
   joinBox.appendChild(PWBox);
 
   var PwCheckBox = makePlacehorder(
     "join_pw-check",
     "비밀번호 확인",
     "#EEEEEE",
-    "black"
+    "black",
+    "password"
   );
   joinBox.appendChild(PwCheckBox);
-
-  joinBox.querySelectorAll(".placehorder_box").forEach(function (e) {
-    e.type = "password";
-  });
-  // 위험한코드
-
-  IDBox.querySelector("input").type = "text";
-  // 위험한 코드
 
   joinBox.appendChild(makeNextBtn());
   joinContainer.appendChild(joinBox);
@@ -182,7 +181,7 @@ function raidoBtnRepeatCheck() {
   });
 }
 
-function errorCheck() {
+function checkJoinError() {
   var comparisonId = ["id", "pw", "pw-check"];
   var comparisonPrivacy = ["id", "pw", "pw-check", "name", "phone"];
   var comparisonProfile = ["id", "pw", "pw-check"];
@@ -241,7 +240,7 @@ function makeNextBtn() {
   joinnextBtn.id = "join_next_btn";
   nextBtnBox.appendChild(joinnextBtn);
   joinnextBtn.onclick = function () {
-    errorCheck();
+    checkJoinError();
   };
   return nextBtnBox;
 }

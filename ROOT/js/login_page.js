@@ -2,38 +2,44 @@
 var loginContainer = document.getElementById("main_container");
 var findContainer = document.getElementById("find_container");
 var joinContainer = document.getElementById("join_container");
-
-function makeInputPlaceHorder() {
-  var container = document.getElementById("box_container");
-  // tmp 태그와 placehorder 새로 만들어 교체
-  var idInput = makePlacehorder("login_id", "아이디", "#425c73", "white");
-  container.replaceChild(idInput, document.getElementById("tmp_login_id"));
-  var pwInput = makePlacehorder("login_pw", "비밀번호", "#425c73", "white");
-  pwInput.querySelector(".placehorder_box").type = "password";
-  container.replaceChild(pwInput, document.getElementById("tmp_login_pw"));
+var container = document.getElementById("box_container");
+function initPlaceHorder() {
+  container.replaceChild(
+    makePlacehorder("login_id", "아이디", "#425c73", "white", "text"),
+    document.getElementById("tmp_login_id")
+  );
+  container.replaceChild(
+    makePlacehorder("login_pw", "비밀번호", "#425c73", "white", "password"),
+    document.getElementById("tmp_login_pw")
+  );
 }
-
 function setLoginEvent() {
-  var loginBtn = document.getElementById("login_btn");
-  loginBtn.addEventListener("click", function () {
-    location.href = "../html/schedule.html";
-  });
-  var findBtn = document.getElementById("find_move_btn");
-  findBtn.addEventListener("click", function () {
-    loginContainer.style.display = "none";
-    findContainer.style.display = "flex";
-  });
-  var joinBtn = document.getElementById("join_move_btn");
-  joinBtn.addEventListener("click", function () {
-    loginContainer.style.display = "none";
-    joinContainer.style.display = "flex";
-  });
-
-  var logobtn = document.getElementById("login_logo_btn");
-  logobtn.addEventListener("click", function () {
-    location.href = "../html/index.html";
-  });
+  if (checkLoginError() == true) {
+    alert("로그인 시도");
+  } else {
+    alert("입력이 올바르지 않습니다");
+  }
+}
+function checkLoginError() {
+  var loginSuccess = false;
+  if (errorCount.length == 2) {
+    loginSuccess = true;
+  }
+  return loginSuccess;
 }
 
-makeInputPlaceHorder();
-setLoginEvent();
+function findClickEvent() {
+  loginContainer.style.display = "none";
+  findContainer.style.display = "flex";
+  errorCount = [];
+}
+function joinClickEvent() {
+  loginContainer.style.display = "none";
+  joinContainer.style.display = "flex";
+  errorCount = [];
+}
+function logoClickEvent() {
+  location.href = "../html/schedule.html";
+}
+
+initPlaceHorder();

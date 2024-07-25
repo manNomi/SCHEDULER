@@ -3,52 +3,67 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="../common/common.css">
+    <link rel="stylesheet" type="text/css" href="../component/placeHorder/placeHorder.css">
+    <link rel="stylesheet" type="text/css" href="../component/button/button.css">
+    <link rel="stylesheet" type="text/css" href="../component/reset.css">
     <link rel="stylesheet" type="text/css" href="../css/login_page.css">
     <link rel="stylesheet" type="text/css" href="../css/find_page.css">
     <link rel="stylesheet" type="text/css" href="../css/join_page.css">
     <title>스케줄러</title>
   </head>
   <body>
-    <div id="main_container"style="display: flex;" >
-      <button id="login_logo_btn"></button>
-      <div id="box_container">
+    <main id="main_container" >
+      <button id="login_logo_btn" onclick="logoClickEvent()"></button>
+      <article id="box_container">
         <input id="tmp_login_id">
         <input id="tmp_login_pw">
-        <button id="login_btn">로그인</button>
-        <div id="move_btn_box">
-          <button id="find_move_btn" class="move_btn">비밀번호를 잊으셨나요?</button>
-          <button id="join_move_btn" class="move_btn">새로 가입하기</button>
-        </div>
-      </div>
-    </div>
+        <button id="login_btn" onclick="setLoginEvent()">로그인</button>
+        <section id="move_btn_box">
+          <button id="find_move_btn" class="move_btn" onclick="findClickEvent()">비밀번호를 잊으셨나요?</button>
+          <button id="join_move_btn" class="move_btn" onclick="joinClickEvent()">새로 가입하기</button>
+        </section>
+      </article>
+    </main>
 
     <div id="find_container" style="display: none;">
-      <div id="find_header_list">
-        <button id="find_btn_red"></button>
-        <button id="find_btn_gray"></button>
-        <button id="find_btn_gray"></button>
-      </div>
-      <div id="find_main_list">
+      <nav id="find_header_list">
+        <button id="find_btn_red" class="btn_red" onclick="exitBtnClickEvent()"></button>
+        <button id="find_btn_gray" class="btn_gray"></button>
+        <button id="find_btn_gray" class="btn_gray"></button>
+      </nav>
+      <main id="find_main_list" >
         <button id="find_back_btn"></button>
-        <div id="find_file_container">
-          <div id="find_tab_box">
-            <div id="find_tab_id_box">
-              <div id="find_tab_id_content">아이디</div>
+        <article id="find_file_container">
+          <header id="find_tab_box">
+            <nav id="find_tab_id_box" onclick="tabIdBoxClickEvent()">
+              <p id="find_tab_id_content">아이디</p>
               <div id="find_tab_id_back"></div>
-            </div>
-            <div id="find_tab_pw_box">
-              <div id="find_tab_pw_content">비밀번호</div>
-              <div id="find_tab_pw_back"></div>
-            </div>
-          </div>
-            <div id ="find_file_shape">
-              <div id="find_file_content"></div>
-            </div>
-        </div>
-      </div>
+            </nav>
+            <nav id="find_tab_pw_box" onclick="tabPWBoxClickEvent()">
+              <p id="find_tab_pw_content">비밀번호</p>
+              <div id="find_tab_pw_back" class="find_tab_pw"></div>
+            </nav>
+          </header>
+            <section id ="find_file_shape">
+              <article id="find_file_content">
+                <section id="find_id_box">
+                  <input id="tmp_find_id_phone">
+                  <section id="find_search_id_box" class="find_search_box">
+                    <button id="find_search_id_btn" class="find_search_btn" onclick="setFindIDEvnet()"></button>
+                  </section>
+                </section>
+                <section id="find_pw_box">
+                  <input id="tmp_find_pw_id">
+                  <input id="tmp_find_pw_phone">
+                  <section id="find_search_pw_box" class="find_search_box">
+                    <button id="find_search_pw_btn" class="find_search_btn" onclick="setFindPWEvnet()"></button>
+                  </section>
+                </section>
+              </article>
+            </section>
+        </article>
+      </main>
     </div>
-
 
     <div id="join_container" style="display: none;">
       <div id="join_header_list">
@@ -83,7 +98,7 @@
         <button id="join_back_btn"></button>
       </div>
     </div>
-    <script src="../common/common.js"></script>
+    <script src="../component/placeHorder/placeHorder.js"></script>
     <script src="../js/login_page.js"></script>
     <script src="../js/find_page.js"></script>
     <script src="../js/join_page.js"></script>

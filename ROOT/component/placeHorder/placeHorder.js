@@ -1,4 +1,4 @@
-function makePlacehorder(name, placeText, color, text) {
+function makePlacehorder(name, placeText, color, text, inputType) {
   var container = document.createElement("div");
   container.style.position = "relative";
   container.id = name + "_container";
@@ -15,6 +15,8 @@ function makePlacehorder(name, placeText, color, text) {
   placehorderBox.setAttribute("autocomplete", "off");
   placehorderBox.id = name + "_box";
 
+  placehorderBox.type = inputType;
+
   container.appendChild(palcehorderText);
   placehorderBox.addEventListener("input", function () {
     palcehorderText.style.animation = "placehorder_to_small 0.3s forwards";
@@ -30,8 +32,9 @@ function makePlacehorder(name, placeText, color, text) {
   container.appendChild(placehorderBox);
 
   var nameList = name.split("_");
+  var error = makeInputError(nameList[0], nameList[1], placehorderBox);
+
   if (nameList[0] != "login") {
-    var error = makeInputError(nameList[0], nameList[1], placehorderBox);
     container.appendChild(error);
   }
   return container;
@@ -109,6 +112,8 @@ function makeInputError(page, type, box) {
     pw_box.addEventListener("blur", handleBlur);
   } else {
     box.addEventListener("blur", function (event) {
+      console.log(errorCount);
+
       if (regex.test(event.target.value)) {
         error.innerHTML = "";
         box.style.border = "none";

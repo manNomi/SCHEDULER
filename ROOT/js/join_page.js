@@ -7,108 +7,41 @@ var phoneValue = "";
 var classValue = "";
 var teamValue = "";
 
-function joinTabReset(type) {
-  var joinIDBox = document.getElementById("tab_id_join");
-  var joinPrivacyBox = document.getElementById("tab_privacy_join");
-  var joinProfileBox = document.getElementById("tab_profile_join");
-  var boxList = [joinIDBox, joinPrivacyBox, joinProfileBox];
-  boxList.forEach(function (element) {
-    element.style.display = "none";
-  });
-  var joinBox = document.getElementById("tab_" + type + "_join");
+var joinIDBox = document.getElementById("content_id_join");
+var joinPrivacyBox = document.getElementById("content_privacy_join");
+var joinProfileBox = document.getElementById("content_profile_join");
 
-  if (type != null) {
-    joinBox.style.display = "block";
-  }
-}
-
-function makeInputjoinID() {
-  var joinContainer = document.getElementById("join_file_content");
-  var joinBox = document.getElementById("tab_id_join");
-  joinBox.classList = "join_file_content";
-  var IDBox = makePlacehorder("join_id", "아이디 입력", "#EEEEEE", "black");
-
-  joinBox.appendChild(IDBox);
-
-  var PWBox = makePlacehorder(
-    "join_pw",
-    "비밀번호 입력",
-    "#EEEEEE",
-    "black",
-    "password"
+function initPlaceHorderJoin() {
+  joinIDBox.replaceChild(
+    makePlacehorder("join_id", "아이디", "#EEEEEE", "black"),
+    document.getElementById("tmp_join_id")
   );
-  joinBox.appendChild(PWBox);
 
-  var PwCheckBox = makePlacehorder(
-    "join_pw-check",
-    "비밀번호 확인",
-    "#EEEEEE",
-    "black",
-    "password"
+  joinIDBox.replaceChild(
+    makePlacehorder("join_pw", "비밀번호 입력", "#EEEEEE", "black", "password"),
+    document.getElementById("tmp_join_pw")
   );
-  joinBox.appendChild(PwCheckBox);
-
-  joinBox.appendChild(makeNextBtn());
-  joinContainer.appendChild(joinBox);
-}
-
-function makeInputJoinPrivacy() {
-  var joinContainer = document.getElementById("join_file_content");
-
-  var joinBox = document.getElementById("tab_privacy_join");
-
-  joinBox.classList = "join_file_content";
-  var nameBox = makePlacehorder("join_name", "이름 입력", "#EEEEEE", "black");
-  joinBox.appendChild(nameBox);
-  var phoneBox = makePlacehorder(
-    "join_phone",
-    "전화번호 입력",
-    "#EEEEEE",
-    "black"
+  joinIDBox.replaceChild(
+    makePlacehorder(
+      "join_pw-check",
+      "비밀번호 확인",
+      "#EEEEEE",
+      "black",
+      "password"
+    ),
+    document.getElementById("tmp_join_pw_check")
   );
-  joinBox.appendChild(phoneBox);
-
-  joinBox.appendChild(makeNextBtn());
-  joinContainer.appendChild(joinBox);
+  joinPrivacyBox.replaceChild(
+    makePlacehorder("join_name", "이름 입력", "#EEEEEE", "black"),
+    document.getElementById("tmp_join_name")
+  );
+  joinPrivacyBox.replaceChild(
+    makePlacehorder("join_phone", "전화번호 입력", "#EEEEEE", "black"),
+    document.getElementById("tmp_join_phone")
+  );
 }
 
-function makeInputJoinProfile() {
-  var joinContainer = document.getElementById("join_file_content");
-
-  var joinBox = document.getElementById("tab_profile_join");
-  joinBox.classList = "join_file_content";
-
-  var selectContainer = document.createElement("div");
-  selectContainer.id = "select_container";
-
-  var selectBox = document.createElement("div");
-  selectBox.id = "select_box";
-
-  var selectClass = document.createElement("div");
-  selectClass.innerHTML = "부서 선택";
-  selectClass.classList = "class_select";
-  selectBox.appendChild(selectClass);
-
-  var checkImg = document.createElement("p");
-  checkImg.innerHTML = ">";
-  checkImg.id = "check_img";
-  selectBox.appendChild(checkImg);
-  selectContainer.appendChild(selectBox);
-  var slectList = makeInputSelect();
-  slectList.style.display = "none";
-  selectContainer.appendChild(slectList);
-
-  joinBox.appendChild(makeJoinRadioBtn());
-  joinBox.appendChild(makeNextBtn());
-  joinBox.appendChild(selectContainer);
-
-  setSelectBoxEvnet();
-  raidoBtnRepeatCheck();
-
-  joinContainer.appendChild(joinBox);
-}
-
-function makeInputSelect() {
+function initSelectBox() {
   var classNameList = [
     "욜로 부서",
     "재걸 부서",
@@ -117,10 +50,7 @@ function makeInputSelect() {
     "재걸5 부서",
     "재걸6 부서",
   ];
-
-  var classScroll = document.createElement("div");
-  classScroll.id = "class_scroll";
-
+  var classScroll = document.getElementById("class_scroll");
   classNameList.forEach(function (element) {
     var className = document.createElement("div");
     className.innerHTML = element;
@@ -134,16 +64,13 @@ function makeInputSelect() {
     });
     classScroll.appendChild(className);
   });
-
-  return classScroll;
+  classScroll.style.display = "none";
+  document.getElementById("select_container").appendChild(classScroll);
 }
 
-function makeJoinRadioBtn() {
-  var classContainer = document.createElement("div");
-  classContainer.id = "class_container";
-
+function initRadioBtn() {
+  var classContainer = document.getElementById("class_container");
   var classTextList = ["팀장", "팀원"];
-
   for (let i = 0; i < classTextList.length; i++) {
     var classBox = document.createElement("div");
     classBox.classList.add("class_box");
@@ -151,7 +78,7 @@ function makeJoinRadioBtn() {
     var classRadio = document.createElement("input");
     classRadio.type = "radio";
     classRadio.classList.add("class_radio");
-    classRadio.id = classTextList[i]; // 라디오 버튼의 id를 클래스 텍스트로 설정
+    classRadio.id = classTextList[i];
 
     var classText = document.createElement("div");
     classText.classList.add("class_text");
@@ -162,14 +89,15 @@ function makeJoinRadioBtn() {
     classBox.appendChild(classText);
     classContainer.appendChild(classBox);
   }
-  return classContainer;
+  raidoBtnRepeatCheck();
 }
 
 function raidoBtnRepeatCheck() {
   var radioBtns = document.querySelectorAll(".class_radio");
-  radioBtns[1].checked = true;
-
   radioBtns.forEach(function (radioBtn) {
+    if (radioBtn.id == "팀원") {
+      radioBtn.checked = true;
+    }
     radioBtn.addEventListener("change", function (event) {
       var presentRadio = event.target.id;
       radioBtns.forEach(function (btn) {
@@ -233,74 +161,51 @@ function checkJoinError() {
   }
 }
 
-function makeNextBtn() {
-  var nextBtnBox = document.createElement("div");
-  nextBtnBox.id = "join_next_box";
-  var joinnextBtn = document.createElement("button");
-  joinnextBtn.id = "join_next_btn";
-  nextBtnBox.appendChild(joinnextBtn);
-  joinnextBtn.onclick = function () {
-    checkJoinError();
-  };
-  return nextBtnBox;
-}
-
 var tapIDBox = document.getElementById("join_tab_id_back");
 var tapPrivacyBox = document.getElementById("join_tab_privacy_back");
 var tapProfileBox = document.getElementById("join_tab_profile_back");
-function setIdTab() {
+
+function setIdTabEvent() {
   tapIDBox.style.backgroundColor = "#373A40";
   tapPrivacyBox.style.backgroundColor = "#758694";
-  tapProfileBox.style.cssText =
-    "  width: 120px;height: 0px;border-left: 9px solid transparent;border-right: 9px solid transparent;border-bottom: 25px solid #758694;";
-  joinTabReset("id");
+  tapProfileBox.classList = "join_tab_profile_back";
   tabState = "ID";
+  joinIDBox.style.display = "block";
+  joinPrivacyBox.style.display = "none";
+  joinProfileBox.style.display = "none";
 }
-function setPrivacyTab() {
+function setPrivacyTabEvent() {
   tapIDBox.style.backgroundColor = "#758694";
   tapPrivacyBox.style.backgroundColor = "#373A40";
-  tapProfileBox.style.cssText =
-    "  width: 120px;height: 0px;border-left: 9px solid transparent;border-right: 9px solid transparent;border-bottom: 25px solid #758694;";
-  joinTabReset("privacy");
+  tapProfileBox.classList = "join_tab_profile_back";
   tabState = "Privacy";
+  joinIDBox.style.display = "none";
+  joinPrivacyBox.style.display = "block";
+  joinProfileBox.style.display = "none";
 }
-function setProfileTab() {
+function setProfileTabEvent() {
   tapIDBox.style.backgroundColor = "#758694";
   tapPrivacyBox.style.backgroundColor = "#758694";
-  tapProfileBox.style.cssText =
-    "  width: 120px;height: 0px;border-left: 9px solid transparent;border-right: 9px solid transparent;border-bottom: 25px solid #373A40;";
-  joinTabReset("profile");
+  tapProfileBox.classList = "join_tab_profile_back_click";
   tabState = "Profile";
+  joinIDBox.style.display = "none";
+  joinPrivacyBox.style.display = "none";
+  joinProfileBox.style.display = "block";
 }
-
-function setJoinPageEvent() {
-  tapIDBox.addEventListener("click", function (e) {
-    setIdTab();
-  });
-
-  var exitBtn = document.getElementById("join_btn_red");
-  exitBtn.addEventListener("click", function () {
-    location.href = "../html/index.html";
-  });
+function exitJoinBtnEvent() {
+  location.href = "../html/index.html";
 }
-
 function setSelectBoxEvnet() {
-  var selectBox = document.getElementById("select_box");
-  selectBox.addEventListener("click", function (element) {
-    var scroll = document.getElementById("class_scroll"); // 첫 번째 자식 요소를 선택
-    if (scrollState == "block") {
-      scroll.style.display = "none";
-      scrollState = "none";
-    } else {
-      scroll.style.display = "block";
-      scrollState = "block";
-    }
-  });
+  var scroll = document.getElementById("class_scroll"); // 첫 번째 자식 요소를 선택
+  if (scrollState == "block") {
+    scroll.style.display = "none";
+    scrollState = "none";
+  } else {
+    scroll.style.display = "block";
+    scrollState = "block";
+  }
 }
-
-makeInputjoinID();
-makeInputJoinPrivacy();
-makeInputJoinProfile();
-joinTabReset();
-setIdTab();
-setJoinPageEvent();
+initPlaceHorderJoin();
+initSelectBox();
+initRadioBtn();
+setIdTabEvent();

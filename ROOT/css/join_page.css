@@ -19,26 +19,6 @@
   border-bottom-left-radius: 10px;
   margin-top: 2vh;
 }
-
-#join_btn_red {
-  width: 30px;
-  height: 30px;
-  border: none;
-  background-color: #f24822;
-  border-radius: 50%;
-  margin-left: 30px;
-  cursor: pointer;
-}
-
-#join_btn_gray {
-  width: 30px;
-  height: 30px;
-  border: none;
-  background-color: #b3b3b3;
-  border-radius: 50%;
-  margin-left: 10px;
-}
-
 /* 메인 테두리  */
 #join_file_container {
   position: relative;
@@ -62,6 +42,16 @@
   cursor: pointer;
 }
 
+#tab_id_join {
+  display: none;
+}
+
+#tab_privacy_join {
+  display: none;
+}
+#tab_profile_join {
+  display: none;
+}
 #join_tab_id_back {
   background-color: #758694;
   width: 120px;
@@ -106,12 +96,19 @@
   cursor: pointer;
 }
 
-#join_tab_profile_back {
+.join_tab_profile_back {
   width: 120px;
   height: 0px;
   border-left: 9px solid transparent;
   border-right: 9px solid transparent;
   border-bottom: 25px solid #758694;
+}
+.join_tab_profile_back_click {
+  width: 120px;
+  height: 0px;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-bottom: 25px solid #373a40;
 }
 #join_tab_profile_content {
   top: 50%;
@@ -153,6 +150,7 @@
 
 .join_file_content {
   width: fit-content;
+  display: none;
 }
 
 #join_next_box {

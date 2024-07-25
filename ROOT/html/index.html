@@ -65,39 +65,68 @@
       </main>
     </div>
 
-    <div id="join_container" style="display: none;">
-      <div id="join_header_list">
-        <button id="join_btn_red"></button>
-        <button id="join_btn_gray"></button>
-        <button id="join_btn_gray"></button>
-      </div>
-      <div id="join_main_list">
-        <div id="join_file_container">
-          <div id="join_tab_box">
-            <div id="join_tab_id_box">
-              <div id="join_tab_id_content">아이디</div>
-              <div id="join_tab_id_back"></div>
-            </div>
-            <div id="join_tab_privacy_box">
-              <div id="join_tab_privacy_content">개인정보</div>
-              <div id="join_tab_privacy_back"></div>
-            </div>
-            <div id="join_tab_profile_box">
-              <div id="join_tab_profile_content">프로필</div>
-              <div id="join_tab_profile_back"></div>
-            </div>
-          </div>
-          <div id="join_file_shape">
-            <div id="join_file_content">
-              <div id="tab_id_join"></div>
-              <div id="tab_privacy_join"></div>
-              <div id="tab_profile_join"></div>
-            </div>
-          </div>
-        </div>
+    <main id="join_container" style="display: none;">
+      <header id="join_header_list">
+        <button id="join_btn_red" class="btn_red" onclick="exitJoinBtnEvent()"></button>
+        <button id="join_btn_gray" class="btn_gray"></button>
+        <button id="join_btn_gray" class="btn_gray"></button>
+      </header>
+      <article id="join_main_list">
+        <section id="join_file_container">
+          <nav id="join_tab_box">
+            <section id="join_tab_id_box" onclick="setIdTabEvent()">
+              <p id="join_tab_id_content" >아이디</p>
+              <button id="join_tab_id_back"></button>
+            </section>
+            <section id="join_tab_privacy_box" onclick="setPrivacyTabEvent()">
+              <p id="join_tab_privacy_content">개인정보</p>
+              <button id="join_tab_privacy_back"></button>
+            </section>
+            <section id="join_tab_profile_box" onclick="setProfileTabEvent()">
+              <p id="join_tab_profile_content">프로필</p>
+              <button id="join_tab_profile_back" class="join_tab_profile_back"></button>
+            </section>
+          </nav>
+          <section id="join_file_shape">
+            <article id="join_file_content">
+              <section id="content_id_join" class="join_file_content" >
+                <input id="tmp_join_id">
+                <input id="tmp_join_pw">
+                <input id="tmp_join_pw_check">
+                <div id="join_next_box" onclick="checkJoinError()">
+                  <button id="join_next_btn"></button>
+                </div>
+              </section>
+              <section id="content_privacy_join" class="join_file_content" >
+                <input id="tmp_join_name">
+                <input id="tmp_join_phone">
+                <div id="join_next_box" onclick="checkJoinError()">
+                  <button id="join_next_btn"></button>
+                </div>
+              </section>
+              <section id="content_profile_join" class="join_file_content" >
+                <div id="class_container"></div>
+                <div id="select_container">
+                  <div id="select_box" onclick="setSelectBoxEvnet()">
+                    <div class="class_select">부서 선택</div>
+                    <p id="check_img">></p>
+                  </div>
+                  <div id="slectList">
+                    <div id="class_scroll"></div>
+                  </div>
+                </div>
+                <div id="join_next_box" onclick="checkJoinError()">
+                  <button id="join_next_btn"></button>
+                </div>
+              </section>
+            </article>
+          </section>
+        </section>
         <button id="join_back_btn"></button>
-      </div>
-    </div>
+      </article>
+    </main>
+
+
     <script src="../component/placeHorder/placeHorder.js"></script>
     <script src="../js/login_page.js"></script>
     <script src="../js/find_page.js"></script>

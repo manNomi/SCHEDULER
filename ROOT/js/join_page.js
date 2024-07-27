@@ -10,6 +10,9 @@ var teamValue = "";
 var joinIDBox = document.getElementById("content_id_join");
 var joinPrivacyBox = document.getElementById("content_privacy_join");
 var joinProfileBox = document.getElementById("content_profile_join");
+var tapIDBox = document.getElementById("join_tab_id_back");
+var tapPrivacyBox = document.getElementById("join_tab_privacy_back");
+var tapProfileBox = document.getElementById("join_tab_profile_back");
 
 function initPlaceHorderJoin() {
   joinIDBox.replaceChild(
@@ -109,62 +112,6 @@ function raidoBtnRepeatCheck() {
   });
 }
 
-function checkJoinError() {
-  var comparisonId = ["id", "pw", "pw-check"];
-  var comparisonPrivacy = ["id", "pw", "pw-check", "name", "phone"];
-  var comparisonProfile = ["id", "pw", "pw-check"];
-  console.log(errorCount);
-  if (tabState == "ID") {
-    const inputSet = new Set(errorCount);
-    const comparisonSet = new Set(comparisonId);
-    const additionalValues = [...comparisonSet].filter(
-      (value) => !inputSet.has(value)
-    );
-    if (errorCount.length == 3) {
-      setPrivacyTab();
-      tapPrivacyBox.addEventListener("click", function (e) {
-        setPrivacyTab();
-      });
-    } else {
-      alert(additionalValues + "를 입력해주세요");
-    }
-  } else if (tabState == "Privacy") {
-    const inputSet = new Set(errorCount);
-    const comparisonSet = new Set(comparisonPrivacy);
-    const additionalValues = [...comparisonSet].filter(
-      (value) => !inputSet.has(value)
-    );
-    if (errorCount.length == 5) {
-      setProfileTab();
-      tapProfileBox.addEventListener("click", function (e) {
-        setProfileTab();
-      });
-    } else {
-      alert(additionalValues + "를 입력해주세요");
-    }
-  } else if (tabState == "Profile") {
-    const inputSet = new Set(errorCount);
-    const comparisonSet = new Set(comparisonProfile);
-    const additionalValues = [...comparisonSet].filter(
-      (value) => !inputSet.has(value)
-    );
-    if (errorCount.length == 5 && teamValue != "") {
-      alert("회원가입 성공");
-      location.href = "../html/index.html";
-    } else {
-      if (teamValue == "") {
-        alert("부서를 선택하세요");
-      } else {
-        alert(additionalValues + "를 입력해주세요");
-      }
-    }
-  }
-}
-
-var tapIDBox = document.getElementById("join_tab_id_back");
-var tapPrivacyBox = document.getElementById("join_tab_privacy_back");
-var tapProfileBox = document.getElementById("join_tab_profile_back");
-
 function setIdTabEvent() {
   tapIDBox.style.backgroundColor = "#373A40";
   tapPrivacyBox.style.backgroundColor = "#758694";
@@ -205,6 +152,59 @@ function setSelectBoxEvnet() {
     scrollState = "block";
   }
 }
+
+function checkJoinError() {
+  var comparisonId = ["id", "pw", "pw-check"];
+  var comparisonPrivacy = ["id", "pw", "pw-check", "name", "phone"];
+  var comparisonProfile = ["id", "pw", "pw-check"];
+  console.log(errorCount);
+  if (tabState == "ID") {
+    const inputSet = new Set(errorCount);
+    const comparisonSet = new Set(comparisonId);
+    const additionalValues = [...comparisonSet].filter(
+      (value) => !inputSet.has(value)
+    );
+    if (errorCount.length >= 3) {
+      setPrivacyTabEvent();
+      tapPrivacyBox.addEventListener("click", function (e) {
+        setPrivacyTabEvent();
+      });
+    } else {
+      alert(additionalValues + "를 입력해주세요");
+    }
+  } else if (tabState == "Privacy") {
+    const inputSet = new Set(errorCount);
+    const comparisonSet = new Set(comparisonPrivacy);
+    const additionalValues = [...comparisonSet].filter(
+      (value) => !inputSet.has(value)
+    );
+    if (errorCount.length >= 5) {
+      setProfileTabEvent();
+      tapProfileBox.addEventListener("click", function (e) {
+        setProfileTabEvent();
+      });
+    } else {
+      alert(additionalValues + "를 입력해주세요");
+    }
+  } else if (tabState == "Profile") {
+    const inputSet = new Set(errorCount);
+    const comparisonSet = new Set(comparisonProfile);
+    const additionalValues = [...comparisonSet].filter(
+      (value) => !inputSet.has(value)
+    );
+    if (errorCount.length == 5 && teamValue != "") {
+      alert("회원가입 성공");
+      location.href = "../html/index.html";
+    } else {
+      if (teamValue == "") {
+        alert("부서를 선택하세요");
+      } else {
+        alert(additionalValues + "를 입력해주세요");
+      }
+    }
+  }
+}
+
 initPlaceHorderJoin();
 initSelectBox();
 initRadioBtn();

@@ -3,9 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../reset/reset.css">
+    <link rel="stylesheet" type="text/css" href="../component/rootCSS.css">
     <link rel="stylesheet" type="text/css" href="../component/placeHorder/placeHorder.css">
     <link rel="stylesheet" type="text/css" href="../component/button/button.css">
-    <link rel="stylesheet" type="text/css" href="../component/reset.css">
     <link rel="stylesheet" type="text/css" href="../css/login_page.css">
     <link rel="stylesheet" type="text/css" href="../css/find_page.css">
     <link rel="stylesheet" type="text/css" href="../css/join_page.css">
@@ -24,7 +25,7 @@
         </section>
       </article>
     </main>
-
+    
     <div id="find_container" style="display: none;">
       <nav id="find_header_list">
         <button id="find_btn_red" class="btn_red" onclick="exitBtnClickEvent()"></button>
@@ -76,15 +77,15 @@
           <nav id="join_tab_box">
             <section id="join_tab_id_box" onclick="setIdTabEvent()">
               <p id="join_tab_id_content" >아이디</p>
-              <button id="join_tab_id_back"></button>
+              <div id="join_tab_id_back"></div>
             </section>
-            <section id="join_tab_privacy_box" onclick="setPrivacyTabEvent()">
+            <section id="join_tab_privacy_box" >
               <p id="join_tab_privacy_content">개인정보</p>
-              <button id="join_tab_privacy_back"></button>
+              <div id="join_tab_privacy_back"></div>
             </section>
-            <section id="join_tab_profile_box" onclick="setProfileTabEvent()">
+            <section id="join_tab_profile_box">
               <p id="join_tab_profile_content">프로필</p>
-              <button id="join_tab_profile_back" class="join_tab_profile_back"></button>
+              <div id="join_tab_profile_back" class="join_tab_profile_back"></div>
             </section>
           </nav>
           <section id="join_file_shape">

@@ -2,21 +2,17 @@ function makePlacehorder(name, placeText, color, text, inputType) {
   var container = document.createElement("div");
   container.style.position = "relative";
   container.id = name + "_container";
-
   var palcehorderText = document.createElement("p");
   palcehorderText.innerHTML = placeText;
   palcehorderText.className = "placehorder";
   palcehorderText.id = name + "_text";
-
   var placehorderBox = document.createElement("input");
   placehorderBox.className = "placehorder_box";
   placehorderBox.style.backgroundColor = color;
   placehorderBox.style.color = text;
   placehorderBox.setAttribute("autocomplete", "off");
   placehorderBox.id = name + "_box";
-
   placehorderBox.type = inputType;
-
   container.appendChild(palcehorderText);
   placehorderBox.addEventListener("input", function () {
     palcehorderText.style.animation = "placehorder_to_small 0.3s forwards";
@@ -74,6 +70,9 @@ function makeInputError(page, type, box) {
   } else if (type == "pw-check") {
     regex = regexPWCheck;
     valid = validPWCheck;
+  } else {
+    regex = /.*|[\s\S]*/;
+    valid = "모든 입력 가능";
   }
 
   if (type == "pw-check") {

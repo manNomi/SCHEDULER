@@ -64,4 +64,9 @@ function setFindPWEvnet() {
     alert("잘못된 입력입니다");
   }
 }
+
+function findBackEvent() {
+  moveEvent(findContainer, loginContainer);
+}
+
 initPlaceHorder();

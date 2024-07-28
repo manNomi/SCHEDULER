@@ -50,6 +50,7 @@ function makeInputScroll() {
       scheduleSave,
       scheduleBack
     );
+    scheduleContainer.style.borderColor = stateColor;
     scheduleScroll.appendChild(scheduleContainer);
   });
 }
@@ -135,11 +136,15 @@ function insertScheduleEvent() {
 }
 
 function setPlacehorderSchedule() {
-  var insertBox = document.getElementById("insert_box");
-  insertBox.replaceChild(
+  var placeHorderBox = document.getElementById("placehorder");
+  placeHorderBox.replaceChild(
     makePlacehorder("schedule_text", "스케줄", stateColor, "black", "text"),
     document.getElementById("schedule_input")
   );
+  placeHorderBox.querySelector(".error_guide_message").style.display = "none";
+
+  var scheduleContainer = document.getElementById("schedule_text_container");
+  scheduleContainer.style.width = "100%";
 }
 
 initTime();

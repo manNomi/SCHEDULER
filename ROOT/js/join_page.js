@@ -205,6 +205,10 @@ function checkJoinError() {
   }
 }
 
+function joinBackEvent() {
+  moveEvent(joinContainer, loginContainer);
+}
+
 initPlaceHorderJoin();
 initSelectBox();
 initRadioBtn();

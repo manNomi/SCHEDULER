@@ -15,10 +15,11 @@ body {
   align-items: center;
   width: 90%;
   height: 90%;
-  border: solid 2px #999999;
+  border: solid 2px;
   background-color: white;
+  border-color: var(--container-border);
 }
-#btn_list {
+.btn_list {
   position: relative;
   display: flex;
   width: 100%;
@@ -62,6 +63,7 @@ body {
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
+  transition: all ease 2s;
 }
 
 #back_container {
@@ -71,46 +73,30 @@ body {
   left: 0;
   top: 0;
   backface-visibility: hidden;
+  transition: all ease 2s;
   transform: rotateY(-180deg);
 }
 #profile_content_container:hover #front_container {
-  animation: rotateYAnimationtomin 1s ease-in forwards;
+  transform: rotateY(-180deg);
 }
 
 #profile_content_container:hover #back_container {
-  animation: rotateYAnimationtoplus 1s ease-in forwards;
+  transform: rotateY(0deg);
 }
 
 #content_back {
   width: 100%;
   height: 100%;
-  border: 3px solid black;
+  border: 3px solid var(--color-black);
   display: flex;
   font-size: 30px;
   align-items: center;
 }
 
-@keyframes rotateYAnimationtomin {
-  from {
-    transform: rotateY(0deg);
-  }
-  to {
-    transform: rotateY(-180deg);
-  }
-}
-@keyframes rotateYAnimationtoplus {
-  from {
-    transform: rotateY(-180deg);
-  }
-  to {
-    transform: rotateY(0deg);
-  }
-}
-
 #content_front {
   width: 100%;
   height: 100%;
-  border: 3px solid black;
+  border: 3px solid var(--color-black);
   display: flex;
   font-size: 30px;
 }
@@ -152,4 +138,49 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.profile_btn {
+  width: 50px;
+  height: 30px;
+  line-height: 30px;
+  border: 0px;
+  border-radius: 3px;
+  background-color: var(--menu-color);
+  color: white;
+  cursor: pointer;
+}
+
+#delete_container {
+  display: none;
+  position: fixed;
+  flex-direction: column;
+  align-items: center;
+  width: 60%;
+  height: 60%;
+  border: solid 4px var(--menu-color);
+  background-color: var(--color-white);
+  z-index: 1;
+}
+
+.opacity_box {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  background-color: var(--color-white);
+}
+
+#delte_content {
+  display: flex;
+  margin-top: 10%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#delete_text {
+  font-size: 30px;
+  font-weight: 900;
+  margin-bottom: 20px;
 }

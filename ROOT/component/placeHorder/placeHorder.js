@@ -70,6 +70,9 @@ function makeInputError(page, type, box) {
   } else if (type == "pw-check") {
     regex = regexPWCheck;
     valid = validPWCheck;
+  } else if (type == "pw-old") {
+    regex = regexPassword;
+    valid = validPassword;
   } else {
     regex = /.*|[\s\S]*/;
     valid = "모든 입력 가능";

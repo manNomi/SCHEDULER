@@ -13,7 +13,9 @@ body {
   align-items: center;
   width: 90%;
   height: 90%;
-  border: solid 2px #999999;
+  border: solid 2px;
+  border-color: var(--container-border);
+
   background-color: white;
 }
 
@@ -114,17 +116,18 @@ th {
 }
 
 #speech_menu_container {
-  background-color: beige;
   width: fit-content;
   margin-left: 15%;
 }
 
 .speech_menu_icon {
   width: 50px;
+  pointer-events: none;
 }
 .speech_menu_text {
   line-height: 50px;
   margin-left: 10px;
+  pointer-events: none;
 }
 #watch_all_box {
   cursor: pointer;
@@ -160,36 +163,6 @@ th {
   margin-left: 10px;
 }
 
-#color_choose_input {
-  width: 50px;
-  height: 30px;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-}
-#color_choose_input::-webkit-color-swatch {
-  border-radius: 50px;
-  border: none;
-}
-#choose_container {
-  display: flex;
-  align-items: center;
-  width: 30%;
-  justify-content: space-between;
-  margin-top: 70px;
-}
-
-#choose_box {
-  display: flex;
-  align-items: center;
-}
-#color_check_btn {
-  width: 50px;
-  height: 30px;
-  line-height: 30px;
-  border: 0px;
-  border-radius: 3px;
-  background-color: #757575;
-  color: white;
-  cursor: pointer;
+#placehorder_box {
+  width: 60%;
 }

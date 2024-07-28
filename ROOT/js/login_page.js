@@ -3,6 +3,7 @@ var loginContainer = document.getElementById("main_container");
 var findContainer = document.getElementById("find_container");
 var joinContainer = document.getElementById("join_container");
 var container = document.getElementById("box_container");
+
 function initPlaceHorder() {
   container.replaceChild(
     makePlacehorder("login_id", "아이디", "#425c73", "white", "text"),
@@ -16,7 +17,7 @@ function initPlaceHorder() {
 function setLoginEvent() {
   if (checkLoginError() == true) {
     alert("로그인 시도");
-    location.href = "../html/schedule.html";
+    location.href = "../html/schedule_page.html";
   } else {
     alert("입력이 올바르지 않습니다");
   }
@@ -30,17 +31,24 @@ function checkLoginError() {
 }
 
 function findClickEvent() {
-  loginContainer.style.display = "none";
-  findContainer.style.display = "flex";
-  errorCount = [];
+  moveEvent(loginContainer, findContainer);
 }
 function joinClickEvent() {
-  loginContainer.style.display = "none";
-  joinContainer.style.display = "flex";
-  errorCount = [];
+  moveEvent(loginContainer, joinContainer);
 }
 function logoClickEvent() {
   location.href = "../html/index.html";
 }
 
+function startPage() {
+  loginContainer.style.animation = "start_container 1.5s forwards";
+}
+
+function moveEvent(del, mk) {
+  del.style.animation = "width_to_0 1s forwards";
+  mk.style.animation = "width_to_100 1s forwards";
+  errorCount = [];
+}
+
 initPlaceHorder();
+startPage();

@@ -17,4 +17,8 @@ function colorSet() {
   document.getElementById("color_choose_input").value = stateColor;
 }
 
+function exitBtnEvent() {
+  location.href = "../html/schedule_page.html";
+}
+
 colorSet();

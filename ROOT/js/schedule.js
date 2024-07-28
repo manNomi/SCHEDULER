@@ -105,10 +105,8 @@ function menuBtnEvent() {
   speechMenu.style.display = "flex";
 }
 
-function setProfileMoveBtn() {
-  document.getElementById("watch_profile_box").onclick = function () {
-    location.href = "../html/profile_page.html";
-  };
+function setProfileMoveEvent() {
+  location.href = "../html/profile_page.html";
 }
 
 function whatchAllBtnEvent() {
@@ -146,12 +144,15 @@ function opacitySpeachDone() {
   opacityBox.remove();
 }
 
-function colorThemeModal() {
+function colorThemeMove() {
   location.href = "../html/theme_page.html";
 }
 
 function colorSet() {
-  var changeColorListBack = [document.querySelector("body")];
+  var changeColorListBack = [
+    document.querySelector("body"),
+    document.getElementById("theme_btn"),
+  ];
   changeColorListBack.forEach(function (ele) {
     ele.style.backgroundColor = stateColor;
   });
@@ -174,8 +175,6 @@ function reSizeCalanderEvent() {
 }
 
 function openScehdulePage(day) {
-  console.log(day);
-
   var chooseDate = document.getElementById("choose_date");
   var chooseDateValue = chooseDate.value.split("-");
 

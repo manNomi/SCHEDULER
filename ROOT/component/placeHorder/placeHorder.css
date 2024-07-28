@@ -34,6 +34,8 @@
   text-align: end;
   color: black;
   font-size: 13px;
+  height: 20px;
+  line-height: 20px;
 }
 
 @keyframes placehorder_to_small {

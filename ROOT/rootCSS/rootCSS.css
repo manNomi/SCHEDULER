@@ -1,0 +1,15 @@
+@import "../reset/reset.css";
+
+:root {
+  --container-border: black;
+  --bakcground-white: white;
+  --color-white: white;
+  --color-black: black;
+  --header-btn-list: #425c73;
+  --file-shape-back: #758694;
+  --file-shpae-click: #373a40;
+  --select-back: #eeeeee;
+  --select-color: #999999;
+  --scroll-bar-back: #e1e1e1;
+  --menu-color: #757575;
+}

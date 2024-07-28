@@ -16,7 +16,9 @@ body {
   flex-direction: column;
   align-items: center;
   background-color: white;
-  border: 3px solid #bbbbbb;
+  border: 3px solid;
+  border-color: var(--container-border);
+
   border-radius: 3px;
   z-index: 1;
 }
@@ -31,6 +33,10 @@ body {
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
   margin-top: 2vh;
+}
+
+#date {
+  margin: 10px;
 }
 
 #detail_red_btn {
@@ -102,7 +108,7 @@ input[type="time"] {
 }
 
 #schedule_scroll {
-  height: 400px;
+  height: 60%;
   margin: 20px;
   overflow-y: auto;
   margin-top: 5px;

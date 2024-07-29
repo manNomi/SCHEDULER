@@ -15,12 +15,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../reset/reset.css">
-    <link rel="stylesheet" type="text/css" href="../rootCSS/rootCSS.css">
+    <link rel="stylesheet" type="text/css" href="../../reset/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../rootCSS/rootCSS.css">
 
-    <link rel="stylesheet" type="text/css" href="../css/detail_page.css" />
-    <link rel="stylesheet" type="text/css" href="../component/button/button.css"/>
-    <link rel="stylesheet" type="text/css" href="../component/placeHorder/placeHorder.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/detail_page.css" />
+    <link rel="stylesheet" type="text/css" href="../../component/button/button.css"/>
+    <link rel="stylesheet" type="text/css" href="../../component/placeHorder/placeHorder.css"/>
     <title>스케줄러</title>
 </head>
 <body>
@@ -45,7 +45,7 @@
         </div>
       </main>
     </div>
-    <script src="../component/placeHorder/placeHorder.js"></script>
-    <script src="../js/detail_page.js"></script>
+    <script src="../../component/placeHorder/placeHorder.js"></script>
+    <script src="../../js/detail_page.js"></script>
 </body>
 </html>

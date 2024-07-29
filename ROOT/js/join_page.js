@@ -134,7 +134,7 @@ function setProfileTabEvent() {
   joinProfileBox.style.display = "block";
 }
 function exitJoinBtnEvent() {
-  location.href = "../html/index.html";
+  location.href = "../../jsp/page/index.jsp";
 }
 function setSelectBoxEvnet() {
   var scroll = document.getElementById("class_scroll"); // 첫 번째 자식 요소를 선택
@@ -187,8 +187,15 @@ function checkJoinError() {
       (value) => !inputSet.has(value)
     );
     if (errorCount.length == 5 && teamValue != "") {
-      alert("회원가입 성공");
-      location.href = "../html/index.html";
+      var dataList = getPrsentData();
+      var path = "../../jsp/action/joinAction.jsp?";
+      for (const key in dataList) {
+        if (dataList.hasOwnProperty(key)) {
+          path += `${key}=${dataList[key]}&`;
+        }
+      }
+      path = path.slice(0, -1);
+      location.href = path;
     } else {
       if (teamValue == "") {
         alert("부서를 선택하세요");
@@ -197,6 +204,25 @@ function checkJoinError() {
       }
     }
   }
+}
+
+function getPrsentData() {
+  var radioText = "";
+  var radios = document.querySelectorAll(".class_radio");
+  radios.forEach(function (radio) {
+    if (radio.checked) {
+      radioText = radio.id;
+    }
+  });
+  const formData = {
+    id: document.getElementById("join_id_box").value,
+    pw: document.getElementById("join_pw_box").value,
+    name: document.getElementById("join_name_box").value,
+    phone: document.getElementById("join_phone_box").value,
+    position: radioText,
+    team: document.querySelector(".class_select").innerHTML,
+  };
+  return formData;
 }
 
 function joinBackEvent() {

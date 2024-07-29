@@ -19,10 +19,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>스케줄러</title>
-    <link rel="stylesheet" type="text/css" href="../component/reset.css" />
-    <link rel="stylesheet" type="text/css" href="../rootCSS/rootCSS.css">
+    <link rel="stylesheet" type="text/css" href="../../component/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../../rootCSS/rootCSS.css">
 
-    <link rel="stylesheet" type="text/css" href="../css/schedule_page.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/schedule_page.css" />
   </head>
   <body>
     <main id="page_container">
@@ -34,13 +34,13 @@
           <div id="speech_menu_container">
             <button id="watch_all_box" onclick="whatchAllBtnEvent()">
               <img
-                src="../image/schedule/full_battery.png"
+                src="../../image/schedule/full_battery.png"
                 class="speech_menu_icon" />
               <div class="speech_menu_text">전체 보기</div>
             </button>
             <button id="watch_profile_box" onclick="setProfileMoveEvent()">
               <img
-                src="../image/schedule/profile.png"
+                src="../../image/schedule/profile.png"
                 class="speech_menu_icon" />
               <div class="speech_menu_text">프로필 확인</div>
             </button>
@@ -55,6 +55,6 @@
         <input id="choose_date" type="date" />
       </div>
       <table id="month"></table>
-    <script src="../js/schedule.js"></script>
+    <script src="../../js/schedule.js"></script>
   </body>
 </html>

@@ -18,7 +18,7 @@ function colorSet() {
 }
 
 function exitBtnEvent() {
-  location.href = "../html/schedule_page.html";
+  location.href = "../../jsp/page/schedule_page.jsp";
 }
 
 colorSet();

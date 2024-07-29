@@ -16,12 +16,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>스케줄러</title>
-    <link rel="stylesheet" type="text/css" href="../reset/reset.css">
-    <link rel="stylesheet" type="text/css" href="../rootCSS/rootCSS.css">
+    <link rel="stylesheet" type="text/css" href="../../reset/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../rootCSS/rootCSS.css">
 
-    <link rel="stylesheet" type="text/css" href="../component/placeHorder/placeHorder.css">
-    <link rel="stylesheet" type="text/css" href="../component/button/button.css">
-    <link rel="stylesheet" type="text/css" href="../css/profile_page.css" />
+    <link rel="stylesheet" type="text/css" href="../../component/placeHorder/placeHorder.css">
+    <link rel="stylesheet" type="text/css" href="../../component/button/button.css">
+    <link rel="stylesheet" type="text/css" href="../../css/profile_page.css" />
   </head>
   <body>
     <div id="profile_container">
@@ -34,7 +34,7 @@
       <div id="profile_content_container">
         <div id="back_container">
           <div id="content_back">
-              <img id="profile_img_back" src="../image/profile/profile.png">
+              <img id="profile_img_back" src="../../image/profile/profile.png">
               <div id="profile_text_back">
                 <div id="profile_text_box"></div>
                 <div id="profile_rename_container">
@@ -57,7 +57,7 @@
                         </div>
                     </div>
                 </div>
-                <img src="../image/profile/logo.png" id="front_img">
+                <img src="../../image/profile/logo.png" id="front_img">
             </img>
             </div>
       </div>
@@ -79,7 +79,7 @@
   </main>
 
 
-    <script src="../component/placeHorder/placeHorder.js"></script>
-    <script src="../js/profile_page.js"></script>
+    <script src="../../component/placeHorder/placeHorder.js"></script>
+    <script src="../../js/profile_page.js"></script>
   </body>
 </html>

@@ -17,7 +17,7 @@ function initPlaceHorder() {
 function setLoginEvent() {
   if (checkLoginError() == true) {
     alert("로그인 시도");
-    location.href = "../html/schedule_page.html";
+    location.href = "../../jsp/page/schedule_page.jsp";
   } else {
     alert("입력이 올바르지 않습니다");
   }
@@ -37,7 +37,7 @@ function joinClickEvent() {
   moveEvent(loginContainer, joinContainer);
 }
 function logoClickEvent() {
-  location.href = "../html/index.html";
+  location.href = "../../jsp/page/index.jsp";
 }
 
 function startPage() {

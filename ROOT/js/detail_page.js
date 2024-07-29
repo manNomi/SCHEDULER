@@ -118,7 +118,7 @@ function setColor() {
 }
 
 function exitBtnEvent() {
-  location.href = "../html/schedule_page.html";
+  location.href = "../../jsp/page/schedule_page.jsp";
 }
 
 function initTime() {
@@ -143,8 +143,11 @@ function setPlacehorderSchedule() {
   );
   placeHorderBox.querySelector(".error_guide_message").style.display = "none";
 
+  placeHorderBox.style.width = "60%";
   var scheduleContainer = document.getElementById("schedule_text_container");
   scheduleContainer.style.width = "100%";
+  var scheduleBox = document.getElementById("schedule_text_box");
+  scheduleBox.style.width = "100%";
 }
 
 initTime();

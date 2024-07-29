@@ -41,7 +41,7 @@ function tabPWBoxClickEvent() {
 }
 
 function exitBtnClickEvent() {
-  location.href = "../html/index.html";
+  location.href = "../../jsp/page/index.jsp";
 }
 
 function setFindIDEvnet() {
@@ -49,7 +49,7 @@ function setFindIDEvnet() {
   if (errorCount.length == 1) {
     alert("찾으시려는 아이디는 이겁니다");
     errorCount = [];
-    location.href = "../html/index.html";
+    location.href = "../../jsp/page/index.jsp";
   } else {
     alert("잘못된 입력입니다");
   }
@@ -59,7 +59,7 @@ function setFindPWEvnet() {
   if (errorCount.length == 2) {
     alert("찾으시려는 비밀번호는 이겁니다");
     errorCount = [];
-    location.href = "../html/index.html";
+    location.href = "../../jsp/page/index.jsp";
   } else {
     alert("잘못된 입력입니다");
   }

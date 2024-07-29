@@ -49,13 +49,13 @@ public String tryGetSelect(Connection connection) {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../reset/reset.css">
-    <link rel="stylesheet" type="text/css" href="../rootCSS/rootCSS.css">
-    <link rel="stylesheet" type="text/css" href="../component/placeHorder/placeHorder.css">
-    <link rel="stylesheet" type="text/css" href="../component/button/button.css">
-    <link rel="stylesheet" type="text/css" href="../css/login_page.css">
-    <link rel="stylesheet" type="text/css" href="../css/find_page.css">
-    <link rel="stylesheet" type="text/css" href="../css/join_page.css">
+    <link rel="stylesheet" href="../../reset/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../rootCSS/rootCSS.css">
+    <link rel="stylesheet" type="text/css" href="../../component/placeHorder/placeHorder.css">
+    <link rel="stylesheet" type="text/css" href="../../component/button/button.css">
+    <link rel="stylesheet" type="text/css" href="../../css/login_page.css">
+    <link rel="stylesheet" type="text/css" href="../../css/find_page.css">
+    <link rel="stylesheet" type="text/css" href="../../css/join_page.css">
     <title>스케줄러</title>
   </head>
   <body>
@@ -122,10 +122,10 @@ public String tryGetSelect(Connection connection) {
     </main>
 
     <main id="main_container" >
-      <img id="login_logo_btn" src="../image/login/strageus_logo.png" onclick="logoClickEvent()"></img>
+      <img id="login_logo_btn" src="../../image/login/strageus_logo.png" onclick="logoClickEvent()"></img>
       <article id="box_container">
-        <input id="tmp_login_id">
-        <input id="tmp_login_pw">
+          <input id="tmp_login_id">
+          <input id="tmp_login_pw">
         <button id="login_btn" onclick="setLoginEvent()">로그인</button>
         <section id="move_btn_box">
           <button id="find_move_btn" class="move_btn" onclick="findClickEvent()">비밀번호를 잊으셨나요?</button>
@@ -173,10 +173,10 @@ public String tryGetSelect(Connection connection) {
         </article>
       </main>
     </div>
-    <script src="../component/placeHorder/placeHorder.js"></script>
-    <script src="../js/login_page.js"></script>
-    <script src="../js/find_page.js"></script>
-    <script src="../js/join_page.js"></script>
+    <script src="../../component/placeHorder/placeHorder.js"></script>
+    <script src="../../js/login_page.js"></script>
+    <script src="../../js/find_page.js"></script>
+    <script src="../../js/join_page.js"></script>
 </html>
 
 <script>

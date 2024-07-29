@@ -96,7 +96,7 @@ function setShedule(year, month, day) {
 }
 
 function exitBtnEvent() {
-  location.href = "../html/index.html";
+  location.href = "../../jsp/page/index.jsp";
 }
 
 function menuBtnEvent() {
@@ -106,19 +106,19 @@ function menuBtnEvent() {
 }
 
 function setProfileMoveEvent() {
-  location.href = "../html/profile_page.html";
+  location.href = "../../jsp/page/profile_page.jsp";
 }
 
 function whatchAllBtnEvent() {
   var watchAllBtn = document.getElementById("watch_all_box");
   watchAllBtn.onclick = function () {
     if (watchState == "TEAM") {
-      watchAllBtn.children[0].src = "../image/schedule/empty_battery.png";
+      watchAllBtn.children[0].src = "../../image/schedule/empty_battery.png";
       watchAllBtn.children[1].innerHTML = "팀원만 보기";
       watchState = "USER";
       opacitySpeachDone();
     } else {
-      watchAllBtn.children[0].src = "../image/schedule/full_battery.png";
+      watchAllBtn.children[0].src = "../../image/schedule/full_battery.png";
       watchAllBtn.children[1].innerHTML = "전체 보기";
       watchState = "TEAM";
       opacitySpeachDone();
@@ -145,7 +145,7 @@ function opacitySpeachDone() {
 }
 
 function colorThemeMove() {
-  location.href = "../html/theme_page.html";
+  location.href = "../../jsp/page/theme_page.jsp";
 }
 
 function colorSet() {
@@ -179,11 +179,11 @@ function openScehdulePage(day) {
   var chooseDateValue = chooseDate.value.split("-");
 
   var url =
-    "../html/detail_page.html?year=" +
+    "../../jsp/page/detail_page.jsp?year=" +
     chooseDateValue[0] +
     "&month=" +
     chooseDateValue[1];
-  location.href = "../html/detail_page.html";
+  location.href = "../../jsp/page/detail_page.jsp";
 }
 
 function setDateEvent() {

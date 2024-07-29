@@ -94,14 +94,14 @@ function renameBtnEvent() {
     alert("비밀번호가 똑같습니다 ");
   } else if (errorCount.length == 3) {
     alert("수정 시도");
-    location.href = "../html/index.html";
+    location.href = "../../jsp/page/index.jsp";
   } else {
     alert("올바르게 입력하세요");
   }
 }
 
 function exitEvent() {
-  location.href = "../html/schedule_page.html";
+  location.href = "../../jsp/page/schedule_page.jsp";
 }
 
 function deleteOpenEvent() {
@@ -111,7 +111,7 @@ function deleteOpenEvent() {
 
 function deleteEvent() {
   alert("삭제 시도 ");
-  location.href = "../html/index.html";
+  location.href = "../../jsp/page/index.jsp";
 }
 
 function cancleEvent() {}

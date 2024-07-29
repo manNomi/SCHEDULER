@@ -15,13 +15,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="../reset/reset.css" />
-    <link rel="stylesheet" type="text/css" href="../rootCSS/rootCSS.css" />
+    <link rel="stylesheet" type="text/css" href="../../reset/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../../rootCSS/rootCSS.css" />
     <link
       rel="stylesheet"
       type="text/css"
-      href="../component/button/button.css" />
-    <link rel="stylesheet" type="text/css" href="../css/theme_page.css" />
+      href="../../component/button/button.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/theme_page.css" />
     <title>스케줄러</title>
   </head>
   <body>
@@ -42,6 +42,6 @@
         <button id="color_check_btn" onclick="checkBtnEvent()">확인</button>
       </div>
     </div>
-    <script src="../js/theme_page.js"></script>
+    <script src="../../js/theme_page.js"></script>
   </body>
 </html>

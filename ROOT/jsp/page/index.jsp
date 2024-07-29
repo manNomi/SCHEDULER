@@ -155,13 +155,13 @@ public String tryGetSelect(Connection connection) {
           </header>
             <section id ="find_file_shape">
               <article id="find_file_content">
-                <section id="find_id_box">
+                <section id="find_id_container">
                   <input id="tmp_find_id_phone">
                   <section id="find_search_id_box" class="find_search_box">
                     <button id="find_search_id_btn" class="find_search_btn" onclick="setFindIDEvnet()"></button>
                   </section>
                 </section>
-                <section id="find_pw_box">
+                <section id="find_pw_container">
                   <input id="tmp_find_pw_id">
                   <input id="tmp_find_pw_phone">
                   <section id="find_search_pw_box" class="find_search_box">

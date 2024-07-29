@@ -12,37 +12,50 @@
 <%@ page import="java.sql.*, java.util.*" %>
 
 <%!
-public String tryGetSelect(Connection connection) {
-    String team = "";
+public String tryGetPW(Connection connection,String id,String phone) {
+    String userPW = "";
     try {
         // 사용자 데이터 삽입 시도
-        String getSelectSQL = "SELECT name FROM Team";
-        PreparedStatement stmt = connection.prepareStatement(findSQL);
+        String getSelectSQL = "SELECT pw FROM User WHERE id = ? AND phone = ?";
+        PreparedStatement stmt = connection.prepareStatement(getSelectSQL);
+        stmt.setString(1,id);
+        stmt.setString(2,phone);
         ResultSet result = stmt.executeQuery();
-        while (result.next()) {
-                team +=result.getString("name")+"-";
-            }
+        if(result.next()){
+            userPW=result.getString("pw");
+        }
+
     } 
     catch (SQLException e) {
-        team = "";
+        userPW = "";
     }
-    return team;
+    return userPW;
 }
 %>
 
 <%
     request.setCharacterEncoding("utf-8");
+    String id = request.getParameter("id");
+    String phone = request.getParameter("phone");
     Connection connection = null;
     try {
         Class.forName("org.mariadb.jdbc.Driver");
-        connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/instargram_web", "mannomi", "1234");
+        connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
     } catch (Exception e) {
         e.printStackTrace();
     }
-    String team = tryLogin(connection,request, loginId, loginPw);
+    String userPW = tryGetPW(connection,id,phone);
 %>
 
 <script>
-    var teamList="<%=team%>"
-    location.href="../"
+    var userPW="<%=userPW%>"
+    if (userPW!=""){
+        alert("비밀번호 : "+userPW)
+        location.href="../page/index.jsp"
+    }
+    else{
+        alert("찾으시려는 비밀번호가 없습니다")
+        window.history.back()
+    }
+    
 </script>

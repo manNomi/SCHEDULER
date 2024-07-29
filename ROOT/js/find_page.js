@@ -1,25 +1,32 @@
-var findIdBox = document.getElementById("find_id_box");
-var findPwBox = document.getElementById("find_pw_box");
+var findIdContinaer = document.getElementById("find_id_container");
+var findPwContainer = document.getElementById("find_pw_container");
 var tabId = document.getElementById("find_tab_id_back");
 var tabPw = document.getElementById("find_tab_pw_back");
 var tapIDBox = document.getElementById("find_tab_id_box");
 var tapPWBox = document.getElementById("find_tab_pw_box");
 
 function initPlaceHorder() {
-  findIdBox.style.display = "none";
-  findIdBox.replaceChild(
+  findIdContinaer.style.display = "none";
+  findIdContinaer.replaceChild(
     makePlacehorder("find_phone", "전화번호", "#EEEEEE", "black"),
     document.getElementById("tmp_find_id_phone")
   );
-  findPwBox.style.display = "none";
-  findPwBox.replaceChild(
+  findPwContainer.style.display = "none";
+  findPwContainer.replaceChild(
     makePlacehorder("find_id", "아이디", "#EEEEEE", "black"),
     document.getElementById("tmp_find_pw_id")
   );
-  findPwBox.replaceChild(
-    makePlacehorder("find_phone", "전화번호", "#EEEEEE", "black"),
+  findPwContainer.replaceChild(
+    makePlacehorder("find_phone_pw", "전화번호", "#EEEEEE", "black"),
     document.getElementById("tmp_find_pw_phone")
   );
+}
+
+function replaceTabEvent() {
+  Array.from(document.querySelectorAll("input")).forEach(function (input) {
+    input.value = "";
+  });
+  errorCount = [];
 }
 
 function tabIdBoxClickEvent() {
@@ -27,8 +34,9 @@ function tabIdBoxClickEvent() {
   tapPWBox.style.paddingLeft = "0px";
   tabId.style.backgroundColor = "#373A40";
   tabPw.classList = "find_tab_pw";
-  findIdBox.style.display = "block";
-  findPwBox.style.display = "none";
+  findIdContinaer.style.display = "block";
+  findPwContainer.style.display = "none";
+  replaceTabEvent();
 }
 
 function tabPWBoxClickEvent() {
@@ -36,8 +44,9 @@ function tabPWBoxClickEvent() {
   tapPWBox.style.paddingLeft = "5px";
   tabId.style.backgroundColor = "#758694";
   tabPw.classList = "find_tab_pw_click";
-  findIdBox.style.display = "none";
-  findPwBox.style.display = "block";
+  findIdContinaer.style.display = "none";
+  findPwContainer.style.display = "block";
+  replaceTabEvent();
 }
 
 function exitBtnClickEvent() {
@@ -47,9 +56,8 @@ function exitBtnClickEvent() {
 function setFindIDEvnet() {
   console.log(errorCount);
   if (errorCount.length == 1) {
-    alert("찾으시려는 아이디는 이겁니다");
-    errorCount = [];
-    location.href = "../../jsp/page/index.jsp";
+    var phone = document.getElementById("find_phone_box").value;
+    location.href = "../../jsp/action/findIDAction.jsp?phone=" + phone;
   } else {
     alert("잘못된 입력입니다");
   }
@@ -57,9 +65,10 @@ function setFindIDEvnet() {
 
 function setFindPWEvnet() {
   if (errorCount.length == 2) {
-    alert("찾으시려는 비밀번호는 이겁니다");
-    errorCount = [];
-    location.href = "../../jsp/page/index.jsp";
+    var id = document.getElementById("find_id_box").value;
+    var phone = document.getElementById("find_phone_pw_box").value;
+    location.href =
+      "../../jsp/action/findPWAction.jsp?id=" + id + "&phone=" + phone;
   } else {
     alert("잘못된 입력입니다");
   }

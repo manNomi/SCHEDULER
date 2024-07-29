@@ -11,6 +11,39 @@
 <%@ page import="java.sql.ResultSet" %>
 
 
+
+<%!
+public String tryGetSelect(Connection connection) {
+    String team = "";
+    try {
+        // 사용자 데이터 삽입 시도
+        String getSelectSQL = "SELECT name FROM Team";
+        PreparedStatement stmt = connection.prepareStatement(getSelectSQL);
+        ResultSet result = stmt.executeQuery();
+        while (result.next()) {
+                team +=result.getString("name")+"-";
+            }
+    } 
+    catch (SQLException e) {
+        team = "";
+    }
+    return team;
+}
+%>
+
+<%
+    request.setCharacterEncoding("utf-8");
+    Connection connection = null;
+    try {
+        Class.forName("org.mariadb.jdbc.Driver");
+        connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    String team = tryGetSelect(connection);
+%>
+
+
 <!DOCTYPE html>
 <html lang="kr">
   <head>
@@ -73,7 +106,8 @@
                     <p id="check_img">></p>
                   </div>
                   <div id="slectList">
-                    <div id="class_scroll"></div>
+                    <div id="class_scroll">
+                    </div>
                   </div>
                 </div>
                 <div id="join_next_box" onclick="checkJoinError()">
@@ -143,5 +177,11 @@
     <script src="../js/login_page.js"></script>
     <script src="../js/find_page.js"></script>
     <script src="../js/join_page.js"></script>
-
 </html>
+
+<script>
+  console.log("ㅂㅈㅂㅈㄷ")
+  var teamList = "<%=team%>".split("-")
+  teamList.pop()
+  initSelectBox(teamList)
+</script>

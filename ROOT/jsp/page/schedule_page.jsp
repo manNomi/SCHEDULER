@@ -10,6 +10,9 @@
 <%-- 셀렉트 할때만 필요하다  --%>
 <%@ page import="java.sql.ResultSet" %>
 
+
+
+
 <!DOCTYPE html>
 <html lang="kr">
   <head>

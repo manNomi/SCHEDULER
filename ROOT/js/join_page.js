@@ -44,16 +44,10 @@ function initPlaceHorderJoin() {
   );
 }
 
-function initSelectBox() {
-  var classNameList = [
-    "욜로 부서",
-    "재걸 부서",
-    "재걸3 부서",
-    "재걸4 부서",
-    "재걸5 부서",
-    "재걸6 부서",
-  ];
+function initSelectBox(team) {
+  var classNameList = team;
   var classScroll = document.getElementById("class_scroll");
+  console.log(classNameList);
   classNameList.forEach(function (element) {
     var className = document.createElement("div");
     className.innerHTML = element;
@@ -210,6 +204,5 @@ function joinBackEvent() {
 }
 
 initPlaceHorderJoin();
-initSelectBox();
 initRadioBtn();
 setIdTabEvent();

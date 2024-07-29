@@ -257,7 +257,8 @@
   cursor: pointer;
 }
 #class_scroll {
-  height: 150px;
+  height: fit-content;
+  max-height: 150px;
   overflow-y: auto;
   background-color: var(--select-back);
   margin-top: 5px;

@@ -1,25 +1,48 @@
 var color = ["body", "theme_btn"];
-var watchState = "TEAM";
+var watchState = "USER";
 var stateColor = "";
 var stateSize = "small";
 const chooseDate = document.getElementById("choose_date");
 
-function makeCalander(date, countDate) {
-  date = date.split("-");
-  var year = date[0];
-  var month = date[1];
-  var day_format = date[2];
+var countMyList = [];
+var countAllList = [];
+function getData(countDate) {
   var myCount = countDate.split("_")[0].split("]")[1];
   var allCount = countDate.split("_")[1].split("]")[1];
+  if (allCount != null) {
+    allCount = allCount.split("-");
+    allCount.pop();
+    var processedCountsAll = new Set();
+    for (var i = 0; i < allCount.length; i++) {
+      var count = allCount[i];
+      // 이미 처리된 항목은 무시
+      if (processedCountsAll.has(count)) continue;
+      // 현재 항목과 일치하는 항목을 필터링하여 countList를 생성
+      var countList = allCount.filter(function (ele) {
+        return ele === count;
+      });
+      // allCount에서 countList 요소들을 제거합니다.
+      allCount = allCount.filter(function (ele) {
+        return ele !== count;
+      });
+      // countList와 해당 항목을 countAllList에 추가합니다.
+      countAllList.push([count, countList.length]);
+
+      // 현재 항목을 처리된 항목 세트에 추가합니다.
+      processedCountsAll.add(count);
+      // 배열의 인덱스를 다시 맞추기 위해 반복문을 조정합니다.
+      i = -1; // i를 -1로 설정하여 for 루프가 다시 시작할 때 0부터 시작하도록 합니다.
+    }
+  }
   myCount = myCount.split("-");
-  allCount = allCount.split("-");
   myCount.pop();
-  allCount.pop();
-  var countDateList = [];
-  var processedCounts = new Set();
-  myCount.forEach(function (count) {
+
+  var processedCountsMy = new Set();
+  // myCount 처리
+  for (var i = 0; i < myCount.length; i++) {
+    var count = myCount[i];
     // 이미 처리된 항목은 무시
-    if (processedCounts.has(count)) return;
+    if (processedCountsMy.has(count)) continue;
     // 현재 항목과 일치하는 항목을 필터링하여 countList를 생성
     var countList = myCount.filter(function (ele) {
       return ele === count;
@@ -28,14 +51,30 @@ function makeCalander(date, countDate) {
     myCount = myCount.filter(function (ele) {
       return ele !== count;
     });
-    // countList와 해당 항목을 countDateList에 추가합니다.
-    countDateList.push([count, countList.length]);
+    // countList와 해당 항목을 countMyList에 추가합니다.
+    countMyList.push([count, countList.length]);
 
     // 현재 항목을 처리된 항목 세트에 추가합니다.
-    processedCounts.add(count);
-  });
+    processedCountsMy.add(count);
+    // 배열의 인덱스를 다시 맞추기 위해 반복문을 조정합니다.
+    i = -1; // i를 -1로 설정하여 for 루프가 다시 시작할 때 0부터 시작하도록 합니다.
+  }
+}
 
-  console.log(countDateList);
+function makeCalander(date) {
+  date = date.split("-");
+  var year = date[0];
+  var month = date[1];
+  var day_format = date[2];
+
+  var countDateList = [];
+  console.log(countAllList);
+  console.log(countMyList);
+  if (watchState == "TEAM") {
+    countDateList = countAllList;
+  } else {
+    countDateList = countMyList;
+  }
 
   chooseDate.value = `${year}-${month}-${day_format}`;
   const dateObj = new Date(year, month - 1, 1);
@@ -138,21 +177,22 @@ function setProfileMoveEvent() {
   location.href = "../../jsp/page/profile_page.jsp";
 }
 
-function whatchAllBtnEvent() {
-  var watchAllBtn = document.getElementById("watch_all_box");
-  watchAllBtn.onclick = function () {
-    if (watchState == "TEAM") {
-      watchAllBtn.children[0].src = "../../image/schedule/empty_battery.png";
-      watchAllBtn.children[1].innerHTML = "팀원만 보기";
-      watchState = "USER";
-      opacitySpeachDone();
-    } else {
-      watchAllBtn.children[0].src = "../../image/schedule/full_battery.png";
-      watchAllBtn.children[1].innerHTML = "전체 보기";
-      watchState = "TEAM";
-      opacitySpeachDone();
-    }
-  };
+function whatchAllBtnEvent(e) {
+  var date = chooseDate.value;
+
+  if (watchState == "TEAM") {
+    e.target.children[0].src = "../../image/schedule/full_battery.png";
+    e.target.children[1].innerHTML = "전체 보기";
+    watchState = "USER";
+    opacitySpeachDone();
+    makeCalander(date);
+  } else {
+    e.target.children[0].src = "../../image/schedule/empty_battery.png";
+    e.target.children[1].innerHTML = "나만 보기";
+    watchState = "TEAM";
+    opacitySpeachDone();
+    makeCalander(date);
+  }
 }
 
 function makeOpacityBox(modal, opacityNumber) {

@@ -81,6 +81,7 @@ public String tryGetDate(Connection connection, String userIDX , String date, St
       if ("T".equals(firstLogin)){
           String getSetSQL = "UPDATE User SET first_login = 'F' WHERE idx = ? ";
           PreparedStatement stmt = connection.prepareStatement(getSetSQL);
+          session.setAttribute("login", "F");
           stmt.setString(1,userIDX);
           stmt.executeUpdate();
           stmt.close(); 
@@ -153,7 +154,7 @@ public String tryGetDate(Connection connection, String userIDX , String date, St
         <button id="green_btn" class="btn_green" onclick="reSizeCalanderEvent()"></button>
         <nav id="speech_icon">
           <div id="speech_menu_container">
-            <button id="watch_all_box" onclick="whatchAllBtnEvent()" style="display:none;">
+            <button id="watch_all_box" onclick="whatchAllBtnEvent(event)" style="display:none;">
               <img
                 src="../../image/schedule/full_battery.png"
                 class="speech_menu_icon" />
@@ -196,5 +197,6 @@ public String tryGetDate(Connection connection, String userIDX , String date, St
   }
   var day= "<%=date%>"
   var countDate="<%=countDateALL%>"
-  makeCalander(day,countDate)
+  getData(countDate)
+  makeCalander(day)
 </script>

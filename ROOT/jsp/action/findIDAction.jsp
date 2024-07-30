@@ -23,7 +23,6 @@ public String tryGetID(Connection connection,String phone) {
         if(result.next()){
             userID=result.getString("id");
         }
-
     } 
     catch (SQLException e) {
         userID = "";

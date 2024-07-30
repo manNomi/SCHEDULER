@@ -38,21 +38,9 @@ public String tryLogin(Connection connection,HttpServletRequest request,String i
 }
     public void loginSession(Connection connection,HttpServletRequest request,String userIDX ,String color ,String first_login) {
         HttpSession session = request.getSession(true);
-        session.setAttribute("user_id", userIDX);
+        session.setAttribute("idx", userIDX);
         session.setAttribute("color",color);
         session.setAttribute("login",first_login);
-        try {
-            if (first_login=="T"){
-                String getSetSQL = "UPDATE User SET first_login = 'F' WHERE idx = ? ";
-                PreparedStatement stmt = connection.prepareStatement(getSetSQL);
-                
-                stmt.setString(1,userIDX);
-                ResultSet result = stmt.executeQuery();
-            }
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 %>
 
@@ -73,8 +61,13 @@ public String tryLogin(Connection connection,HttpServletRequest request,String i
 <script>
     var userIDX="<%=userIDX%>"
     if (userIDX!=""){
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = (now.getMonth() + 1).toString().padStart(2, "0"); // 두 자리 형식으로
+        const day = now.getDate().toString().padStart(2, "0"); // 두 자리 형식으로
+        const formattedDate = year+"-"+month+"-"+day;
         alert("로그인 성공 ")
-        location.href="../page/schedule_page.jsp"
+        location.href = "../page/schedule_page.jsp?day="+formattedDate;
     }
     else{
         alert(userIDX)

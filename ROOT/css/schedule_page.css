@@ -115,6 +115,9 @@ td {
   border: solid 1px;
   padding: 10px;
   cursor: pointer;
+  line-height: 20px;
+  width: 14%;
+  height: 20%;
 }
 th {
   height: 50px;

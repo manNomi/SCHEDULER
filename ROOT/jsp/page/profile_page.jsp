@@ -69,7 +69,7 @@
         <button class="btn_gray"></button>
         <button class="btn_gray"></button>
       </nav>
-      <article id="delte_content">
+      <article id="delete_content">
         <p id="delete_text">삭제하시겠습니까?</p>
         <div>
           <button class="profile_btn" onclick="deleteEvent()">삭제</button>

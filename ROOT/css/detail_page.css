@@ -18,17 +18,16 @@ body {
   background-color: white;
   border: 3px solid;
   border-color: var(--container-border);
-
   border-radius: 3px;
-  z-index: 1;
 }
 
-#detail_btn_list {
+.detail_btn_list {
   display: flex;
   flex-direction: row;
   align-items: center;
   width: 80%;
   height: 40px;
+  padding: 10px;
   border-radius: 10px;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
@@ -69,11 +68,12 @@ input[type="time"] {
   border: none;
   width: 200px;
   padding: 10px;
-  box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--input-time-shadow);
   border-radius: 8px;
   text-align: center;
   font-size: 100%;
   margin: 10px;
+  outline-color: var(--color-black);
 }
 #schedule_input {
   width: 70%;
@@ -105,10 +105,11 @@ input[type="time"] {
 
 #shcedule_container {
   width: 80%;
+  height: 80%;
 }
 
 #schedule_scroll {
-  height: 60%;
+  max-height: 70%;
   margin: 20px;
   overflow-y: auto;
   margin-top: 5px;
@@ -155,8 +156,70 @@ input[type="time"] {
 .schedule_text {
   border: none;
   pointer-events: none;
+  margin-left: 10px;
+  outline-color: var(--color-black);
+}
+.schedule_time {
+  pointer-events: none;
 }
 
 #content_back {
   transform: rotateY(-180deg);
+}
+
+#placehorder {
+  width: 60%;
+  padding: 10px;
+}
+
+#modal_container {
+  display: none;
+  position: fixed;
+  flex-direction: column;
+  align-items: center;
+  width: 60%;
+  height: 60%;
+  border: solid 4px var(--menu-color);
+  background-color: var(--color-white);
+  z-index: 1;
+}
+
+.opacity_box {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  background-color: var(--color-black);
+}
+
+#modal_content {
+  display: flex;
+  margin-top: 10%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#modal_text {
+  font-size: 30px;
+  font-weight: 900;
+  margin-bottom: 20px;
+}
+
+#btn_box {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.modal_btn {
+  width: 50px;
+  height: 30px;
+  line-height: 30px;
+  border: 0px;
+  border-radius: 3px;
+  background-color: var(--menu-color);
+  color: var(--color-white);
+  cursor: pointer;
+  margin: 10px;
 }

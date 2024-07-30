@@ -47,7 +47,7 @@ public String tryJoin(Connection connection, User user ) {
         stmt.setString(4, user.phone);
         stmt.setString(5, user.team);
         stmt.setString(6, user.userClass);
-        stmt.setString(7, "#ffcceb");
+        stmt.setString(7, "ffcceb");
         stmt.executeUpdate();
     }
     catch(SQLException e){

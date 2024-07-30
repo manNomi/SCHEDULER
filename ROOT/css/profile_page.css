@@ -168,10 +168,10 @@ body {
   width: 100%;
   height: 100%;
   opacity: 0.5;
-  background-color: var(--color-white);
+  background-color: var(--color-black);
 }
 
-#delte_content {
+#delete_content {
   display: flex;
   margin-top: 10%;
   flex-direction: column;

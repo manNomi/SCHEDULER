@@ -1,11 +1,43 @@
 var color = ["body", "theme_btn"];
 var watchState = "TEAM";
-var stateColor = "#ffcceb";
+var stateColor = "";
 var stateSize = "small";
+const chooseDate = document.getElementById("choose_date");
 
-function makeCalander(date) {
-  var year = date.split("-")[0];
-  var month = date.split("-")[1];
+function makeCalander(date, countDate) {
+  date = date.split("-");
+  var year = date[0];
+  var month = date[1];
+  var day_format = date[2];
+  var myCount = countDate.split("_")[0].split("]")[1];
+  var allCount = countDate.split("_")[1].split("]")[1];
+  myCount = myCount.split("-");
+  allCount = allCount.split("-");
+  myCount.pop();
+  allCount.pop();
+  var countDateList = [];
+  var processedCounts = new Set();
+  myCount.forEach(function (count) {
+    // 이미 처리된 항목은 무시
+    if (processedCounts.has(count)) return;
+    // 현재 항목과 일치하는 항목을 필터링하여 countList를 생성
+    var countList = myCount.filter(function (ele) {
+      return ele === count;
+    });
+    // myCount에서 countList 요소들을 제거합니다.
+    myCount = myCount.filter(function (ele) {
+      return ele !== count;
+    });
+    // countList와 해당 항목을 countDateList에 추가합니다.
+    countDateList.push([count, countList.length]);
+
+    // 현재 항목을 처리된 항목 세트에 추가합니다.
+    processedCounts.add(count);
+  });
+
+  console.log(countDateList);
+
+  chooseDate.value = `${year}-${month}-${day_format}`;
   const dateObj = new Date(year, month - 1, 1);
   const days = ["일", "월", "화", "수", "목", "금", "토"];
   var day = days[dateObj.getDay()];
@@ -24,9 +56,6 @@ function makeCalander(date) {
       dayNumber++;
     }
   }
-  console.log(dayList);
-  console.log(last[month - 1]);
-
   var weeks = [];
   for (var i = 0; i < dayList.length; i += 7) {
     weeks.push(dayList.slice(i, i + 7));
@@ -49,54 +78,55 @@ function makeCalander(date) {
     }
     calander.appendChild(weekOfDay);
   });
-
   weeks.forEach(function (week) {
     var dayOfWeek = document.createElement("tr");
     week.forEach(function (present_week, index) {
       var day = document.createElement("td");
-      day.innerHTML = setShedule(year, month, present_week);
+      day.innerHTML = present_week;
+      day.id = present_week;
+      var plan = 0;
+
+      countDateList.forEach(function (ele) {
+        var idxText = "";
+        if (present_week < 10) {
+          idxText = "0" + present_week;
+        }
+        if (ele[0] == idxText) {
+          plan = ele[1];
+        }
+      });
+      if (plan >= 1) {
+        day.innerHTML = `${present_week} <br><br>일정 : ${plan}`;
+      }
+
       if ((index == 0) & (present_week != "")) {
         day.style.backgroundColor = "#F4D4D4";
       } else if ((index == 6) & (present_week != "")) {
         day.style.backgroundColor = "#D2D8F4";
       }
+      day.onclick = function (ele) {
+        var chooseDateValue = chooseDate.value.split("-");
+        var date = ele.target.id;
+        if (date < 10) {
+          date = "0" + date;
+        }
+        var url =
+          "../../jsp/page/detail_page.jsp?day=" +
+          chooseDateValue[0] +
+          "-" +
+          chooseDateValue[1] +
+          "-" +
+          date;
+        location.href = url;
+      };
       dayOfWeek.appendChild(day);
     });
     calander.appendChild(dayOfWeek);
   });
 }
 
-function setPresentDate() {
-  var chooseDate = document.getElementById("choose_date");
-  chooseDate.addEventListener("change", function () {
-    makeCalander(chooseDate.value);
-    setDateEvent();
-  });
-}
-
-function initDate() {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = (now.getMonth() + 1).toString().padStart(2, "0"); // 두 자리 형식으로
-  const day = now.getDate().toString().padStart(2, "0"); // 두 자리 형식으로
-  const formattedDate = `${year}-${month}-${day}`;
-  makeCalander(`${year}-${month}`);
-  setDateEvent();
-  const chooseDate = document.getElementById("choose_date");
-  chooseDate.value = formattedDate;
-}
-
-function setShedule(year, month, day) {
-  var scheduleCOunt = 0;
-  var text = day;
-  if (scheduleCOunt >= 1) {
-    text = `${day}<br><br>일정 : ${scheduleCOunt}`;
-  }
-  return text;
-}
-
 function exitBtnEvent() {
-  location.href = "../../jsp/page/index.jsp";
+  location.href = "../../jsp/action/logoutAction.jsp";
 }
 
 function menuBtnEvent() {
@@ -180,28 +210,6 @@ function reSizeCalanderEvent() {
     inputClander.style.display = "block";
   }
 }
-
-function openScehdulePage(day) {
-  var chooseDate = document.getElementById("choose_date");
-  var chooseDateValue = chooseDate.value.split("-");
-
-  var url =
-    "../../jsp/page/detail_page.jsp?year=" +
-    chooseDateValue[0] +
-    "&month=" +
-    chooseDateValue[1];
-  location.href = "../../jsp/page/detail_page.jsp";
+function setPresentDate(e) {
+  location.href = "../../jsp/page/schedule_page.jsp?day=" + e.target.value;
 }
-
-function setDateEvent() {
-  var dateList = document.getElementById("month").querySelectorAll("td");
-  dateList.forEach(function (day) {
-    day.onclick = function () {
-      openScehdulePage(day.innerHTML);
-    };
-  });
-}
-
-initDate();
-setPresentDate();
-colorSet();

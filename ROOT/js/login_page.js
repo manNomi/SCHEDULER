@@ -16,8 +16,10 @@ function initPlaceHorder() {
 }
 function setLoginEvent() {
   if (checkLoginError() == true) {
-    alert("로그인 시도");
-    location.href = "../../jsp/page/schedule_page.jsp";
+    var idValue = document.getElementById("login_id_box").value;
+    var pwValue = document.getElementById("login_pw_box").value;
+    location.href =
+      "../../jsp/action/loginAction.jsp?id=" + idValue + "&pw=" + pwValue;
   } else {
     alert("입력이 올바르지 않습니다");
   }

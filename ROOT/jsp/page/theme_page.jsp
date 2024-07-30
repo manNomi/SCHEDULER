@@ -25,23 +25,23 @@
     <title>스케줄러</title>
   </head>
   <body>
-    <div id="theme_container">
-      <div id="btn_lsit">
+    <main id="theme_container">
+      <header id="btn_lsit">
         <button
           id="theme_red_btn"
           class="btn_red"
           onclick="exitBtnEvent()"></button>
         <button class="btn_gray"></button>
         <button class="btn_gray"></button>
-      </div>
-      <div id="choose_container">
+      </header>
+      <article id="choose_container">
         <div id="choose_box">
           <input type="color" id="color_choose_input" />
           <p>색상 선택</p>
         </div>
         <button id="color_check_btn" onclick="checkBtnEvent()">확인</button>
-      </div>
-    </div>
+      </article>
+    </main>
     <script src="../../js/theme_page.js"></script>
   </body>
 </html>

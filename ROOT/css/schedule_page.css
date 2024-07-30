@@ -7,6 +7,56 @@ body {
   justify-content: center;
   align-items: center;
 }
+#modal_guide {
+  display: none;
+  position: fixed;
+  flex-direction: column;
+  align-items: center;
+  width: 60%;
+  height: 60%;
+  border: solid 2px;
+  border-color: var(--container-border);
+  background-color: var(--color-white);
+  z-index: 1;
+}
+#guide_check_btn {
+  width: 50px;
+  height: 30px;
+  line-height: 30px;
+  border: 0px;
+  border-radius: 3px;
+  background-color: var(--default-color);
+  color: white;
+  cursor: pointer;
+}
+#guide_btn_lsit {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 80%;
+  height: 40px;
+  border-radius: 10px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  margin-top: 2vh;
+  background-color: var(--default-color);
+}
+#guide_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+#guide_box {
+  display: flex;
+  flex-direction: column;
+}
+.guide_line {
+  display: flex;
+  align-items: center;
+  margin: 5px;
+}
+
 #page_container {
   display: flex;
   flex-direction: column;
@@ -15,8 +65,7 @@ body {
   height: 90%;
   border: solid 2px;
   border-color: var(--container-border);
-
-  background-color: white;
+  background-color: var(--color-white);
 }
 
 #btn_list {
@@ -25,33 +74,12 @@ body {
   width: 100%;
   margin: 10px;
 }
-
 #red_btn {
-  width: 30px;
-  height: 30px;
-  border: none;
-  background-color: #f24822;
-  border-radius: 50%;
   margin-left: 10px;
-  cursor: pointer;
 }
 #yellow_btn {
-  width: 30px;
-  height: 30px;
-  border: none;
-  background-color: #ffcd29;
-  border-radius: 50%;
   margin-left: 10px;
-  cursor: pointer;
-}
-#green_btn {
-  width: 30px;
-  height: 30px;
-  border: none;
-  background-color: #14ae5c;
-  border-radius: 50%;
-  margin-left: 10px;
-  cursor: pointer;
+  margin-right: 10px;
 }
 
 input[type="date"] {
@@ -98,7 +126,7 @@ th {
   width: 100%;
   height: 100%;
   opacity: 0.5;
-  background-color: white;
+  background-color: var(--color-black);
 }
 #speech_icon {
   display: none;

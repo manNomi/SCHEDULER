@@ -4,7 +4,6 @@
   border: none;
   background-color: #f24822;
   border-radius: 50%;
-  margin-left: 30px;
   cursor: pointer;
 }
 
@@ -15,4 +14,21 @@
   background-color: #b3b3b3;
   border-radius: 50%;
   margin-left: 10px;
+}
+
+.btn_yellow {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: #ffcd29;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.btn_green {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: #14ae5c;
+  border-radius: 50%;
+  cursor: pointer;
 }

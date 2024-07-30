@@ -102,7 +102,6 @@ function exitBtnEvent() {
 function menuBtnEvent() {
   var speechMenu = document.getElementById("speech_icon");
   makeOpacityBox(speechMenu, 0.5);
-  speechMenu.style.display = "flex";
 }
 
 function setProfileMoveEvent() {
@@ -127,6 +126,7 @@ function whatchAllBtnEvent() {
 }
 
 function makeOpacityBox(modal, opacityNumber) {
+  modal.style.display = "flex";
   var opacityBox = document.createElement("div");
   opacityBox.classList = "opacity_box";
   opacityBox.style.opacity = opacityNumber;
@@ -141,6 +141,13 @@ function opacitySpeachDone() {
   var speechMenu = document.getElementById("speech_icon");
   var opacityBox = document.querySelector(".opacity_box");
   speechMenu.style.display = "none";
+  opacityBox.remove();
+}
+
+function opacityGuideDone() {
+  var modal = document.getElementById("modal_guide");
+  modal.style.display = "none";
+  var opacityBox = document.querySelector(".opacity_box");
   opacityBox.remove();
 }
 

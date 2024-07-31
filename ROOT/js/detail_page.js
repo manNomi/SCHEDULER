@@ -83,14 +83,16 @@ function btnRemove(presentName) {
 var clickTime = "";
 var clickText = "";
 
+var setTime = "";
+var setText = "";
+
 function scheduleBtnEvent(renameBtn, deleteBtn, saveBtn, backBtn) {
   renameBtn.addEventListener("click", function () {
     renameBtn.style.display = "none";
     deleteBtn.style.display = "none";
     saveBtn.style.display = "block";
     backBtn.style.display = "block";
-    var inputText =
-      renameBtn.parentElement.parentElement.querySelectorAll("input");
+    var inputText = renameBtn.parentNode.parentNode.querySelectorAll("input");
     clickTime = inputText[0].value;
     clickText = inputText[1].value;
     inputText.forEach(function (ele) {
@@ -103,6 +105,9 @@ function scheduleBtnEvent(renameBtn, deleteBtn, saveBtn, backBtn) {
   });
 
   saveBtn.addEventListener("click", function () {
+    var inputText = renameBtn.parentNode.parentNode.querySelectorAll("input");
+    setTime = inputText[0].value;
+    setText = inputText[1].value;
     makeOpacityBox("수정하시겠습니까?", "수정", 0.5);
   });
 
@@ -135,15 +140,20 @@ function makeOpacityBox(text, btnText, opacityNumber) {
 }
 
 function saveEvent() {
-  saveBtn.style.display = "none";
-  backBtn.style.display = "none";
-  renameBtn.style.display = "block";
-  deleteBtn.style.display = "block";
-  var inputText =
-    renameBtn.parentElement.parentElement.querySelectorAll("input");
-  inputText.forEach(function (ele) {
-    ele.style.pointerEvents = "none";
-  });
+  var url =
+    "../action/schUpdateAction.jsp?newTime=" +
+    setTime +
+    "&newText=" +
+    setText +
+    "&oldTime=" +
+    clickTime +
+    "&oldText=" +
+    clickText +
+    "&date=" +
+    dateText +
+    "&watchState=" +
+    watchState;
+  location.href = url;
 }
 
 function deleteEvent() {

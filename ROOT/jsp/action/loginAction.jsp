@@ -66,7 +66,6 @@ public String tryLogin(Connection connection,HttpServletRequest request,String i
         location.href = "../page/schedule_page.jsp?day="+formattedDate;
     }
     else{
-        alert(userIDX)
         alert("계정이 존재하지 않습니다")
         window.history.back()
     }

@@ -210,6 +210,7 @@ public TeamResult tryGetTeamSchedule(Connection connection, String idx, String d
           <div id="schedule_scroll"></div>
         </div>
       </main>
+      
       <main id="modal_container">
         <nav id="modal_btn_list" class="detail_btn_list">
           <button id="red_btn" class="btn_red" onclick="modalDoneEvnet()"></button>

@@ -1,4 +1,4 @@
-var stateColor = "#ffcceb";
+var stateColor = "";
 var profileBack = document.getElementById("profile_text_box");
 var renameContainer = document.getElementById("profile_rename_container");
 var presentState = "default";
@@ -43,7 +43,7 @@ function initPlacehorder() {
   renameContainer.insertBefore(
     makePlacehorder(
       "profile_pw-old",
-      "이전 비밀번호",
+      "현재 비밀번호",
       "#EEEEEE",
       "black",
       "password"
@@ -73,12 +73,16 @@ function initPlacehorder() {
   renameContainer.style.display = "none";
 }
 
-function initText() {
+function initText(id, name, phone, position, teamName) {
+  var nameTag = document.getElementById("user_name");
+  nameTag.innerHTML = name;
+  var teamTag = document.getElementById("team_name");
+  teamTag.innerHTML = teamName;
+
   let User = {
-    id: "",
-    password: "",
-    phone: "",
-    class: "",
+    id: id,
+    phone: phone,
+    class: position,
   };
   Object.entries(User).forEach(function (userData) {
     var text = document.createElement("p");
@@ -93,8 +97,15 @@ function renameBtnEvent() {
   if (oldPw == newPw) {
     alert("비밀번호가 똑같습니다 ");
   } else if (errorCount.length == 3) {
-    alert("수정 시도");
-    location.href = "../../jsp/page/index.jsp";
+    if (pw != oldPw) {
+      alert("현재 비밀번호가 틀립니다");
+    } else {
+      location.href =
+        "../../jsp/action/profileRenameAction.jsp?old-pw=" +
+        oldPw +
+        "&new-pw=" +
+        newPw;
+    }
   } else {
     alert("올바르게 입력하세요");
   }
@@ -128,6 +139,4 @@ function makeOpacityBox(modal, opacityNumber) {
   });
 }
 
-colorSet();
-initText();
 initPlacehorder();

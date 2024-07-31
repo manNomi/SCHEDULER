@@ -47,6 +47,74 @@ public ScheduleResult tryGetSchedule(Connection connection, String idx, String d
 }
 %>
 
+<%!
+public class TeamResult {
+    private List<String> contentList;
+    private List<String> scheduleList;
+    private List<String> nameList;
+    public TeamResult(List<String> contentList, List<String> scheduleList, List<String> nameList) {
+        this.contentList = contentList;
+        this.scheduleList = scheduleList;
+        this.nameList = nameList;
+    }
+    public List<String> getContentList() { return contentList; }
+    public List<String> getScheduleList() { return scheduleList; }
+    public List<String> getNameList() { return nameList; }
+}
+
+public TeamResult tryGetTeamSchedule(Connection connection, String idx, String date) {
+    List<String> contentList = new ArrayList<>();
+    List<String> scheduleList = new ArrayList<>();
+    List<String> nameList = new ArrayList<>();
+    try {
+      String getSelectSQL=  "SELECT content , schedule_time ,u.name " +
+                            "FROM Schedule s " +
+                            "JOIN User u ON s.user_idx = u.idx " +
+                            "WHERE u.team_name = ( " +
+                            "    SELECT team_name " +
+                            "    FROM User " +
+                            "    WHERE idx = ? " +
+                            ") " +
+                            "AND s.day =? ";
+        PreparedStatement stmt = connection.prepareStatement(getSelectSQL);
+        stmt.setString(1, idx);
+        stmt.setString(2, date);
+        ResultSet result = stmt.executeQuery();
+        while (result.next()) {
+            String content = result.getString("content");
+            String time = result.getString("schedule_time");
+            String name=result.getString("u.name");
+            contentList.add(content);
+            scheduleList.add(time);
+            nameList.add(name);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace(); // 예외를 로그로 기록합니다.
+    }
+    return new TeamResult(contentList, scheduleList,nameList);
+}
+%>
+
+<%!
+public String tryGetMyName(Connection connection,String idx) {
+    String name = "";
+    try {
+        // 사용자 데이터 삽입 시도
+        String getSelectSQL = "SELECT name FROM User WHERE idx = ?";
+        PreparedStatement stmt = connection.prepareStatement(getSelectSQL);
+        stmt.setString(1,idx);
+        ResultSet result = stmt.executeQuery();
+        if (result.next()) {
+                name =result.getString("name");
+            }
+    } 
+    catch (SQLException e) {
+        name = "";
+    }
+    return name;
+}
+%>
+
 <%
     request.setCharacterEncoding("utf-8");
     Connection connection = null;
@@ -54,15 +122,28 @@ public ScheduleResult tryGetSchedule(Connection connection, String idx, String d
     String userIDX = (session_detail != null) ? (String) session_detail.getAttribute("idx") : null;
     String color = (session_detail != null) ? (String) session_detail.getAttribute("color") : null;
     String date = request.getParameter("day");
+    String watchState = request.getParameter("watchState");
     try {
         Class.forName("org.mariadb.jdbc.Driver");
         connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
     } catch (Exception e) {
         e.printStackTrace();
     }
-    ScheduleResult result = tryGetSchedule(connection, userIDX, date);
-    List<String> contentList = result.getContentList();
-    List<String> scheduleList = result.getScheduleList();
+    List<String> contentList = new ArrayList<>(); 
+    List<String> scheduleList = new ArrayList<>(); 
+    List<String> nameList = new ArrayList<>(); 
+    String myName = tryGetMyName(connection,userIDX);
+    if (watchState.equals("USER")){
+      ScheduleResult resultUser = tryGetSchedule(connection, userIDX, date);
+      contentList = resultUser.getContentList();
+      scheduleList = resultUser.getScheduleList();
+    }
+    else if (watchState.equals("TEAM")){
+      TeamResult result = tryGetTeamSchedule(connection, userIDX, date);
+      contentList = result.getContentList();
+      scheduleList = result.getScheduleList();
+      nameList = result.getNameList();
+    }
 %>
 
 <!DOCTYPE html>
@@ -129,11 +210,23 @@ public ScheduleResult tryGetSchedule(Connection connection, String idx, String d
       <% for (int i = 0; i < scheduleList.size(); i++) { %>
           "<%= scheduleList.get(i) %>"<%= i < scheduleList.size() - 1 ? "," : "" %>
       <% } %>]
+  var nameList=[]
+  var watchState= "<%=watchState%>"
+  console.log(watchState)
+  if (watchState=="TEAM"){
+    nameList = [
+      <% for (int i = 0; i < nameList.size(); i++) { %>
+          "<%= nameList.get(i) %>"<%= i < nameList.size() - 1 ? "," : "" %>
+      <% } %>]
+  }
   var date ="<%=date%>"
   initTime(date)
   dateText=date
   var colocCode="<%=color%>"
   stateColor="#"+colocCode;
   setColor();
-  makeInputScroll(contentList,scheduleList);
+  var presentName = "<%=myName%>"
+  console.log(presentName)
+  makeInputScroll(contentList,scheduleList,nameList);
+  btnRemove(presentName)
 </script>

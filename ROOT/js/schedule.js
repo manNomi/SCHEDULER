@@ -8,7 +8,10 @@ var countMyList = [];
 var countAllList = [];
 function getData(countDate) {
   var myCount = countDate.split("_")[0].split("]")[1];
-  var allCount = countDate.split("_")[1].split("]")[1];
+  var allCount = "";
+  if (countDate.split("_")[1] != null) {
+    allCount = countDate.split("_")[1].split("]")[1];
+  }
   if (allCount != null) {
     allCount = allCount.split("-");
     allCount.pop();
@@ -135,9 +138,12 @@ function makeCalander(date) {
         }
       });
       if (plan >= 1) {
-        day.innerHTML = `${present_week} <br><br>일정 : ${plan}`;
+        if (watchState == "TEAM") {
+          day.innerHTML = `${present_week} <br><br>전체일정 : ${plan}`;
+        } else {
+          day.innerHTML = `${present_week} <br><br>개인일정 : ${plan}`;
+        }
       }
-
       if ((index == 0) & (present_week != "")) {
         day.style.backgroundColor = "#F4D4D4";
       } else if ((index == 6) & (present_week != "")) {
@@ -155,7 +161,9 @@ function makeCalander(date) {
           "-" +
           chooseDateValue[1] +
           "-" +
-          date;
+          date +
+          "&watchState=" +
+          watchState;
         location.href = url;
       };
       dayOfWeek.appendChild(day);

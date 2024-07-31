@@ -2,8 +2,8 @@ var stateColor = "";
 var modal = document.getElementById("modal_container");
 var dateText = "";
 
-function makeInputScroll(contentList, timeList) {
-  console.log(contentList, timeList);
+function makeInputScroll(contentList, timeList, nameList) {
+  console.log(contentList, timeList, nameList);
 
   var scheduleScroll = document.getElementById("schedule_scroll");
   contentList.forEach(function (content, index) {
@@ -20,8 +20,17 @@ function makeInputScroll(contentList, timeList) {
     var scheduleText = document.createElement("input");
     scheduleText.value = content;
     scheduleText.classList = "schedule_text";
+
     scheduleContainer.appendChild(scheduleTime);
     scheduleContainer.appendChild(scheduleText);
+    var nameText = document.createElement("p");
+    if (nameList[index] != null) {
+      nameText.innerHTML = nameList[index];
+      nameText.classList = "schedule_text";
+      nameText.classList.add("name_tag");
+      nameText.id = nameList[index];
+      scheduleContainer.appendChild(nameText);
+    }
 
     var btnBox = document.createElement("div");
     btnBox.classList = "schedule_box";
@@ -55,6 +64,20 @@ function makeInputScroll(contentList, timeList) {
     );
     scheduleContainer.style.borderColor = stateColor;
     scheduleScroll.appendChild(scheduleContainer);
+  });
+}
+
+function btnRemove(presentName) {
+  var nameTagList = document.querySelectorAll(".name_tag");
+  console.log(nameTagList);
+  nameTagList.forEach(function (tag) {
+    if (tag.id != presentName) {
+      tag.parentNode.querySelectorAll(".img_btn").forEach(function (btn) {
+        btn.style.pointerEvents = "none";
+        btn.style.opacity = "0";
+      });
+    }
+    console.log(tag.id);
   });
 }
 

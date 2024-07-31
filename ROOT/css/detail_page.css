@@ -158,6 +158,7 @@ input[type="time"] {
   pointer-events: none;
   margin-left: 10px;
   outline-color: var(--color-black);
+  overflow: hidden;
 }
 .schedule_time {
   pointer-events: none;

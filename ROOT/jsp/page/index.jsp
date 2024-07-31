@@ -10,8 +10,6 @@
 <%-- 셀렉트 할때만 필요하다  --%>
 <%@ page import="java.sql.ResultSet" %>
 
-
-
 <%!
 public String tryGetSelect(Connection connection) {
     String team = "";
@@ -34,6 +32,8 @@ public String tryGetSelect(Connection connection) {
 <%
     request.setCharacterEncoding("utf-8");
     Connection connection = null;
+    HttpSession session_index = request.getSession(false);
+    String userIDX = (session_index != null) ? (String) session_index.getAttribute("idx") : null;
     try {
         Class.forName("org.mariadb.jdbc.Driver");
         connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
@@ -180,7 +180,16 @@ public String tryGetSelect(Connection connection) {
 </html>
 
 <script>
-  console.log("ㅂㅈㅂㅈㄷ")
+  console.log(userIDX)
+  var userIDX= "<%=userIDX%>"
+  if (userIDX!=null){
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = (now.getMonth() + 1).toString().padStart(2, "0"); // 두 자리 형식으로
+    const day = now.getDate().toString().padStart(2, "0"); // 두 자리 형식으로
+    const formattedDate = year+"-"+month+"-"+day;
+    location.href = "../jsp/page/schedule_page.jsp?day="+formattedDate;
+}
   var teamList = "<%=team%>".split("-")
   teamList.pop()
   initSelectBox(teamList)

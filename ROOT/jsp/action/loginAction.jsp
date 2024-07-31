@@ -25,9 +25,7 @@ public String tryLogin(Connection connection,HttpServletRequest request,String i
         ResultSet result = stmt.executeQuery();
         if(result.next()){
             userIDX=result.getString("idx");
-            userColor=result.getString("theme_color");
-            first_login=result.getString("first_login");
-            loginSession(connection,request,userIDX,userColor,first_login);
+            loginSession(connection,request,userIDX);
         }
     } 
     catch (SQLException e) {
@@ -36,11 +34,9 @@ public String tryLogin(Connection connection,HttpServletRequest request,String i
     }
     return userIDX;
 }
-    public void loginSession(Connection connection,HttpServletRequest request,String userIDX ,String color ,String first_login) {
+    public void loginSession(Connection connection,HttpServletRequest request,String userIDX) {
         HttpSession session = request.getSession(true);
         session.setAttribute("idx", userIDX);
-        session.setAttribute("color",color);
-        session.setAttribute("login",first_login);
     }
 %>
 
@@ -74,5 +70,4 @@ public String tryLogin(Connection connection,HttpServletRequest request,String i
         alert("계정이 존재하지 않습니다")
         window.history.back()
     }
-    
 </script>

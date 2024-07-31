@@ -10,6 +10,51 @@
 <%-- 셀렉트 할때만 필요하다  --%>
 <%@ page import="java.sql.ResultSet" %>
 
+
+
+
+<%!
+  public class User {
+    String position="";
+    String colorCode="";
+    String name="";
+        public User(String pos,String col, String myName) {
+        this.position = pos;
+        this.colorCode = col;
+        this.name = myName;
+    }
+    String getPostion() { return position; }
+    String getColorCode() { return colorCode; }
+    String getName() { return name; }
+}
+
+  public User tryGetUserData(Connection connection,String userIDX) {
+      String position="";
+      String colorCode="";
+      String name="";
+      try {
+        String positionSQL = "SELECT position , theme_color , name  FROM User WHERE idx = ? ";
+        PreparedStatement post = connection.prepareStatement(positionSQL);
+        post.setString(1,userIDX);
+        ResultSet result = post.executeQuery();
+        if (result.next()) {
+            position = result.getString("position");
+            colorCode = result.getString("theme_color");
+            name = result.getString("name");
+          }
+          post.close();
+        }
+      catch (SQLException e) {
+        e.printStackTrace();
+      }
+      return new User(position,colorCode,name);
+    }
+%>
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="kr">
   <head>

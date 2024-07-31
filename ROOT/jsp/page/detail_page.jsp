@@ -96,23 +96,41 @@ public TeamResult tryGetTeamSchedule(Connection connection, String idx, String d
 %>
 
 <%!
-public String tryGetMyName(Connection connection,String idx) {
-    String name = "";
-    try {
-        // 사용자 데이터 삽입 시도
-        String getSelectSQL = "SELECT name FROM User WHERE idx = ?";
-        PreparedStatement stmt = connection.prepareStatement(getSelectSQL);
-        stmt.setString(1,idx);
-        ResultSet result = stmt.executeQuery();
-        if (result.next()) {
-                name =result.getString("name");
-            }
-    } 
-    catch (SQLException e) {
-        name = "";
+  public class User {
+    String position="";
+    String colorCode="";
+    String name="";
+        public User(String pos,String col, String myName) {
+        this.position = pos;
+        this.colorCode = col;
+        this.name = myName;
     }
-    return name;
+    String getPostion() { return position; }
+    String getColorCode() { return colorCode; }
+    String getName() { return name; }
 }
+
+  public User tryGetUserData(Connection connection,String userIDX) {
+      String position="";
+      String colorCode="";
+      String name="";
+      try {
+        String positionSQL = "SELECT position , theme_color , name  FROM User WHERE idx = ? ";
+        PreparedStatement post = connection.prepareStatement(positionSQL);
+        post.setString(1,userIDX);
+        ResultSet result = post.executeQuery();
+        if (result.next()) {
+            position = result.getString("position");
+            colorCode = result.getString("theme_color");
+            name = result.getString("name");
+          }
+          post.close();
+        }
+      catch (SQLException e) {
+        e.printStackTrace();
+      }
+      return new User(position,colorCode,name);
+    }
 %>
 
 <%
@@ -120,29 +138,41 @@ public String tryGetMyName(Connection connection,String idx) {
     Connection connection = null;
     HttpSession session_detail = request.getSession(false);
     String userIDX = (session_detail != null) ? (String) session_detail.getAttribute("idx") : null;
-    String color = (session_detail != null) ? (String) session_detail.getAttribute("color") : null;
     String date = request.getParameter("day");
     String watchState = request.getParameter("watchState");
+    String checkSession="";
     try {
         Class.forName("org.mariadb.jdbc.Driver");
         connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
     } catch (Exception e) {
         e.printStackTrace();
     }
+    String position="";
+    String colorCode= "";
+    String name ="";
+
+    User resultUserData = tryGetUserData(connection, userIDX);
+    position= resultUserData.getPostion();
+    colorCode= resultUserData.getColorCode();
+    name= resultUserData.getName();
+
     List<String> contentList = new ArrayList<>(); 
     List<String> scheduleList = new ArrayList<>(); 
     List<String> nameList = new ArrayList<>(); 
-    String myName = tryGetMyName(connection,userIDX);
+    
     if (watchState.equals("USER")){
       ScheduleResult resultUser = tryGetSchedule(connection, userIDX, date);
       contentList = resultUser.getContentList();
       scheduleList = resultUser.getScheduleList();
     }
-    else if (watchState.equals("TEAM")){
+    else if (watchState.equals("TEAM") & position.equals("팀장")){
       TeamResult result = tryGetTeamSchedule(connection, userIDX, date);
       contentList = result.getContentList();
       scheduleList = result.getScheduleList();
       nameList = result.getNameList();
+    }
+    else{
+      checkSession="권한이 없습니다";
     }
 %>
 
@@ -202,6 +232,13 @@ public String tryGetMyName(Connection connection,String idx) {
 </html>
 
 <script>
+  var checkSession ="<%=checkSession%>"
+  if (checkSession!=""){
+    alert(checkSession)
+    history.back()
+  }
+  var nameList=[]
+
   var contentList = [
       <% for (int i = 0; i < contentList.size(); i++) { %>
           "<%= contentList.get(i)%>"<%= i < contentList.size() - 1 ? "," : "" %>
@@ -210,7 +247,6 @@ public String tryGetMyName(Connection connection,String idx) {
       <% for (int i = 0; i < scheduleList.size(); i++) { %>
           "<%= scheduleList.get(i) %>"<%= i < scheduleList.size() - 1 ? "," : "" %>
       <% } %>]
-  var nameList=[]
   var watchState= "<%=watchState%>"
   if (watchState=="TEAM"){
     nameList = [
@@ -221,11 +257,10 @@ public String tryGetMyName(Connection connection,String idx) {
   var date ="<%=date%>"
   initTime(date)
   dateText=date
-  var colocCode="<%=color%>"
-  stateColor="#"+colocCode;
+  var colorCode="<%=colorCode%>"
+  stateColor="#"+colorCode;
   setColor();
-  var presentName = "<%=myName%>"
-  console.log(presentName)
+  var presentName = "<%=name%>"
   makeInputScroll(contentList,scheduleList,nameList);
   btnRemove(presentName)
 </script>

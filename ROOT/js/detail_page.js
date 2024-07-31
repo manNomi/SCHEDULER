@@ -3,8 +3,6 @@ var modal = document.getElementById("modal_container");
 var dateText = "";
 
 function makeInputScroll(contentList, timeList, nameList) {
-  console.log(contentList, timeList, nameList);
-
   var scheduleScroll = document.getElementById("schedule_scroll");
   contentList.forEach(function (content, index) {
     var scheduleContainer = document.createElement("div");
@@ -23,6 +21,7 @@ function makeInputScroll(contentList, timeList, nameList) {
 
     scheduleContainer.appendChild(scheduleTime);
     scheduleContainer.appendChild(scheduleText);
+
     var nameText = document.createElement("p");
     if (nameList[index] != null) {
       nameText.innerHTML = nameList[index];

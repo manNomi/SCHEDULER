@@ -11,7 +11,6 @@
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="java.time.LocalDate, java.time.YearMonth" %>
 
-
 <%! 
 public String tryGetDate(Connection connection, String userIDX , String date, String position) {
     String year = date.split("-")[0];
@@ -64,18 +63,63 @@ public String tryGetDate(Connection connection, String userIDX , String date, St
 }
 %>
 
+<%!
+  public class User {
+    String position="";
+    String colorCode="";
+    String firstLogin="";
+        public User(String pos,String col, String log) {
+        this.position = pos;
+        this.colorCode = col;
+        this.firstLogin = log;
+    }
+    String getPostion() { return position; }
+    String getColorCode() { return colorCode; }
+    String getFristLogin() { return firstLogin; }
+}
+
+  public User tryGetUserData(Connection connection,String userIDX) {
+      String position="";
+      String colorCode="";
+      String firstLogin="";
+      try {
+        String positionSQL = "SELECT position , theme_color , first_login FROM User WHERE idx = ? ";
+        PreparedStatement post = connection.prepareStatement(positionSQL);
+        post.setString(1,userIDX);
+        ResultSet result = post.executeQuery();
+        if (result.next()) {
+            position = result.getString("position");
+            colorCode = result.getString("theme_color");
+            firstLogin = result.getString("first_login");
+          }
+          post.close();
+        }
+      catch (SQLException e) {
+        e.printStackTrace();
+      }
+      return new User(position,colorCode,firstLogin);
+    }
+%>
+
 <%
     request.setCharacterEncoding("utf-8");
     Connection connection = null;
     HttpSession session_schedule = request.getSession(false);
     String userIDX = (session_schedule != null) ? (String) session_schedule.getAttribute("idx") : null;
-    String color = (session_schedule != null) ? (String) session_schedule.getAttribute("color") : null;
-    String firstLogin = (session_schedule != null) ? (String) session_schedule.getAttribute("login") : null;
     String position="";
+    String colorCode= "";
+    String firstLogin ="";
     String date = request.getParameter("day");
     String countDateALL="";
      Class.forName("org.mariadb.jdbc.Driver");
     connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
+    
+    User resultUser = tryGetUserData(connection, userIDX);
+    position= resultUser.getPostion();
+    colorCode= resultUser.getColorCode();
+    firstLogin= resultUser.getFristLogin();
+
+    countDateALL=tryGetDate(connection,userIDX,date,position);
     try {
       if ("T".equals(firstLogin)){
           String getSetSQL = "UPDATE User SET first_login = 'F' WHERE idx = ? ";
@@ -89,20 +133,6 @@ public String tryGetDate(Connection connection, String userIDX , String date, St
     catch (SQLException e) {
         e.printStackTrace();
     }
-    try {
-      String positionSQL = "SELECT position FROM User WHERE idx = ? ";
-      PreparedStatement post = connection.prepareStatement(positionSQL);
-      post.setString(1,userIDX);
-      ResultSet result = post.executeQuery();
-      post.close();
-      if (result.next()) {
-          position = result.getString("position");
-        }
-      }
-    catch (SQLException e) {
-      e.printStackTrace();
-    }
-    countDateALL=tryGetDate(connection,userIDX,date,position);
 %>
 
 <!DOCTYPE html>
@@ -181,14 +211,14 @@ public String tryGetDate(Connection connection, String userIDX , String date, St
 
 <script>
   var loginCheck= "<%=firstLogin%>";
-  var colocCode="<%=color%>"
+  var colocCode="<%=colorCode%>"
+  var position="<%=position%>"
   stateColor="#"+colocCode
   colorSet();
   if (loginCheck=="T"){
     var modal = document.getElementById("modal_guide");
     makeOpacityBox(modal,0.5);
   }
-  var position="<%=position%>"
   console.log(position)
   if (position=="팀장"){
     document.getElementById("watch_all_box").style.display="flex"

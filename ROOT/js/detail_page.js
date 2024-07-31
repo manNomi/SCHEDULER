@@ -216,7 +216,9 @@ function insertScheduleEvent() {
     "&time=" +
     timeValue +
     "&content=" +
-    contentValue;
+    contentValue +
+    "&watchState=" +
+    watchState;
 }
 
 function setPlacehorderSchedule() {

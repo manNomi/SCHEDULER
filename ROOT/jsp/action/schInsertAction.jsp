@@ -31,6 +31,7 @@ public String tryInsert(Connection connection, String user_idx , String content,
     String day = request.getParameter("day");
     String time = request.getParameter("time");
     String content = request.getParameter("content");
+    String watchState = request.getParameter("watchState");
     Connection connection = null;
     try {
         Class.forName("org.mariadb.jdbc.Driver");
@@ -44,10 +45,11 @@ public String tryInsert(Connection connection, String user_idx , String content,
 
 <script>
     var errorMessage="<%=insertError%>"
+    var watchState="<%=watchState%>"
     var day= "<%=day%>"
     if (errorMessage=="false"){
         alert("추가되었습니다")
-        location.href="../page/detail_page.jsp?day="+day
+        location.href="../page/detail_page.jsp?day="+day+"&watchState="+watchState
     }
     else{
         var text =errorMessage.split("key")[1].trim()

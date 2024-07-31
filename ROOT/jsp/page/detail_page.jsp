@@ -212,7 +212,6 @@ public String tryGetMyName(Connection connection,String idx) {
       <% } %>]
   var nameList=[]
   var watchState= "<%=watchState%>"
-  console.log(watchState)
   if (watchState=="TEAM"){
     nameList = [
       <% for (int i = 0; i < nameList.size(); i++) { %>

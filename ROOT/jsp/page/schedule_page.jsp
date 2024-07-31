@@ -64,7 +64,6 @@ public String tryGetDate(Connection connection, String userIDX , String date, St
 }
 %>
 
-
 <%
     request.setCharacterEncoding("utf-8");
     Connection connection = null;
@@ -105,7 +104,6 @@ public String tryGetDate(Connection connection, String userIDX , String date, St
     }
     countDateALL=tryGetDate(connection,userIDX,date,position);
 %>
-
 
 <!DOCTYPE html>
 <html lang="kr">

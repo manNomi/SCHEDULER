@@ -111,6 +111,17 @@ public String tryGetDate(Connection connection, String userIDX , String date, St
     String firstLogin ="";
     String date = request.getParameter("day");
     String countDateALL="";
+
+    if(date==null){
+      java.util.Calendar now = java.util.Calendar.getInstance();
+      int year = now.get(java.util.Calendar.YEAR);
+      int month = now.get(java.util.Calendar.MONTH) + 1; // Month is 0-based in Calendar
+      int day = now.get(java.util.Calendar.DAY_OF_MONTH);
+      String monthStr = String.format("%02d", month);
+      String dayStr = String.format("%02d", day);
+      date = year + "-" + monthStr + "-" + dayStr;
+    }
+
      Class.forName("org.mariadb.jdbc.Driver");
     connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
     
@@ -118,7 +129,6 @@ public String tryGetDate(Connection connection, String userIDX , String date, St
     position= resultUser.getPostion();
     colorCode= resultUser.getColorCode();
     firstLogin= resultUser.getFristLogin();
-
     countDateALL=tryGetDate(connection,userIDX,date,position);
     try {
       if ("T".equals(firstLogin)){

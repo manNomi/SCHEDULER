@@ -190,7 +190,7 @@ public String tryGetSelect(Connection connection) {
     const month = (now.getMonth() + 1).toString().padStart(2, "0"); // 두 자리 형식으로
     const day = now.getDate().toString().padStart(2, "0"); // 두 자리 형식으로
     const formattedDate = year+"-"+month+"-"+day;
-    location.href = "../page/schedule_page.jsp?day="+formattedDate;
+    location.href = "./schedule_page.jsp?day="+formattedDate;
 }
   var teamList = "<%=team%>".split("-")
   teamList.pop()

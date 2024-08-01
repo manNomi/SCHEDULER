@@ -57,13 +57,8 @@ public String tryLogin(Connection connection,HttpServletRequest request,String i
 <script>
     var userIDX="<%=userIDX%>"
     if (userIDX!=""){
-        const now = new Date();
-        const year = now.getFullYear();
-        const month = (now.getMonth() + 1).toString().padStart(2, "0"); // 두 자리 형식으로
-        const day = now.getDate().toString().padStart(2, "0"); // 두 자리 형식으로
-        const formattedDate = year+"-"+month+"-"+day;
         alert("로그인 성공 ")
-        location.href = "../page/schedule_page.jsp?day="+formattedDate;
+        location.href = "../page/schedule_page.jsp?";
     }
     else{
         alert("계정이 존재하지 않습니다")

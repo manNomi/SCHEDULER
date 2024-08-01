@@ -10,6 +10,52 @@
 <%-- 셀렉트 할때만 필요하다  --%>
 <%@ page import="java.sql.ResultSet" %>
 
+<%!
+  public class User {
+    String colorCode="";
+        public User(String col) {
+        this.colorCode = col;
+    }
+    String getColorCode() { return colorCode; }
+}
+
+  public User tryGetUserData(Connection connection,String userIDX) {
+      String colorCode="";
+      try {
+        String positionSQL = "SELECT theme_color FROM User WHERE idx = ? ";
+        PreparedStatement post = connection.prepareStatement(positionSQL);
+        post.setString(1,userIDX);
+        ResultSet result = post.executeQuery();
+        if (result.next()) {
+            colorCode = result.getString("theme_color");
+          }
+          post.close();
+        }
+      catch (SQLException e) {
+        e.printStackTrace();
+      }
+      return new User(colorCode);
+    }
+%>
+
+<%
+    request.setCharacterEncoding("utf-8");
+    Connection connection = null;
+    HttpSession session_index = request.getSession(false);
+    String userIDX = null;
+    if (session_index != null) {
+        userIDX = (String) session_index.getAttribute("idx");
+    }
+    try {
+        Class.forName("org.mariadb.jdbc.Driver");
+        connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    User user = tryGetUserData(connection,userIDX);
+    String colorCode=user.getColorCode();
+%>
+
 <!DOCTYPE html>
 <html lang="kr">
   <head>
@@ -45,3 +91,14 @@
     <script src="../../js/theme_page.js"></script>
   </body>
 </html>
+
+<script>
+  var loginCheck= <%=userIDX%>;
+  if (loginCheck==null){
+    alert("잘못된 접근입니다")
+    history.back()
+  }
+  var colocCode="<%=colorCode%>"
+  stateColor="#"+colocCode
+  colorSet();
+</script>

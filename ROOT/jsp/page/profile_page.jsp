@@ -64,7 +64,6 @@ public User tryGetUserData(Connection connection, String userIDX) {
             themeColor = result.getString("theme_color");
             teamName = result.getString("team_name");
         }
-
         post.close();
     } catch (SQLException e) {
         e.printStackTrace();
@@ -166,7 +165,7 @@ public User tryGetUserData(Connection connection, String userIDX) {
         <p id="delete_text">삭제하시겠습니까?</p>
         <div>
           <button class="profile_btn" onclick="deleteEvent()">삭제</button>
-          <button class="profile_btn" onclick="deleteDoneEvnet()">취소</button>
+          <button class="profile_btn" onclick="deleteDoneEvent()">취소</button>
         </div>
       </article>
   </main>
@@ -176,15 +175,19 @@ public User tryGetUserData(Connection connection, String userIDX) {
 </html>
 
 <script>
-    var id = "<%=id%>"
-    var pw = "<%=pw%>"
-    var name = "<%=name%>"
-    var phone = "<%=phone%>"
-    var position = "<%=position%>"
-    var themeColor = "<%=themeColor%>"
-    var teamName = "<%=teamName%>"
-    initText(id,name,phone,position,teamName)
-    stateColor="#"+themeColor
-    colorSet();
-
+  var IDX=<%=userIDX%>
+  if (IDX==null){
+    alert("잘못된 접근입니다")
+    location.href="./index.jsp"
+  }
+  var id = "<%=id%>"
+  var pw = "<%=pw%>"
+  var name = "<%=name%>"
+  var phone = "<%=phone%>"
+  var position = "<%=position%>"
+  var themeColor = "<%=themeColor%>"
+  var teamName = "<%=teamName%>"
+  initText(id,name,phone,position,teamName)
+  stateColor="#"+themeColor
+  colorSet();
 </script>

@@ -10,8 +10,8 @@
 public String tryDelete(Connection connection, String user_idx , String content, String day, String schedule_time ) {
     String error="false";
     try{
-        String insertSQL = "DELETE FROM Schedule WHERE user_idx  = ? AND content = ? AND day = ? AND schedule_time = ?";
-        PreparedStatement stmt = connection.prepareStatement(insertSQL);
+        String deleteSQL = "DELETE FROM Schedule WHERE user_idx  = ? AND content = ? AND day = ? AND schedule_time = ?";
+        PreparedStatement stmt = connection.prepareStatement(deleteSQL);
         stmt.setString(1, user_idx);
         stmt.setString(2, content);
         stmt.setString(3, day);
@@ -41,11 +41,11 @@ public String tryDelete(Connection connection, String user_idx , String content,
         e.printStackTrace();
     }
     
-    String insertError=tryDelete(connection,userIDX,content, day,time);
+    String deleteError=tryDelete(connection,userIDX,content, day,time);
 %>
 
 <script>
-    var errorMessage="<%=insertError%>"
+    var errorMessage="<%=deleteError%>"
     console.log(errorMessage)
     var watchState="<%=watchState%>"
     var day= "<%=day%>"

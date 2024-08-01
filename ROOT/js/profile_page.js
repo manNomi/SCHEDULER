@@ -1,7 +1,10 @@
 var stateColor = "";
 var profileBack = document.getElementById("profile_text_box");
 var renameContainer = document.getElementById("profile_rename_container");
+var modalDelete = document.getElementById("delete_container");
 var presentState = "default";
+var front = document.getElementById("front_container");
+var back = document.getElementById("back_container");
 
 function colorSet() {
   var backColor = [document.querySelector("body")];
@@ -9,9 +12,6 @@ function colorSet() {
     ele.style.backgroundColor = stateColor;
   });
 }
-
-var front = document.getElementById("front_container");
-var back = document.getElementById("back_container");
 
 function reNameEvent() {
   console.log("수정");
@@ -115,27 +115,28 @@ function exitEvent() {
   location.href = "../../jsp/page/schedule_page.jsp";
 }
 
+function deleteDoneEvent() {
+  var opa = document.querySelector(".opacity_box");
+  modalDelete.style.display = "none";
+  opa.remove();
+}
+
 function deleteOpenEvent() {
-  var modalDelete = document.getElementById("delete_container");
-  makeOpacityBox(modalDelete, 0.5);
+  makeOpacityBox(0.5);
 }
 
 function deleteEvent() {
-  alert("삭제 시도 ");
-  location.href = "../../jsp/page/index.jsp";
+  location.href = "../../jsp/action/profileDeleteAction.jsp";
 }
 
-function cancleEvent() {}
-
-function makeOpacityBox(modal, opacityNumber) {
-  modal.style.display = "flex";
+function makeOpacityBox(opacityNumber) {
+  modalDelete.style.display = "flex";
   var opacityBox = document.createElement("div");
   opacityBox.classList = "opacity_box";
   opacityBox.style.opacity = opacityNumber;
   document.querySelector("body").appendChild(opacityBox);
   opacityBox.addEventListener("click", function () {
-    modal.style.display = "none";
-    opacityBox.remove();
+    deleteDoneEvent();
   });
 }
 

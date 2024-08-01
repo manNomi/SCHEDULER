@@ -1,9 +1,10 @@
-var stateColor = "#ffcceb";
+var stateColor = "";
 
 function checkBtnEvent() {
   var themePresentColor = document.getElementById("color_choose_input");
-  stateColor = themePresentColor.value;
-  colorSet();
+  var clickColor = themePresentColor.value;
+  clickColor = clickColor.split("#")[1];
+  location.href = "../action/colorUpdateAction.jsp?colorCode=" + clickColor;
 }
 
 function colorSet() {
@@ -20,5 +21,3 @@ function colorSet() {
 function exitBtnEvent() {
   location.href = "../../jsp/page/schedule_page.jsp";
 }
-
-colorSet();

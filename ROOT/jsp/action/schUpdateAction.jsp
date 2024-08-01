@@ -53,7 +53,6 @@ public String tryUpdate(Connection connection,String userIDX,String newTime,Stri
     var check = "<%=check%>"
     var date = "<%=date%>"
     var watchState = "<%=watchState%>"
-    console.log(check)
     if (check!=""){
         alert("잘못된 입력")
         history.back()

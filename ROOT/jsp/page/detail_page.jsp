@@ -17,9 +17,10 @@
 public class ScheduleResult {
     private List<String> contentList;
     private List<String> scheduleList;
-    public ScheduleResult(List<String> contentList, List<String> scheduleList) {
+    public ScheduleResult(List<String> contentList, List<String> scheduleList ) {
         this.contentList = contentList;
         this.scheduleList = scheduleList;
+
     }
     public List<String> getContentList() { return contentList; }
     public List<String> getScheduleList() { return scheduleList; }
@@ -52,22 +53,26 @@ public class TeamResult {
     private List<String> contentList;
     private List<String> scheduleList;
     private List<String> nameList;
-    public TeamResult(List<String> contentList, List<String> scheduleList, List<String> nameList) {
+    private List<String> userIDXList;
+    public TeamResult(List<String> contentList, List<String> scheduleList, List<String> nameList, List<String> userIDXList) {
         this.contentList = contentList;
         this.scheduleList = scheduleList;
         this.nameList = nameList;
+        this.userIDXList = userIDXList;
     }
     public List<String> getContentList() { return contentList; }
     public List<String> getScheduleList() { return scheduleList; }
     public List<String> getNameList() { return nameList; }
+    public List<String> getuserIDXList() { return userIDXList; }
 }
 
 public TeamResult tryGetTeamSchedule(Connection connection, String idx, String date) {
     List<String> contentList = new ArrayList<>();
     List<String> scheduleList = new ArrayList<>();
     List<String> nameList = new ArrayList<>();
+    List<String> userIDXList = new ArrayList<>();
     try {
-      String getSelectSQL=  "SELECT content , schedule_time ,u.name " +
+      String getSelectSQL=  "SELECT content , schedule_time ,u.name , u.idx " +
                             "FROM Schedule s " +
                             "JOIN User u ON s.user_idx = u.idx " +
                             "WHERE u.team_name = ( " +
@@ -75,7 +80,7 @@ public TeamResult tryGetTeamSchedule(Connection connection, String idx, String d
                             "    FROM User " +
                             "    WHERE idx = ? " +
                             ") " +
-                            "AND s.day =? ";
+                            "AND s.day = ? ";
         PreparedStatement stmt = connection.prepareStatement(getSelectSQL);
         stmt.setString(1, idx);
         stmt.setString(2, date);
@@ -84,14 +89,16 @@ public TeamResult tryGetTeamSchedule(Connection connection, String idx, String d
             String content = result.getString("content");
             String time = result.getString("schedule_time");
             String name=result.getString("u.name");
+            String userIDX=result.getString("u.idx");
             contentList.add(content);
             scheduleList.add(time);
             nameList.add(name);
+            userIDXList.add(userIDX);
         }
     } catch (SQLException e) {
         e.printStackTrace(); // 예외를 로그로 기록합니다.
     }
-    return new TeamResult(contentList, scheduleList,nameList);
+    return new TeamResult(contentList, scheduleList,nameList,userIDXList);
 }
 %>
 
@@ -127,7 +134,7 @@ public TeamResult tryGetTeamSchedule(Connection connection, String idx, String d
           post.close();
         }
       catch (SQLException e) {
-        e.printStackTrace();
+        e.getMessage();
       }
       return new User(position,colorCode,name);
     }
@@ -159,6 +166,7 @@ public TeamResult tryGetTeamSchedule(Connection connection, String idx, String d
     List<String> contentList = new ArrayList<>(); 
     List<String> scheduleList = new ArrayList<>(); 
     List<String> nameList = new ArrayList<>(); 
+    List<String> userIDXList = new ArrayList<>(); 
     
     if (watchState.equals("USER")){
       ScheduleResult resultUser = tryGetSchedule(connection, userIDX, date);
@@ -170,6 +178,7 @@ public TeamResult tryGetTeamSchedule(Connection connection, String idx, String d
       contentList = result.getContentList();
       scheduleList = result.getScheduleList();
       nameList = result.getNameList();
+      userIDXList = result.getuserIDXList();
     }
     else{
       checkSession="권한이 없습니다";
@@ -239,6 +248,10 @@ public TeamResult tryGetTeamSchedule(Connection connection, String idx, String d
     history.back()
   }
   var nameList=[]
+  var userIDXList = [
+      <% for (int i = 0; i < userIDXList.size(); i++) { %>
+          "<%= userIDXList.get(i)%>"<%= i < userIDXList.size() - 1 ? "," : "" %>
+      <% } %>];
 
   var contentList = [
       <% for (int i = 0; i < contentList.size(); i++) { %>
@@ -255,13 +268,13 @@ public TeamResult tryGetTeamSchedule(Connection connection, String idx, String d
           "<%= nameList.get(i) %>"<%= i < nameList.size() - 1 ? "," : "" %>
       <% } %>]
   }
+  console.log(contentList)
   var date ="<%=date%>"
   initTime(date)
   dateText=date
   var colorCode="<%=colorCode%>"
   stateColor="#"+colorCode;
   setColor();
-  var presentName = "<%=name%>"
-  makeInputScroll(contentList,scheduleList,nameList);
-  btnRemove(presentName)
+  var userIDX = "<%=userIDX%>"
+  makeInputScroll(contentList,scheduleList,nameList,userIDXList);
 </script>

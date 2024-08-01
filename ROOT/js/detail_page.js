@@ -2,8 +2,15 @@ var stateColor = "";
 var modal = document.getElementById("modal_container");
 var dateText = "";
 
-function makeInputScroll(contentList, timeList, nameList) {
+var clickTime = "";
+var clickText = "";
+
+var setTime = "";
+var setText = "";
+
+function makeInputScroll(contentList, timeList, nameList, userIDXList) {
   var scheduleScroll = document.getElementById("schedule_scroll");
+
   contentList.forEach(function (content, index) {
     var scheduleContainer = document.createElement("div");
     scheduleContainer.classList = "schedule_list";
@@ -11,7 +18,6 @@ function makeInputScroll(contentList, timeList, nameList) {
     var scheduleTime = document.createElement("input");
     scheduleTime.type = "time";
     var time = timeList[index].split(":");
-    console.log(`${time[0]}:${time[1]}`);
     scheduleTime.value = `${time[0]}:${time[1]}`;
     scheduleTime.classList = "schedule_time";
 
@@ -33,6 +39,7 @@ function makeInputScroll(contentList, timeList, nameList) {
 
     var btnBox = document.createElement("div");
     btnBox.classList = "schedule_box";
+    btnBox.id = userIDXList[index];
 
     var scheduleRename = document.createElement("button");
     scheduleRename.classList = "img_btn";
@@ -43,7 +50,6 @@ function makeInputScroll(contentList, timeList, nameList) {
     var scheduleSave = document.createElement("button");
     scheduleSave.classList = "img_btn";
     scheduleSave.classList.add("schedule_save");
-
     var scheduleBack = document.createElement("button");
     scheduleBack.classList = "img_btn";
     scheduleBack.classList.add("schedule_back");
@@ -52,6 +58,7 @@ function makeInputScroll(contentList, timeList, nameList) {
     btnBox.appendChild(scheduleDelete);
     btnBox.appendChild(scheduleSave);
     btnBox.appendChild(scheduleBack);
+
     scheduleSave.style.display = "none";
     scheduleBack.style.display = "none";
     scheduleContainer.appendChild(btnBox);
@@ -64,27 +71,22 @@ function makeInputScroll(contentList, timeList, nameList) {
     scheduleContainer.style.borderColor = stateColor;
     scheduleScroll.appendChild(scheduleContainer);
   });
+  if (userIDXList[0] != null) {
+    btnRemove(userIDX);
+  }
 }
 
-function btnRemove(presentName) {
-  var nameTagList = document.querySelectorAll(".name_tag");
-  console.log(nameTagList);
-  nameTagList.forEach(function (tag) {
-    if (tag.id != presentName) {
+function btnRemove(presentIDX) {
+  var tagList = document.querySelectorAll(".schedule_box");
+  tagList.forEach(function (tag) {
+    if (tag.id != presentIDX) {
       tag.parentNode.querySelectorAll(".img_btn").forEach(function (btn) {
         btn.style.pointerEvents = "none";
         btn.style.opacity = "0";
       });
     }
-    console.log(tag.id);
   });
 }
-
-var clickTime = "";
-var clickText = "";
-
-var setTime = "";
-var setText = "";
 
 function scheduleBtnEvent(renameBtn, deleteBtn, saveBtn, backBtn) {
   renameBtn.addEventListener("click", function () {
@@ -101,9 +103,11 @@ function scheduleBtnEvent(renameBtn, deleteBtn, saveBtn, backBtn) {
     });
   });
   deleteBtn.addEventListener("click", function () {
+    var inputText = renameBtn.parentNode.parentNode.querySelectorAll("input");
+    setTime = inputText[0].value;
+    setText = inputText[1].value;
     makeOpacityBox("삭제하시겠습니까?", "삭제", 0.5);
   });
-
   saveBtn.addEventListener("click", function () {
     var inputText = renameBtn.parentNode.parentNode.querySelectorAll("input");
     setTime = inputText[0].value;
@@ -157,7 +161,16 @@ function saveEvent() {
 }
 
 function deleteEvent() {
-  location.reload(true);
+  var url =
+    "../action/schDeleteAction.jsp?Time=" +
+    setTime +
+    "&Text=" +
+    setText +
+    "&day=" +
+    dateText +
+    "&watchState=" +
+    watchState;
+  location.href = url;
 }
 
 function modalEvent(e) {

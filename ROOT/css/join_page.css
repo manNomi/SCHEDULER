@@ -171,20 +171,15 @@
 
 #join_next_btn {
   position: absolute;
-  width: 30px;
+  width: 60px;
   height: 30px;
-  background-image: url("../image/join/arrow.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  border-radius: 50%;
+  border-radius: 3px;
   background-color: var(--color-white);
   cursor: pointer;
   margin-right: 40px;
   top: 90%;
   left: 90%;
   transform: translate(-50%, -50%);
-  transform: rotate(-90deg);
 }
 
 #class_container {

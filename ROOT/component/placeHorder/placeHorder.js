@@ -14,7 +14,9 @@ function makePlacehorder(name, placeText, color, text, inputType) {
   placehorderBox.id = name + "_box";
   placehorderBox.type = inputType;
   container.appendChild(palcehorderText);
-  placehorderBox.addEventListener("input", function () {
+  placehorderBox.addEventListener("input", handleInputBlur);
+  placehorderBox.addEventListener("change", handleInputBlur);
+  function handleInputBlur() {
     palcehorderText.style.animation = "placehorder_to_small 0.3s forwards";
     placehorderBox.style.fontSize = "13px";
     placehorderBox.style.paddingTop = "25px";
@@ -24,7 +26,7 @@ function makePlacehorder(name, placeText, color, text, inputType) {
       placehorderBox.style.fontSize = "15px";
       placehorderBox.style.paddingTop = "0px";
     }
-  });
+  }
   container.appendChild(placehorderBox);
 
   var nameList = name.split("_");

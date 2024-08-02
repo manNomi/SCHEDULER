@@ -221,7 +221,6 @@ public String tryGetDate(Connection connection, String userIDX , String date, St
 
 <script>
   var loginCheck= "<%=firstLogin%>";
-  console.log(loginCheck)
   var colocCode="<%=colorCode%>"
   var position="<%=position%>"
   stateColor="#"+colocCode
@@ -232,7 +231,7 @@ public String tryGetDate(Connection connection, String userIDX , String date, St
   }
   else if (loginCheck==""){
     alert("잘못된 권한 입니다")
-    location.herf="./index.jsp"
+    location.herf="../action/logoutAction.jsp"
   }
   console.log(position)
   if (position=="팀장"){

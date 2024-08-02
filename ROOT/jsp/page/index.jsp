@@ -91,14 +91,14 @@ public String tryGetSelect(Connection connection) {
                 <input id="tmp_join_pw">
                 <input id="tmp_join_pw_check">
                 <div id="join_next_box" onclick="checkJoinError()">
-                  <button id="join_next_btn"></button>
+                  <button id="join_next_btn">1/3 다음</button>
                 </div>
               </section>
               <section id="content_privacy_join" class="join_file_content" >
                 <input id="tmp_join_name">
                 <input id="tmp_join_phone">
                 <div id="join_next_box" onclick="checkJoinError()">
-                  <button id="join_next_btn"></button>
+                  <button id="join_next_btn">2/3 다음</button>
                 </div>
               </section>
               <section id="content_profile_join" class="join_file_content" >
@@ -114,7 +114,7 @@ public String tryGetSelect(Connection connection) {
                   </div>
                 </div>
                 <div id="join_next_box" onclick="checkJoinError()">
-                  <button id="join_next_btn"></button>
+                  <button id="join_next_btn">3/3 가입</button>
                 </div>
               </section>
             </article>
@@ -184,13 +184,9 @@ public String tryGetSelect(Connection connection) {
 
 <script>
   var userIDX= "<%=userIDX%>"
+  alert(userIDX)
   if (userIDX!="null"){
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = (now.getMonth() + 1).toString().padStart(2, "0"); // 두 자리 형식으로
-    const day = now.getDate().toString().padStart(2, "0"); // 두 자리 형식으로
-    const formattedDate = year+"-"+month+"-"+day;
-    location.href = "./schedule_page.jsp?day="+formattedDate;
+    location.href = "./schedule_page.jsp"
 }
   var teamList = "<%=team%>".split("-")
   teamList.pop()

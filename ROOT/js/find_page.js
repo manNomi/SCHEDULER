@@ -54,7 +54,6 @@ function exitBtnClickEvent() {
 }
 
 function setFindIDEvnet() {
-  console.log(errorCount);
   if (errorCount.length == 1) {
     var phone = document.getElementById("find_phone_box").value;
     location.href = "../../jsp/action/findIDAction.jsp?phone=" + phone;

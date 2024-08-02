@@ -15,9 +15,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: white;
+  background-color: var(--color-white);
   border: 3px solid;
-  border-color: var(--container-border);
+  border-color: var(--color-black);
   border-radius: 3px;
 }
 
@@ -36,16 +36,6 @@ body {
 
 #date {
   margin: 10px;
-}
-
-#detail_red_btn {
-  width: 30px;
-  height: 30px;
-  border: none;
-  background-color: #f24822;
-  border-radius: 50%;
-  margin-left: 10px;
-  cursor: pointer;
 }
 
 #insert_box {
@@ -80,11 +70,11 @@ input[type="time"] {
   height: 30px;
 }
 #schedule_input {
-  border: 2px solid #bbbbbb;
+  border: 2px solid;
   border-radius: 3px;
 }
 #schedule_input:focus {
-  outline: 2px solid #999999;
+  outline: 2px solid;
   border: none;
 }
 
@@ -94,7 +84,7 @@ input[type="time"] {
   background-position: center;
   width: 40px;
   height: 40px;
-  background-color: white;
+  background-color: var(--color-white);
   border: none;
   cursor: pointer;
   margin: 5px;
@@ -127,12 +117,11 @@ input[type="time"] {
 }
 
 ::-webkit-scrollbar {
-  background-color: #eeeeee;
+  background-color: var(--select-back);
   width: 30px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #ffcceb;
   border-radius: 3px;
   height: 40px;
 }

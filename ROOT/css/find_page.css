@@ -5,7 +5,7 @@
   align-items: center;
   width: 0%;
   height: 0;
-  border-color: var(--container-border);
+  border-color: var(--color-black);
   overflow: hidden;
 }
 

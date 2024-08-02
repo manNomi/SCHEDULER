@@ -192,10 +192,9 @@ public TeamResult tryGetTeamSchedule(Connection connection, String idx, String d
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../../reset/reset.css">
     <link rel="stylesheet" type="text/css" href="../../rootCSS/rootCSS.css">
-
-    <link rel="stylesheet" type="text/css" href="../../css/detail_page.css" />
     <link rel="stylesheet" type="text/css" href="../../component/button/button.css"/>
     <link rel="stylesheet" type="text/css" href="../../component/placeHorder/placeHorder.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/detail_page.css" />
     <title>스케줄러</title>
 </head>
 <body>

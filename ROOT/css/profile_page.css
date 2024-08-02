@@ -17,40 +17,18 @@ body {
   height: 90%;
   border: solid 2px;
   background-color: white;
-  border-color: var(--container-border);
+  border-color: var(--color-black);
 }
 .btn_list {
   position: relative;
   display: flex;
   width: 100%;
-  margin: 10px;
+  padding: 10px;
 }
-#red_btn {
-  width: 30px;
-  height: 30px;
-  border: none;
-  background-color: #f24822;
-  border-radius: 50%;
-  margin-left: 10px;
-  cursor: pointer;
-}
+
 #yellow_btn {
-  width: 30px;
-  height: 30px;
-  border: none;
-  background-color: #ffcd29;
-  border-radius: 50%;
   margin-left: 10px;
-  cursor: pointer;
-}
-#green_btn {
-  width: 30px;
-  height: 30px;
-  border: none;
-  background-color: #14ae5c;
-  border-radius: 50%;
-  margin-left: 10px;
-  cursor: pointer;
+  margin-right: 10px;
 }
 
 #profile_content_container {
@@ -147,7 +125,7 @@ body {
   border: 0px;
   border-radius: 3px;
   background-color: var(--menu-color);
-  color: white;
+  color: var(--color-white);
   cursor: pointer;
 }
 

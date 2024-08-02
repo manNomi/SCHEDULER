@@ -47,7 +47,6 @@ function initPlaceHorderJoin() {
 function initSelectBox(team) {
   var classNameList = team;
   var classScroll = document.getElementById("class_scroll");
-  console.log(classNameList);
   classNameList.forEach(function (element) {
     var className = document.createElement("div");
     className.innerHTML = element;
@@ -151,7 +150,6 @@ function checkJoinError() {
   var comparisonId = ["id", "pw", "pw-check"];
   var comparisonPrivacy = ["id", "pw", "pw-check", "name", "phone"];
   var comparisonProfile = ["id", "pw", "pw-check"];
-  console.log(errorCount);
   if (tabState == "ID") {
     const inputSet = new Set(errorCount);
     const comparisonSet = new Set(comparisonId);

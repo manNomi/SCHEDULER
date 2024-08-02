@@ -119,9 +119,9 @@ public User tryGetUserData(Connection connection, String userIDX) {
   <body>
     <div id="profile_container">
       <div id="profile_btn_list" class="btn_list">
-        <button id="red_btn" onclick="exitEvent()"></button>
-        <button id="yellow_btn" onclick="reNameEvent() "></button>
-        <button id="green_btn" onclick="deleteOpenEvent()"></button>
+        <button id="red_btn" class="btn_red" onclick="exitEvent()"></button>
+        <button id="yellow_btn" class="btn_yellow" onclick="reNameEvent() "></button>
+        <button id="green_btn" class="btn_green" onclick="deleteOpenEvent()"></button>
       </div>
       <div id="profile_content_container">
         <div id="back_container">
@@ -157,7 +157,7 @@ public User tryGetUserData(Connection connection, String userIDX) {
 
     <main id="delete_container">
       <nav id="delete_btn_list" class="btn_list">
-        <button id="red_btn" class="btn_red" onclick="exitBtnEvent()"></button>
+        <button id="red_btn" class="btn_red" onclick="deleteDoneEvent()"></button>
         <button class="btn_gray"></button>
         <button class="btn_gray"></button>
       </nav>

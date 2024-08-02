@@ -14,7 +14,6 @@
   margin: 5px;
   padding: 10px;
   pointer-events: none;
-  color: #262626;
 }
 
 .placehorder_box {
@@ -25,14 +24,14 @@
   border-radius: 5px;
   margin: 5px;
   padding: 10px;
-  color: white;
+  color: var(--color-white);
   line-height: 30px;
 }
 
 .error_guide_message {
   width: 100%;
   text-align: end;
-  color: black;
+  color: var(--color-black);
   font-size: 13px;
   height: 20px;
   line-height: 20px;

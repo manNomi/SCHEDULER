@@ -14,7 +14,6 @@ function colorSet() {
 }
 
 function reNameEvent() {
-  console.log("수정");
   if (presentState == "default") {
     front.style.transform = "rotateY(-180deg)";
     back.style.transform = "rotateY(-0deg)";
@@ -27,12 +26,13 @@ function reNameEvent() {
     setTimeout(function () {
       front.style.transform = "";
       back.style.transform = "";
-      console.log("Qwe");
       presentState = "default";
       profileBack.style.display = "block";
       renameContainer.style.display = "none";
-      Array.from(renameContainer.children).forEach(function (tag) {
-        tag.remove();
+      Array.from(renameContainer.querySelectorAll("input")).forEach(function (
+        tag
+      ) {
+        tag.parentNode.remove();
       });
       initPlacehorder();
     }, 1000);

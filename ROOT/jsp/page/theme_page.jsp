@@ -98,7 +98,7 @@
     alert("잘못된 접근입니다")
     history.back()
   }
-  var colocCode="<%=colorCode%>"
-  stateColor="#"+colocCode
+  var colorCode="<%=colorCode%>"
+  stateColor="#"+colorCode
   colorSet();
 </script>

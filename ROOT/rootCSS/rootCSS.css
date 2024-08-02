@@ -1,17 +1,28 @@
 @import "../reset/reset.css";
 
 :root {
-  --container-border: black;
-  --bakcground-white: white;
   --color-white: white;
   --color-black: black;
+
   --header-btn-list: #425c73;
+
   --file-shape-back: #758694;
   --file-shpae-click: #373a40;
+
   --select-back: #eeeeee;
   --select-color: #999999;
   --scroll-bar-back: #e1e1e1;
+
   --menu-color: #757575;
+
   --default-color: #ffcceb;
+
   --input-time-shadow: 2px 2px 7px rgba(0, 0, 0, 0.08);
+  --input-date-shadow: 2px 2px 7px rgba(0, 0, 0, 0.2);
+  --input-date-color: #bbbbbb;
+
+  --btn-red: #f24822;
+  --btn-gray: #b3b3b3;
+  --btn-yellow: #ffcd29;
+  --btn-green: #14ae5c;
 }

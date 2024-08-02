@@ -43,7 +43,6 @@ public String tryUpdate(Connection connection,String userIDX,String colorCode) {
 
 <script>
     var check = "<%=check%>"
-console.log(check)
     if (check==""){
         alert("정보가 변경되었습니다")
         location.href="../page/schedule_page.jsp";

@@ -215,7 +215,7 @@ public String tryGetDate(Connection connection, String userIDX , String date, St
         <input id="choose_date" type="date" onchange="setPresentDate(event)" />
       </div>
       <table id="month"></table>
-    <script src="../../js/schedule.js"></script>
+    <script src="../../js/schedule_page.js"></script>
   </body>
 </html>
 

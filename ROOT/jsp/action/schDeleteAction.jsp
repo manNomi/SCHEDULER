@@ -46,7 +46,6 @@ public String tryDelete(Connection connection, String user_idx , String content,
 
 <script>
     var errorMessage="<%=deleteError%>"
-    console.log(errorMessage)
     var watchState="<%=watchState%>"
     var day= "<%=day%>"
     if (errorMessage=="false"){

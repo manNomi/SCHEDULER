@@ -114,8 +114,6 @@ function makeInputError(page, type, box) {
     pw_box.addEventListener("blur", handleBlur);
   } else {
     box.addEventListener("blur", function (event) {
-      console.log(errorCount);
-
       if (regex.test(event.target.value)) {
         error.innerHTML = "";
         box.style.border = "none";

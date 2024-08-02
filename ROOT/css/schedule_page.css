@@ -15,7 +15,7 @@ body {
   width: 60%;
   height: 60%;
   border: solid 2px;
-  border-color: var(--container-border);
+  border-color: var(--color-black);
   background-color: var(--color-white);
   z-index: 1;
 }
@@ -64,7 +64,7 @@ body {
   width: 90%;
   height: 90%;
   border: solid 2px;
-  border-color: var(--container-border);
+  border-color: var(--color-black);
   background-color: var(--color-white);
 }
 
@@ -88,8 +88,8 @@ input[type="date"] {
   width: 100%;
   padding: 10px;
   content: attr(data-placeholder);
-  background-color: #bbbbbb;
-  box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.2);
+  background-color: var(--input-date-color);
+  box-shadow: var(--input-date-shadow);
   border-radius: 8px;
   text-align: center;
   font-size: 100%;
@@ -118,6 +118,7 @@ td {
   line-height: 20px;
   width: 14%;
   height: 20%;
+  max-height: 20%;
 }
 th {
   height: 50px;
@@ -183,15 +184,6 @@ th {
   width: 45px;
   height: 45px;
   border-radius: 50%;
-}
-
-.grey_btn {
-  width: 30px;
-  height: 30px;
-  border: none;
-  background-color: #b3b3b3;
-  border-radius: 50%;
-  margin-left: 10px;
 }
 
 #placehorder_box {

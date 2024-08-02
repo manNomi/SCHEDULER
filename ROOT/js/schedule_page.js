@@ -71,8 +71,6 @@ function makeCalander(date) {
   var day_format = date[2];
 
   var countDateList = [];
-  console.log(countAllList);
-  console.log(countMyList);
   if (watchState == "TEAM") {
     countDateList = countAllList;
   } else {

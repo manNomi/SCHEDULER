@@ -48,7 +48,6 @@ public String tryDelete(Connection connection,String userIDX) {
 
 <script>
     var check = "<%=check%>"
-    console.log(check)
     if (check!=""){
         alert("잘못된 경로")
         history.back()

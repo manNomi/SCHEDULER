@@ -184,7 +184,6 @@ public String tryGetSelect(Connection connection) {
 
 <script>
   var userIDX= "<%=userIDX%>"
-  alert(userIDX)
   if (userIDX!="null"){
     location.href = "./schedule_page.jsp"
 }

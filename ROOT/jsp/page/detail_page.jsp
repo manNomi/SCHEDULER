@@ -30,7 +30,10 @@ public ScheduleResult tryGetSchedule(Connection connection, String idx, String d
     List<String> contentList = new ArrayList<>();
     List<String> scheduleList = new ArrayList<>();
     try {
-        String getSelectSQL = "SELECT content, schedule_time FROM Schedule WHERE user_idx = ? AND day = ?";
+        String getSelectSQL = "SELECT content, schedule_time "+
+                              "FROM Schedule "+
+                              "WHERE user_idx = ? AND day = ? "+
+                              "ORDER BY schedule_time";
         PreparedStatement stmt = connection.prepareStatement(getSelectSQL);
         stmt.setString(1, idx);
         stmt.setString(2, date);
@@ -80,7 +83,8 @@ public TeamResult tryGetTeamSchedule(Connection connection, String idx, String d
                             "    FROM User " +
                             "    WHERE idx = ? " +
                             ") " +
-                            "AND s.day = ? ";
+                            "AND s.day = ? "+
+                            "ORDER BY schedule_time";
         PreparedStatement stmt = connection.prepareStatement(getSelectSQL);
         stmt.setString(1, idx);
         stmt.setString(2, date);

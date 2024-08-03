@@ -14,6 +14,8 @@
 
 <%@ page import="java.sql.*, java.util.*" %>
 <%-- <%@ page import="java.lang.System.out"%> --%>
+<%@ page import=" java.util.regex.Pattern"%>
+<%@ page import=" java.util.regex.Matcher"%>
 
 <%! 
   public class User {
@@ -25,6 +27,10 @@
         String team;
         String userClass;
         String themeColor;
+        public final Pattern regex_id = Pattern.compile("^[0-9]{6,20}$");
+        public final Pattern regex_pw = Pattern.compile("^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z\\d]{6,20}$");
+        public final Pattern regex_phone = Pattern.compile("^01([0|1|6|7|8|9]?)([0-9]{3,4})([0-9]{4})$");
+        public final Pattern regex_name = Pattern.compile("^[가-힣]{2,10}$");
         public User(HttpServletRequest request) {
             this.id = request.getParameter("id");
             this.pw = request.getParameter("pw");
@@ -34,6 +40,30 @@
             this.team = request.getParameter("team");
             this.userClass = request.getParameter("position");
         }
+    public String validateAll() {
+        if (!regex_id.matcher(id).matches()) {
+            return "아이디 오류";
+        }
+        if (!regex_pw.matcher(pw).matches()) {
+            return "비밀번호 오류";
+        }
+        if (!pw.equals(pw_check)) {
+            return "비밀번호 확인 오류";
+        }
+        if (!regex_name.matcher(name).matches()) {
+            return "이름 확인";
+        }
+        if (!regex_phone.matcher(phone).matches()) {
+            return "전화번호 확인";
+        }
+        if (team == null || team.trim().isEmpty()) {
+            return "부서 확인";
+        }
+        if (userClass == null || userClass.trim().isEmpty()) {
+            return "직급 확인";
+        }
+        return "true";
+    }
     }
 
 public String tryJoin(Connection connection, User user ) {
@@ -60,6 +90,8 @@ public String tryJoin(Connection connection, User user ) {
 <%
     request.setCharacterEncoding("utf-8");
     User user = new User(request);
+    String regex = user.validateAll();
+
     Connection connection = null;
     try {
         Class.forName("org.mariadb.jdbc.Driver");
@@ -71,14 +103,19 @@ public String tryJoin(Connection connection, User user ) {
 %>
 
 <script>
+    var regexText ="<%=regex%>"
+    if (regexText!="true"){
+        alert("잘못된 접근입니다")
+        history.back()
+    }
     var errorMessage="<%=joinError%>"
     if (errorMessage=="false"){
         alert("회원가입 성공")
-        location.href="../page/index.jsp"
+        <%-- location.href="../page/index.jsp" --%>
     }
     else{
         var text =errorMessage.split("key")[1].trim()
         alert(text+`가 중복입니다`)
-        window.history.back()
+        <%-- window.history.back() --%>
     }
 </script>

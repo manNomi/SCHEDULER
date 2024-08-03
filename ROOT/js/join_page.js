@@ -215,6 +215,7 @@ function getPrsentData() {
   const formData = {
     id: document.getElementById("join_id_box").value,
     pw: document.getElementById("join_pw_box").value,
+    "pw-check": document.getElementById("join_pw-check_box").value,
     name: document.getElementById("join_name_box").value,
     phone: document.getElementById("join_phone_box").value,
     position: radioText,
@@ -225,8 +226,8 @@ function getPrsentData() {
 
 function joinBackEvent() {
   moveEvent(joinContainer, loginContainer);
-  tapPrivacyBox.removeEventListener("click", setPrivacyTabEvent());
-  tapProfileBox.removeEventListener("click", setProfileTabEvent());
+  tapPrivacyBox.removeEventListener("click", setPrivacyTabEvent);
+  tapProfileBox.removeEventListener("click", setProfileTabEvent);
   joinContainer.querySelectorAll("input").forEach(function (tag) {
     tag.value = "";
     // input 이벤트를 수동으로 트리거합니다.

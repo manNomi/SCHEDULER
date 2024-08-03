@@ -112,10 +112,10 @@ function makeInputError(page, type, box) {
         box.style.border = "none";
       }
     }
-    box.addEventListener("blur", handleBlur);
-    pw_box.addEventListener("blur", handleBlur);
+    box.addEventListener("input", handleBlur);
+    pw_box.addEventListener("input", handleBlur);
   } else {
-    box.addEventListener("blur", function (event) {
+    box.addEventListener("input", function (event) {
       if (regex.test(event.target.value)) {
         error.innerHTML = "";
         box.style.border = "none";

@@ -12,10 +12,23 @@
 <%@ page import="java.sql.*, java.util.*" %>
 
 <%!
+public String validateAll() {
+    public final Pattern regex_id = Pattern.compile("^[0-9]{6,20}$");
+    public final Pattern regex_pw = Pattern.compile("^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z\\d]{6,20}$");
+    if (!regex_id.matcher(id).matches()) {
+        return "아이디 오류";
+    }
+    if (!regex_pw.matcher(pw).matches()) {
+        return "비밀번호 오류";
+    }
+    return "true";
+}
+
 public String tryLogin(Connection connection,HttpServletRequest request,String id,String pw) {
     String userIDX = "";
     String userColor = "";
     String first_login = "";
+
     try {
         // 사용자 데이터 삽입 시도
         String getSelectSQL = "SELECT idx, theme_color , first_login FROM User WHERE id = ? AND pw = ?";
@@ -44,6 +57,7 @@ public String tryLogin(Connection connection,HttpServletRequest request,String i
     request.setCharacterEncoding("utf-8");
     String id = request.getParameter("id");
     String pw = request.getParameter("pw");
+    String regexText=validateAll(id,pw)
     Connection connection = null;
     try {
         Class.forName("org.mariadb.jdbc.Driver");
@@ -55,6 +69,8 @@ public String tryLogin(Connection connection,HttpServletRequest request,String i
 %>
 
 <script>
+    var regexTest="<%=regexText%>"
+    if (regexTest!=)
     var userIDX="<%=userIDX%>"
     if (userIDX!=""){
         alert("로그인 성공 ")

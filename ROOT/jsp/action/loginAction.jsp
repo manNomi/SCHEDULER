@@ -1,20 +1,17 @@
 <%@ page language= "java" contentType="text/html" pageEncoding="utf-8" %>
-<%-- 데이터 베이스 탐색 라이브러리 -> 커넥터를 찾는다 --%>
 <%@ page import="java.sql.DriverManager" %>
-<%-- 데이터 베이스 연결 lib --%>
 <%@ page import="java.sql.Connection" %>
-<%-- SQL 생성 및 전송 --%>
 <%@ page import="java.sql.PreparedStatement" %>
-<%-- SQL 예외처리  --%>
 <%@ page import="java.sql.SQLException" %>
-<%-- 셀렉트 할때만 필요하다  --%>
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="java.sql.*, java.util.*" %>
+<%@ page import=" java.util.regex.Pattern"%>
+<%@ page import=" java.util.regex.Matcher"%>
 
 <%!
-public String validateAll() {
-    public final Pattern regex_id = Pattern.compile("^[0-9]{6,20}$");
-    public final Pattern regex_pw = Pattern.compile("^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z\\d]{6,20}$");
+public String validateAll(String id,String pw) {
+    final Pattern regex_id = Pattern.compile("^[0-9]{6,20}$");
+    final Pattern regex_pw = Pattern.compile("^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z\\d]{6,20}$");
     if (!regex_id.matcher(id).matches()) {
         return "아이디 오류";
     }
@@ -57,7 +54,7 @@ public String tryLogin(Connection connection,HttpServletRequest request,String i
     request.setCharacterEncoding("utf-8");
     String id = request.getParameter("id");
     String pw = request.getParameter("pw");
-    String regexText=validateAll(id,pw)
+    String regexText=validateAll(id,pw);
     Connection connection = null;
     try {
         Class.forName("org.mariadb.jdbc.Driver");
@@ -70,7 +67,7 @@ public String tryLogin(Connection connection,HttpServletRequest request,String i
 
 <script>
     var regexTest="<%=regexText%>"
-    if (regexTest!=)
+    if (regexTest!="true")
     var userIDX="<%=userIDX%>"
     if (userIDX!=""){
         alert("로그인 성공 ")

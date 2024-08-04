@@ -9,18 +9,6 @@
 <%@ page import=" java.util.regex.Matcher"%>
 
 <%!
-public String validateAll(String id,String pw) {
-    final Pattern regex_id = Pattern.compile("^[0-9]{6,20}$");
-    final Pattern regex_pw = Pattern.compile("^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z\\d]{6,20}$");
-    if (!regex_id.matcher(id).matches()) {
-        return "아이디 오류";
-    }
-    if (!regex_pw.matcher(pw).matches()) {
-        return "비밀번호 오류";
-    }
-    return "true";
-}
-
 public String tryLogin(Connection connection,HttpServletRequest request,String id,String pw) {
     String userIDX = "";
     String userColor = "";
@@ -44,10 +32,22 @@ public String tryLogin(Connection connection,HttpServletRequest request,String i
     }
     return userIDX;
 }
-    public void loginSession(Connection connection,HttpServletRequest request,String userIDX) {
-        HttpSession session = request.getSession(true);
-        session.setAttribute("idx", userIDX);
+public void loginSession(Connection connection,HttpServletRequest request,String userIDX) {
+    HttpSession session = request.getSession(true);
+    session.setAttribute("idx", userIDX);
+}
+
+public String validateAll(String id,String pw) {
+    final Pattern regex_id = Pattern.compile("^[0-9]{6,20}$");
+    final Pattern regex_pw = Pattern.compile("^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z\\d]{6,20}$");
+    if (!regex_id.matcher(id).matches()) {
+        return "아이디 오류";
     }
+    if (!regex_pw.matcher(pw).matches()) {
+        return "비밀번호 오류";
+    }
+    return "true";
+}
 %>
 
 <%
@@ -66,12 +66,11 @@ public String tryLogin(Connection connection,HttpServletRequest request,String i
         String userIDX = tryLogin(connection,request,id,pw);
     }
     else{
-        out.println("<script>alert('Invalid input. Please try again.'); history.back();</script>");
+        out.println("<script>alert(<%=regexText%> 오류); history.back();</script>");
     }
 %>
 
 <script>
-    var regexTest="<%=regexText%>"
     var userIDX="<%=userIDX%>"
     if (userIDX!=""){
         alert("로그인 성공 ")
@@ -80,5 +79,5 @@ public String tryLogin(Connection connection,HttpServletRequest request,String i
     else{
         alert("계정이 존재하지 않습니다")
         window.history.back()
-    }
+}
 </script>

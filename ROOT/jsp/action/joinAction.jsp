@@ -93,7 +93,7 @@ public String tryJoin(Connection connection, User user ) {
         String joinError=tryJoin(connection,user);
     }
     else{
-        out.println("<script>alert('잘못도니 입력입니다'); history.back();</script>");
+        out.println("<script>alert(<%=regexText%> 오류); history.back();</script>");
     }
 %>
 

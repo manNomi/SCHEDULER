@@ -24,21 +24,34 @@ public String tryUpdate(Connection connection,String userIDX,String colorCode) {
     }
     return userSet;
 }
+public String validateAll(String colorCode) {
+    final Pattern regex_color_code = Pattern.compile("^#([A-Fa-f0-9]{6})$"); final Pattern regex_pw = Pattern.compile("^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z\\d]{6,20}$");
+    if (!regex_color_code.matcher(colorCode).matches()) {
+        return "컬로코드 오류";
+    }
+    return "true";
+}
 %>
 
 <%
     request.setCharacterEncoding("utf-8");
-    Connection connection = null;
-    HttpSession session_profile = request.getSession(false);
-    String userIDX = (session_profile != null) ? (String) session_profile.getAttribute("idx") : null;
-    try {
-        Class.forName("org.mariadb.jdbc.Driver");
-        connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
     String colorCode = request.getParameter("colorCode");
-    String check = tryUpdate(connection,userIDX,colorCode);
+    String regex = validateAll(colorCode)
+    if (regex.equals("true")){
+        Connection connection = null;
+        HttpSession session_profile = request.getSession(false);
+        String userIDX = (session_profile != null) ? (String) session_profile.getAttribute("idx") : null;
+        try {
+            Class.forName("org.mariadb.jdbc.Driver");
+            connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String check = tryUpdate(connection,userIDX,colorCode);
+    }
+    else{
+        out.println("<script>alert(<%=regexText%> 오류); history.back();</script>");
+    }
 %>
 
 <script>

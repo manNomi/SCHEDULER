@@ -23,6 +23,22 @@ public String tryDelete(Connection connection, String user_idx , String content,
     }
     return error;
 }
+
+public String validateAll(String day,String time,String content) {
+    final Pattern regex_day = Pattern.compile("^\d{4}-\d{2}-\d{2}$");
+    final Pattern regex_time = Pattern.compile("^\d{2}:\d{2}:\d{2}$");
+    final Pattern regex_content = Pattern.compile("^.{0,255}$");
+    if (!regex_day.matcher(day).matches()) {
+        return "날짜 오류";
+    }
+    if (!regex_time.matcher(time).matches()) {
+        return "시간 오류";
+    }
+    if (!regex_content.matcher(content).matches()) {
+        return "내용 오류";
+    }
+    return "true";
+}
 %>
 
 <%
@@ -33,15 +49,20 @@ public String tryDelete(Connection connection, String user_idx , String content,
     String time = request.getParameter("Time");
     String content = request.getParameter("Text");
     String watchState = request.getParameter("watchState");
-    Connection connection = null;
-    try {
-        Class.forName("org.mariadb.jdbc.Driver");
-        connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
-    } catch (Exception e) {
-        e.printStackTrace();
+    String regexText=validateAll(day,time,content);
+    if (regexText.equals("true")){
+        Connection connection = null;
+        try {
+            Class.forName("org.mariadb.jdbc.Driver");
+            connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String deleteError=tryDelete(connection,userIDX,content, day,time);
     }
-    
-    String deleteError=tryDelete(connection,userIDX,content, day,time);
+    else{
+        out.println("<script>alert(<%=regexText%> 오류); history.back();</script>");
+    }
 %>
 
 <script>

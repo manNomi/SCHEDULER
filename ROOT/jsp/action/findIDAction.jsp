@@ -29,19 +29,33 @@ public String tryGetID(Connection connection,String phone) {
     }
     return userID;
 }
+
+public String validateAll(String phone) {
+    final Pattern regex_phone = Pattern.compile("^01([0|1|6|7|8|9]?)([0-9]{3,4})([0-9]{4})$");
+    if (!regex_phone.matcher(phone).matches()) {
+        return "전화번호 오류";
+    }
+    return "true";
+}
 %>
 
 <%
     request.setCharacterEncoding("utf-8");
     String phone = request.getParameter("phone");
-    Connection connection = null;
-    try {
-        Class.forName("org.mariadb.jdbc.Driver");
-        connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
-    } catch (Exception e) {
-        e.printStackTrace();
+    String regex = validateAll(phone)
+    if (regex.equals("true")){
+        Connection connection = null;
+        try {
+            Class.forName("org.mariadb.jdbc.Driver");
+            connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String userId = tryGetID(connection,phone);
     }
-    String userId = tryGetID(connection,phone);
+    else{
+        out.println("<script>alert(<%=regexText%> 오류); history.back();</script>");
+    }
 %>
 
 <script>

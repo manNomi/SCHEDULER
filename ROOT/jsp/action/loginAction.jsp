@@ -55,19 +55,23 @@ public String tryLogin(Connection connection,HttpServletRequest request,String i
     String id = request.getParameter("id");
     String pw = request.getParameter("pw");
     String regexText=validateAll(id,pw);
-    Connection connection = null;
-    try {
-        Class.forName("org.mariadb.jdbc.Driver");
-        connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
-    } catch (Exception e) {
-        e.printStackTrace();
+    if (regexText.equals("true")){
+        Connection connection = null;
+        try {
+            Class.forName("org.mariadb.jdbc.Driver");
+            connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String userIDX = tryLogin(connection,request,id,pw);
     }
-    String userIDX = tryLogin(connection,request,id,pw);
+    else{
+        out.println("<script>alert('Invalid input. Please try again.'); history.back();</script>");
+    }
 %>
 
 <script>
     var regexTest="<%=regexText%>"
-    if (regexTest!="true")
     var userIDX="<%=userIDX%>"
     if (userIDX!=""){
         alert("로그인 성공 ")

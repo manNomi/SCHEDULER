@@ -82,23 +82,22 @@ public String tryJoin(Connection connection, User user ) {
     request.setCharacterEncoding("utf-8");
     User user = new User(request);
     String regex = user.validateAll();
-
-    Connection connection = null;
-    try {
-        Class.forName("org.mariadb.jdbc.Driver");
-        connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
-    } catch (Exception e) {
-        e.printStackTrace();
+    if (regex.equals("true")){
+        Connection connection = null;
+        try {
+            Class.forName("org.mariadb.jdbc.Driver");
+            connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String joinError=tryJoin(connection,user);
     }
-    String joinError=tryJoin(connection,user);
+    else{
+        out.println("<script>alert('잘못도니 입력입니다'); history.back();</script>");
+    }
 %>
 
 <script>
-    var regexText ="<%=regex%>"
-    if (regexText!="true"){
-        alert("잘못된 접근입니다")
-        history.back()
-    }
     var errorMessage="<%=joinError%>"
     if (errorMessage=="false"){
         alert("회원가입 성공")

@@ -199,7 +199,7 @@ function setColor() {
     elemet.style.backgroundColor = stateColor;
   });
 
-  var changeColorListBorder = [document.getElementById("insert_box")];
+  var changeColorListBorder = [document.getElementById("`insert`_box")];
   changeColorListBorder.forEach(function (ele) {
     ele.style.borderColor = stateColor;
   });
@@ -232,15 +232,20 @@ function insertScheduleEvent() {
   var dateValue = document.getElementById("date").innerHTML;
   var timeValue = document.getElementById("time_input").value;
   var contentValue = document.getElementById("schedule_text_box").value;
-  location.href =
-    "../action/schInsertAction.jsp?day=" +
-    dateValue +
-    "&time=" +
-    timeValue +
-    "&content=" +
-    contentValue +
-    "&watchState=" +
-    watchState;
+  if (contentValue == "") {
+    alert("내용을 입력하세요");
+  } else {
+    var url =
+      "../action/schInsertAction.jsp?day=" +
+      dateValue +
+      "&time=" +
+      timeValue +
+      "&content=" +
+      contentValue +
+      "&watchState=" +
+      watchState;
+    location.href = url;
+  }
 }
 
 function setPlacehorderSchedule() {

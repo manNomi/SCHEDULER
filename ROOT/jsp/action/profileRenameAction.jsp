@@ -48,22 +48,20 @@ public String validateAll(String pwOld,String pwNew) {
     request.setCharacterEncoding("utf-8");
     String pwOld = request.getParameter("old-pw");
     String pwNew = request.getParameter("new-pw");
-    String regex=validateAll(pwOld,pwNew)
-    if (regex.equals("true")){
-        Connection connection = null;
-        HttpSession session_profile = request.getSession(false);
-        String userIDX = (session_profile != null) ? (String) session_profile.getAttribute("idx") : null;
-        try {
-            Class.forName("org.mariadb.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        String check = tryUpdate(connection,userIDX,pwOld,pwNew);
+    String regexText=validateAll(pwOld,pwNew)
+    if (!regexText.equals("true")){
+        out.println("<script>alert("<%=regexText%>" 오류); history.back();</script>");
     }
-    else{
-        out.println("<script>alert('잘못된 입력입니다'); history.back();</script>");
+    Connection connection = null;
+    HttpSession session_profile = request.getSession(false);
+    String userIDX = (session_profile != null) ? (String) session_profile.getAttribute("idx") : null;
+    try {
+        Class.forName("org.mariadb.jdbc.Driver");
+        connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+    String check = tryUpdate(connection,userIDX,pwOld,pwNew);
 %>
 
 <script>

@@ -58,29 +58,27 @@ public String validateAll(String day,String timeNew,String textNew , String time
     String oldText = request.getParameter("oldText");
     String date = request.getParameter("date");
     String watchState = request.getParameter("watchState");
-    String regexText=validateAll(day,time,content);
-    if (regexText.equals("true")){
-        Connection connection = null;
-        HttpSession session_profile = request.getSession(false);
-        String userIDX = (session_profile != null) ? (String) session_profile.getAttribute("idx") : null;
-        try {
-            Class.forName("org.mariadb.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        String check = tryUpdate(connection,userIDX,newTime,newText,oldTime,oldText,date);
-        }
-    else{
-        out.println("<script>alert(<%=regexText%> 오류); history.back();</script>");
+    String regexText=validateAll(date,newTime,newText,oldTime,oldText);
+    if (!regexText.equals("true")){
+        out.println("<script>alert("<%=regexText%>" 오류); history.back();</script>");
     }
+    Connection connection = null;
+    HttpSession session_profile = request.getSession(false);
+    String userIDX = (session_profile != null) ? (String) session_profile.getAttribute("idx") : null;
+    try {
+        Class.forName("org.mariadb.jdbc.Driver");
+        connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    String check = tryUpdate(connection,userIDX,newTime,newText,oldTime,oldText,date);
 %>
 
 <script>
     var check = "<%=check%>"
     var date = "<%=date%>"
     var watchState = "<%=watchState%>"
-    
+
     if (check!=""){
         alert("잘못된 입력")
         history.back()

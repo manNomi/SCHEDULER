@@ -49,21 +49,18 @@ public String validateAll(String day,String time,String content) {
     String content = request.getParameter("content");
     String watchState = request.getParameter("watchState");
     String regexText=validateAll(day,time,content);
-    if (regexText.equals("true")){
-        Connection connection = null;
-        try {
-            Class.forName("org.mariadb.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
-        } 
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        String insertError=tryInsert(connection,userIDX,content, day,time);
-    else{
-        out.println("<script>alert(<%=regexText%> 오류); history.back();</script>");
-        }
+    if (!regexText.equals("true")){
+        out.println("<script>alert("<%=regexText%>" 오류); history.back();</script>");
     }
-
+    Connection connection = null;
+    try {
+        Class.forName("org.mariadb.jdbc.Driver");
+        connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
+    } 
+    catch (Exception e) {
+        e.printStackTrace();
+    }
+    String insertError=tryInsert(connection,userIDX,content, day,time);
 %>
 
 <script>

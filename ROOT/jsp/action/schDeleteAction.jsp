@@ -50,19 +50,17 @@ public String validateAll(String day,String time,String content) {
     String content = request.getParameter("Text");
     String watchState = request.getParameter("watchState");
     String regexText=validateAll(day,time,content);
-    if (regexText.equals("true")){
-        Connection connection = null;
-        try {
-            Class.forName("org.mariadb.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        String deleteError=tryDelete(connection,userIDX,content, day,time);
+    if (!regexText.equals("true")){
+        out.println("<script>alert("<%=regexText%>" 오류); history.back();</script>");
     }
-    else{
-        out.println("<script>alert(<%=regexText%> 오류); history.back();</script>");
+    Connection connection = null;
+    try {
+        Class.forName("org.mariadb.jdbc.Driver");
+        connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+    String deleteError=tryDelete(connection,userIDX,content, day,time);
 %>
 
 <script>

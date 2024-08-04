@@ -81,20 +81,18 @@ public String tryJoin(Connection connection, User user ) {
 <%
     request.setCharacterEncoding("utf-8");
     User user = new User(request);
-    String regex = user.validateAll();
-    if (regex.equals("true")){
-        Connection connection = null;
-        try {
-            Class.forName("org.mariadb.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        String joinError=tryJoin(connection,user);
+    String regexText = user.validateAll();
+    if (!regexText.equals("true")){
+        out.println("<script>alert("<%=regexText%>" 오류); history.back();</script>");
     }
-    else{
-        out.println("<script>alert(<%=regexText%> 오류); history.back();</script>");
+    Connection connection = null;
+    try {
+        Class.forName("org.mariadb.jdbc.Driver");
+        connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+    String joinError=tryJoin(connection,user);
 %>
 
 <script>

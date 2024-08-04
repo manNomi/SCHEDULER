@@ -99,6 +99,13 @@ public String tryGetDate(Connection connection, String userIDX , String date, St
       }
       return new User(position,colorCode,firstLogin);
     }
+public String validateAll(String day) {
+    final Pattern regex_day = Pattern.compile("^\d{4}-\d{2}-\d{2}$");
+    if (!regex_day.matcher(day).matches()) {
+        return "날짜 오류";
+    }
+    return "true";
+}
 %>
 
 <%
@@ -111,7 +118,6 @@ public String tryGetDate(Connection connection, String userIDX , String date, St
     String firstLogin ="";
     String date = request.getParameter("day");
     String countDateALL="";
-
     if(date==null){
       java.util.Calendar now = java.util.Calendar.getInstance();
       int year = now.get(java.util.Calendar.YEAR);
@@ -121,8 +127,12 @@ public String tryGetDate(Connection connection, String userIDX , String date, St
       String dayStr = String.format("%02d", day);
       date = year + "-" + monthStr + "-" + dayStr;
     }
-
-     Class.forName("org.mariadb.jdbc.Driver");
+    String regexText=validateAll(date);
+    if (!regexText.equals("true")){
+        out.println("<script>alert("<%=regexText%>" 오류); history.back();</script>");
+    }   
+    
+    Class.forName("org.mariadb.jdbc.Driver");
     connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
     
     User resultUser = tryGetUserData(connection, userIDX);

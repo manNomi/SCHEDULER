@@ -42,20 +42,18 @@ public String validateAll(String phone) {
 <%
     request.setCharacterEncoding("utf-8");
     String phone = request.getParameter("phone");
-    String regex = validateAll(phone)
-    if (regex.equals("true")){
-        Connection connection = null;
-        try {
-            Class.forName("org.mariadb.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        String userId = tryGetID(connection,phone);
+    String regexText = validateAll(phone)
+    if (!regexText.equals("true")){
+        out.println("<script>alert("<%=regexText%>" 오류); history.back();</script>");
+    }   
+    Connection connection = null;
+    try {
+        Class.forName("org.mariadb.jdbc.Driver");
+        connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
+    } catch (Exception e) {
+        e.printStackTrace();
     }
-    else{
-        out.println("<script>alert(<%=regexText%> 오류); history.back();</script>");
-    }
+    String userId = tryGetID(connection,phone);
 %>
 
 <script>

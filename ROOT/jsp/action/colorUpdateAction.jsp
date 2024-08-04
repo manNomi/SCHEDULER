@@ -36,22 +36,20 @@ public String validateAll(String colorCode) {
 <%
     request.setCharacterEncoding("utf-8");
     String colorCode = request.getParameter("colorCode");
-    String regex = validateAll(colorCode)
-    if (regex.equals("true")){
-        Connection connection = null;
-        HttpSession session_profile = request.getSession(false);
-        String userIDX = (session_profile != null) ? (String) session_profile.getAttribute("idx") : null;
-        try {
-            Class.forName("org.mariadb.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        String check = tryUpdate(connection,userIDX,colorCode);
+    String regexText = validateAll(colorCode)
+    if (!regexText.equals("true")){
+        out.println("<script>alert("<%=regexText%>" 오류); history.back();</script>");
+    }   
+    Connection connection = null;
+    HttpSession session_profile = request.getSession(false);
+    String userIDX = (session_profile != null) ? (String) session_profile.getAttribute("idx") : null;
+    try {
+        Class.forName("org.mariadb.jdbc.Driver");
+        connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
+    } catch (Exception e) {
+        e.printStackTrace();
     }
-    else{
-        out.println("<script>alert(<%=regexText%> 오류); history.back();</script>");
-    }
+    String check = tryUpdate(connection,userIDX,colorCode);
 %>
 
 <script>

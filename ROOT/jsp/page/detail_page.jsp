@@ -142,6 +142,14 @@ public TeamResult tryGetTeamSchedule(Connection connection, String idx, String d
       }
       return new User(position,colorCode,name);
     }
+
+public String validateAll(String day) {
+    final Pattern regex_day = Pattern.compile("^\d{4}-\d{2}-\d{2}$");
+    if (!regex_day.matcher(day).matches()) {
+        return "날짜 오류";
+    }
+    return "true";
+}
 %>
 
 <%
@@ -151,6 +159,10 @@ public TeamResult tryGetTeamSchedule(Connection connection, String idx, String d
     String userIDX = (session_detail != null) ? (String) session_detail.getAttribute("idx") : null;
     String date = request.getParameter("day");
     String watchState = request.getParameter("watchState");
+    String regexText=validateAll(day);
+    if (!regexText.equals("true")){
+        out.println("<script>alert("<%=regexText%>" 오류); history.back();</script>");
+    }   
     String checkSession="";
     try {
         Class.forName("org.mariadb.jdbc.Driver");

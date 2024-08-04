@@ -1,15 +1,9 @@
 <%@ page language= "java" contentType="text/html" pageEncoding="utf-8" %>
-
-<%-- 데이터 베이스 탐색 라이브러리 -> 커넥터를 찾는다 --%>
 <%@ page import="java.sql.DriverManager" %>
-<%-- 데이터 베이스 연결 lib --%>
 <%@ page import="java.sql.Connection" %>
-<%-- SQL 생성 및 전송 --%>
 <%@ page import="java.sql.PreparedStatement" %>
 <%@ page import="java.sql.SQLException" %>
-<%-- 셀렉트 할때만 필요하다  --%>
 <%@ page import="java.sql.ResultSet" %>
-
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
 
@@ -144,7 +138,7 @@ public TeamResult tryGetTeamSchedule(Connection connection, String idx, String d
     }
 
 public String validateAll(String day) {
-    final Pattern regex_day = Pattern.compile("^\d{4}-\d{2}-\d{2}$");
+    final Pattern regex_day = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
     if (!regex_day.matcher(day).matches()) {
         return "날짜 오류";
     }
@@ -161,7 +155,7 @@ public String validateAll(String day) {
     String watchState = request.getParameter("watchState");
     String regexText=validateAll(day);
     if (!regexText.equals("true")){
-        out.println("<script>alert("<%=regexText%>" 오류); history.back();</script>");
+        out.println("<script>alert('" + regexText + " 오류'); history.back();</script>");
     }   
     String checkSession="";
     try {

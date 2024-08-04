@@ -25,7 +25,7 @@ public String tryUpdate(Connection connection,String userIDX,String colorCode) {
     return userSet;
 }
 public String validateAll(String colorCode) {
-    final Pattern regex_color_code = Pattern.compile("^#([A-Fa-f0-9]{6})$"); final Pattern regex_pw = Pattern.compile("^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z\\d]{6,20}$");
+    final Pattern regex_color_code = Pattern.compile("^#([A-Fa-f0-9]{6})$"); 
     if (!regex_color_code.matcher(colorCode).matches()) {
         return "컬로코드 오류";
     }
@@ -38,7 +38,7 @@ public String validateAll(String colorCode) {
     String colorCode = request.getParameter("colorCode");
     String regexText = validateAll(colorCode)
     if (!regexText.equals("true")){
-        out.println("<script>alert("<%=regexText%>" 오류); history.back();</script>");
+        out.println("<script>alert('" + regexText + " 오류'); history.back();</script>");
     }   
     Connection connection = null;
     HttpSession session_profile = request.getSession(false);

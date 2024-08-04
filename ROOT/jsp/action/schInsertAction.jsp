@@ -24,8 +24,8 @@ public String tryInsert(Connection connection, String user_idx , String content,
 }
 
 public String validateAll(String day,String time,String content) {
-    final Pattern regex_day = Pattern.compile("^\d{4}-\d{2}-\d{2}$");
-    final Pattern regex_time = Pattern.compile("^\d{2}:\d{2}:\d{2}$");
+    final Pattern regex_day = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
+    final Pattern regex_time = Pattern.compile("^\\d{2}:\\d{2}:\\d{2}$");
     final Pattern regex_content = Pattern.compile("^.{0,255}$");
     if (!regex_day.matcher(day).matches()) {
         return "날짜 오류";
@@ -50,7 +50,7 @@ public String validateAll(String day,String time,String content) {
     String watchState = request.getParameter("watchState");
     String regexText=validateAll(day,time,content);
     if (!regexText.equals("true")){
-        out.println("<script>alert("<%=regexText%>" 오류); history.back();</script>");
+        out.println("<script>alert('" + regexText + " 오류'); history.back();</script>");
     }
     Connection connection = null;
     try {

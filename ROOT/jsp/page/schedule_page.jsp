@@ -100,7 +100,7 @@ public String tryGetDate(Connection connection, String userIDX , String date, St
       return new User(position,colorCode,firstLogin);
     }
 public String validateAll(String day) {
-    final Pattern regex_day = Pattern.compile("^\d{4}-\d{2}-\d{2}$");
+    final Pattern regex_day = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
     if (!regex_day.matcher(day).matches()) {
         return "날짜 오류";
     }
@@ -129,7 +129,7 @@ public String validateAll(String day) {
     }
     String regexText=validateAll(date);
     if (!regexText.equals("true")){
-        out.println("<script>alert("<%=regexText%>" 오류); history.back();</script>");
+        out.println("<script>alert('" + regexText + " 오류'); history.back();</script>");
     }   
     
     Class.forName("org.mariadb.jdbc.Driver");

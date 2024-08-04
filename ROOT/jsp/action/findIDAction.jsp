@@ -44,7 +44,7 @@ public String validateAll(String phone) {
     String phone = request.getParameter("phone");
     String regexText = validateAll(phone)
     if (!regexText.equals("true")){
-        out.println("<script>alert("<%=regexText%>" 오류); history.back();</script>");
+        out.println("<script>alert('" + regexText + " 오류'); history.back();</script>");
     }   
     Connection connection = null;
     try {

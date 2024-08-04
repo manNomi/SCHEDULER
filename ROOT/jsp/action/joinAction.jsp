@@ -83,7 +83,7 @@ public String tryJoin(Connection connection, User user ) {
     User user = new User(request);
     String regexText = user.validateAll();
     if (!regexText.equals("true")){
-        out.println("<script>alert("<%=regexText%>" 오류); history.back();</script>");
+        out.println("<script>alert('" + regexText + " 오류'); history.back();</script>");
     }
     Connection connection = null;
     try {

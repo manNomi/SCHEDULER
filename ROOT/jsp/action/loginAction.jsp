@@ -56,7 +56,7 @@ public String validateAll(String id,String pw) {
     String pw = request.getParameter("pw");
     String regexText=validateAll(id,pw);
     if (!regexText.equals("true")){
-        out.println("<script>alert("<%=regexText%>" 오류); history.back();</script>");
+        out.println("<script>alert('" + regexText + " 오류'); history.back();</script>");
     }
     Connection connection = null;
     try {

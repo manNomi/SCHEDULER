@@ -50,7 +50,7 @@ public String validateAll(String pwOld,String pwNew) {
     String pwNew = request.getParameter("new-pw");
     String regexText=validateAll(pwOld,pwNew)
     if (!regexText.equals("true")){
-        out.println("<script>alert("<%=regexText%>" 오류); history.back();</script>");
+        out.println("<script>alert('" + regexText + " 오류'); history.back();</script>");
     }
     Connection connection = null;
     HttpSession session_profile = request.getSession(false);

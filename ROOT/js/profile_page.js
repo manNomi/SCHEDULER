@@ -1,4 +1,3 @@
-var stateColor = "";
 var profileBack = document.getElementById("profile_text_box");
 var renameContainer = document.getElementById("profile_rename_container");
 var modalDelete = document.getElementById("delete_container");
@@ -6,10 +5,12 @@ var presentState = "default";
 var front = document.getElementById("front_container");
 var back = document.getElementById("back_container");
 
-function colorSet() {
+function setColor(color) {
+  color = "#" + color;
+  console.log(color);
   var backColor = [document.querySelector("body")];
   backColor.forEach(function (ele) {
-    ele.style.backgroundColor = stateColor;
+    ele.style.backgroundColor = color;
   });
 }
 
@@ -38,6 +39,7 @@ function reNameEvent() {
     }, 1000);
   }
 }
+
 function initPlacehorder() {
   var btn = document.getElementById("rename_btn");
   renameContainer.insertBefore(
@@ -78,7 +80,6 @@ function initText(id, name, phone, position, teamName) {
   nameTag.innerHTML = name;
   var teamTag = document.getElementById("team_name");
   teamTag.innerHTML = teamName;
-
   let User = {
     id: id,
     phone: phone,

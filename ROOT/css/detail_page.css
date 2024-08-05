@@ -61,7 +61,6 @@ input[type="time"] {
   box-shadow: var(--input-time-shadow);
   border-radius: 8px;
   text-align: center;
-  font-size: 100%;
   margin: 10px;
   outline-color: var(--color-black);
 }
@@ -191,7 +190,7 @@ input[type="time"] {
 }
 
 #modal_text {
-  font-size: 30px;
+  font-size: var(--font-size-large);
   font-weight: 900;
   margin-bottom: 20px;
 }

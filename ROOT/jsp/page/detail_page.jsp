@@ -153,7 +153,7 @@ public String validateAll(String day) {
     Connection connection = null;
     HttpSession session_detail = request.getSession(false);
     String userIDX = (session_detail != null) ? (String) session_detail.getAttribute("idx") : null;
-    String date = request.getParameter("day");
+    String day = request.getParameter("day");
     String watchState = request.getParameter("watchState");
     String regexText=validateAll(day);
     if (!regexText.equals("true")){
@@ -182,19 +182,20 @@ public String validateAll(String day) {
     List<String> userIDXList = new ArrayList<>(); 
     
     if (watchState.equals("USER")){
-      ScheduleResult resultUser = tryGetSchedule(connection, userIDX, date);
+      ScheduleResult resultUser = tryGetSchedule(connection, userIDX, day);
       contentList = resultUser.getContentList();
       scheduleList = resultUser.getScheduleList();
     }
     else if (watchState.equals("TEAM") & position.equals("팀장")){
-      TeamResult result = tryGetTeamSchedule(connection, userIDX, date);
+      TeamResult result = tryGetTeamSchedule(connection, userIDX, day);
       contentList = result.getContentList();
       scheduleList = result.getScheduleList();
       nameList = result.getNameList();
       userIDXList = result.getuserIDXList();
     }
     else{
-      checkSession="권한이 없습니다";
+        out.println("<script>alert('권한이 없습니다'); history.back();</script>");
+        return;
     }
 %>
 
@@ -254,17 +255,11 @@ public String validateAll(String day) {
 </html>
 
 <script>
-  var checkSession ="<%=checkSession%>"
-  if (checkSession!=""){
-    alert(checkSession)
-    history.back()
-  }
   var nameList=[]
   var userIDXList = [
       <% for (int i = 0; i < userIDXList.size(); i++) { %>
           "<%= userIDXList.get(i)%>"<%= i < userIDXList.size() - 1 ? "," : "" %>
       <% } %>];
-
   var contentList = [
       <% for (int i = 0; i < contentList.size(); i++) { %>
           "<%= contentList.get(i)%>"<%= i < contentList.size() - 1 ? "," : "" %>
@@ -280,13 +275,12 @@ public String validateAll(String day) {
           "<%= nameList.get(i) %>"<%= i < nameList.size() - 1 ? "," : "" %>
       <% } %>]
   }
-  console.log(contentList)
-  var date ="<%=date%>"
+  var date ="<%=day%>"
+  var colorCode="<%=colorCode%>"
+  
   initTime(date)
   dateText=date
-  var colorCode="<%=colorCode%>"
-  stateColor="#"+colorCode;
-  setColor();
-  var userIDX = "<%=userIDX%>"
+
+  setColor(colorCode);
   makeInputScroll(contentList,scheduleList,nameList,userIDXList);
 </script>

@@ -57,7 +57,7 @@
   transform: translate(-50%, -50%);
   position: absolute;
   pointer-events: none;
-  font-size: 15px;
+  font-size: var(--font-size-medium);
   z-index: 1;
 }
 
@@ -86,7 +86,7 @@
   transform: translate(-50%, -50%);
   position: absolute;
   pointer-events: none;
-  font-size: 15px;
+  font-size: var(--font-size-medium);
   z-index: 1;
 }
 

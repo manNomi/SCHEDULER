@@ -25,4 +25,9 @@
   --btn-gray: #b3b3b3;
   --btn-yellow: #ffcd29;
   --btn-green: #14ae5c;
+
+  --font-size-large: 30px;
+  --font-size-medium: 15px;
+  --font-size-small: 15px;
+  --font-weight-large: 900;
 }

@@ -231,13 +231,14 @@ function colorThemeMove() {
   location.href = "../../jsp/page/theme_page.jsp";
 }
 
-function colorSet() {
+function setColor(color) {
+  color = "#" + color;
   var changeColorListBack = [
     document.querySelector("body"),
     document.getElementById("theme_btn"),
   ];
   changeColorListBack.forEach(function (ele) {
-    ele.style.backgroundColor = stateColor;
+    ele.style.backgroundColor = color;
   });
 }
 

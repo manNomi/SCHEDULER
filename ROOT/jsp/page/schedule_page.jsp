@@ -109,6 +109,10 @@ public String validateAll(String day) {
     Connection connection = null;
     HttpSession session_schedule = request.getSession(false);
     String userIDX = (session_schedule != null) ? (String) session_schedule.getAttribute("idx") : null;
+    if (userIDX.equals(null)){
+      out.println("<script>alert('세션 오류'); history.back();</script>");
+       return;
+    }
     String position="";
     String colorCode= "";
     String firstLogin ="";
@@ -228,10 +232,6 @@ public String validateAll(String day) {
 
 <script>
   var loginCheck= "<%=firstLogin%>";
-  var colocCode="<%=colorCode%>"
-  var position="<%=position%>"
-  stateColor="#"+colocCode
-  colorSet();
   if (loginCheck=="T"){
     var modal = document.getElementById("modal_guide");
     makeOpacityBox(modal,0.5);
@@ -240,11 +240,19 @@ public String validateAll(String day) {
     alert("잘못된 권한 입니다")
     location.href="../action/logoutAction.jsp"
   }
+
+  var colocCode="<%=colorCode%>"
+  setColor(colocCode);
+
+  var position="<%=position%>"
   if (position=="팀장"){
     document.getElementById("watch_all_box").style.display="flex"
   }
-  var day= "<%=date%>"
   var countDate="<%=countDateALL%>"
   getData(countDate)
+
+  var day= "<%=date%>"
   makeCalander(day)
+
+
 </script>

@@ -37,9 +37,10 @@
     request.setCharacterEncoding("utf-8");
     Connection connection = null;
     HttpSession session_index = request.getSession(false);
-    String userIDX = null;
-    if (session_index != null) {
-        userIDX = (String) session_index.getAttribute("idx");
+    String userIDX = (session_index != null) ? (String) session_index.getAttribute("idx") : null;
+    if (userIDX.equals(null)){
+      out.println("<script>alert('세션 오류'); history.back();</script>");
+       return;
     }
     try {
         Class.forName("org.mariadb.jdbc.Driver");
@@ -88,12 +89,6 @@
 </html>
 
 <script>
-  var loginCheck= <%=userIDX%>;
-  if (loginCheck==null){
-    alert("잘못된 접근입니다")
-    history.back()
-  }
   var colorCode="<%=colorCode%>"
-  stateColor="#"+colorCode
-  colorSet();
+  setColor(colorCode);
 </script>

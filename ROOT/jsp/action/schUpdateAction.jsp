@@ -34,7 +34,7 @@ public String tryUpdate(Connection connection,String userIDX,String newTime,Stri
 <%!
 public String validateAll(String day,String timeNew,String textNew , String timeOld , String textOld) {
     final Pattern regex_day = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
-    final Pattern regex_time = Pattern.compile("^\\d{2}:\\d{2}:\\d{2}$");
+    final Pattern regex_time = Pattern.compile("^\\d{2}:\\d{2}$");
     final Pattern regex_content = Pattern.compile("^.{0,255}$");
     if (!regex_day.matcher(day).matches()) {
         return "날짜 오류";
@@ -63,6 +63,7 @@ public String validateAll(String day,String timeNew,String textNew , String time
     String oldText = request.getParameter("oldText");
     String date = request.getParameter("date");
     String watchState = request.getParameter("watchState");
+
     String regexText=validateAll(date,newTime,newText,oldTime,oldText);
     if (!regexText.equals("true")){
         out.println("<script>alert('" + regexText + " 오류'); history.back();</script>");
@@ -84,7 +85,6 @@ public String validateAll(String day,String timeNew,String textNew , String time
     var check = "<%=check%>"
     var date = "<%=date%>"
     var watchState = "<%=watchState%>"
-
     if (check!=""){
         alert("잘못된 입력")
         history.back()

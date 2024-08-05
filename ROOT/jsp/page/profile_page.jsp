@@ -14,15 +14,15 @@ public class User {
     String name;
     String phone;
     String position;
-    String themeColor;
+    String colorCode;
     String teamName;
-    public User(String id, String pw, String name, String phone, String position, String themeColor, String teamName) {
+    public User(String id, String pw, String name, String phone, String position, String colorCode, String teamName) {
         this.id = id;
         this.pw = pw;
         this.name = name;
         this.phone = phone;
         this.position = position;
-        this.themeColor = themeColor;
+        this.colorCode = colorCode;
         this.teamName = teamName;
     }
     // Getters for all fields
@@ -31,7 +31,7 @@ public class User {
     public String getName() { return name; }
     public String getPhone() { return phone; }
     public String getPosition() { return position; }
-    public String getThemeColor() { return themeColor; }
+    public String getThemeColor() { return colorCode; }
     public String getTeamName() { return teamName; }
 }
 
@@ -41,7 +41,7 @@ public User tryGetUserData(Connection connection, String userIDX) {
     String name = "";
     String phone = "";
     String position = "";
-    String themeColor = "";
+    String colorCode = "";
     String teamName = "";
 
     try {
@@ -55,21 +55,14 @@ public User tryGetUserData(Connection connection, String userIDX) {
             name = result.getString("name");
             phone = result.getString("phone");
             position = result.getString("position");
-            themeColor = result.getString("theme_color");
+            colorCode = result.getString("theme_color");
             teamName = result.getString("team_name");
         }
         post.close();
     } catch (SQLException e) {
         e.printStackTrace();
     }
-    return new User(id, pw, name, phone, position, themeColor, teamName);
-}
-public String validateAll(String day) {
-    final Pattern regex_day = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
-    if (!regex_day.matcher(day).matches()) {
-        return "날짜 오류";
-    }
-    return "true";
+    return new User(id, pw, name, phone, position, colorCode, teamName);
 }
 %>
 
@@ -78,23 +71,17 @@ public String validateAll(String day) {
     Connection connection = null;
     HttpSession session_detail = request.getSession(false);
     String userIDX = (session_detail != null) ? (String) session_detail.getAttribute("idx") : null;
-    String day = request.getParameter("day");
-    String regexText=validateAll(day);
-    if (!regexText.equals("true")){
-        out.println("<script>alert('" + regexText + " 오류'); history.back();</script>");
-        return;
-    }   
-
-    String watchState = request.getParameter("watchState");
-    String checkSession="";
+    if (userIDX.equals(null)){
+      out.println("<script>alert('세션 오류'); history.back();</script>");
+       return;
+    }
     String id = "";
     String pw = "";
     String name = "";
     String phone = "";
     String position = "";
-    String themeColor = "";
+    String colorCode = "";
     String teamName = "";
-
     try {
         Class.forName("org.mariadb.jdbc.Driver");
         connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
@@ -107,7 +94,7 @@ public String validateAll(String day) {
     name = user.getName();
     phone = user.getPhone();
     position = user.getPosition();
-    themeColor = user.getThemeColor();
+    colorCode = user.getThemeColor();
     teamName = user.getTeamName();
 %>
 
@@ -182,19 +169,13 @@ public String validateAll(String day) {
 </html>
 
 <script>
-  var IDX=<%=userIDX%>
-  if (IDX==null){
-    alert("잘못된 접근입니다")
-    location.href="./index.jsp"
-  }
   var id = "<%=id%>"
   var pw = "<%=pw%>"
   var name = "<%=name%>"
   var phone = "<%=phone%>"
   var position = "<%=position%>"
-  var themeColor = "<%=themeColor%>"
+  var colorCode = "<%=colorCode%>"
   var teamName = "<%=teamName%>"
   initText(id,name,phone,position,teamName)
-  stateColor="#"+themeColor
-  colorSet();
+  setColor(colorCode);
 </script>

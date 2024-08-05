@@ -1,4 +1,3 @@
-var stateColor = "";
 var modal = document.getElementById("modal_container");
 var dateText = "";
 
@@ -187,7 +186,8 @@ function modalDoneEvnet() {
   opacityBox.remove();
 }
 
-function setColor() {
+function setColor(color) {
+  color = "#" + color;
   var changeColorListback = [
     document.querySelector("input[type='time']"),
     document.getElementById("detail_btn_list"),
@@ -196,21 +196,21 @@ function setColor() {
     document.getElementById("modal_btn_list"),
   ];
   changeColorListback.forEach(function (elemet) {
-    elemet.style.backgroundColor = stateColor;
+    elemet.style.backgroundColor = color;
   });
 
-  var changeColorListBorder = [document.getElementById("`insert`_box")];
+  var changeColorListBorder = [document.getElementById("insert_box")];
   changeColorListBorder.forEach(function (ele) {
-    ele.style.borderColor = stateColor;
+    ele.style.borderColor = color;
   });
 
   document.querySelectorAll(".schedule_list").forEach(function (ele) {
-    ele.style.borderColor = stateColor;
+    ele.style.borderColor = color;
   });
   var style = document.createElement("style");
   style.textContent = `
   ::-webkit-scrollbar-thumb {
-    background-color: ${stateColor};}`;
+    background-color: ${color};}`;
   document.head.appendChild(style);
 }
 

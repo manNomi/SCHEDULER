@@ -4,7 +4,8 @@
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="java.sql.*, java.util.*" %>
-
+<%@ page import=" java.util.regex.Pattern"%>
+<%@ page import=" java.util.regex.Matcher"%>
 <%! 
 public String tryDelete(Connection connection, String user_idx , String content, String day, String schedule_time ) {
     String error="false";
@@ -22,7 +23,9 @@ public String tryDelete(Connection connection, String user_idx , String content,
     }
     return error;
 }
+%>
 
+<%! 
 public String validateAll(String day,String time,String content) {
     final Pattern regex_day = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
     final Pattern regex_time = Pattern.compile("^\\d{2}:\\d{2}:\\d{2}$");
@@ -51,6 +54,7 @@ public String validateAll(String day,String time,String content) {
     String regexText=validateAll(day,time,content);
     if (!regexText.equals("true")){
         out.println("<script>alert('" + regexText + " 오류'); history.back();</script>");
+        return;
     }
     Connection connection = null;
     try {

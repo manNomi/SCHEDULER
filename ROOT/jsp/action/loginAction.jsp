@@ -32,11 +32,16 @@ public String tryLogin(Connection connection,HttpServletRequest request,String i
     }
     return userIDX;
 }
+%>
+
+<%!
 public void loginSession(Connection connection,HttpServletRequest request,String userIDX) {
     HttpSession session = request.getSession(true);
     session.setAttribute("idx", userIDX);
 }
+%>
 
+<%!
 public String validateAll(String id,String pw) {
     final Pattern regex_id = Pattern.compile("^[0-9]{6,20}$");
     final Pattern regex_pw = Pattern.compile("^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z\\d]{6,20}$");
@@ -57,6 +62,7 @@ public String validateAll(String id,String pw) {
     String regexText=validateAll(id,pw);
     if (!regexText.equals("true")){
         out.println("<script>alert('" + regexText + " 오류'); history.back();</script>");
+        return;
     }
     Connection connection = null;
     try {

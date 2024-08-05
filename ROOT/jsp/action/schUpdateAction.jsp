@@ -4,6 +4,8 @@
 <%@ page import="java.sql.PreparedStatement" %>
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="java.sql.ResultSet" %>
+<%@ page import=" java.util.regex.Pattern"%>
+<%@ page import=" java.util.regex.Matcher"%>
 
 <%!
 public String tryUpdate(Connection connection,String userIDX,String newTime,String newText, String oldTime, String oldText,String date) {
@@ -27,6 +29,9 @@ public String tryUpdate(Connection connection,String userIDX,String newTime,Stri
     }
     return userSet;
 }
+%>
+
+<%!
 public String validateAll(String day,String timeNew,String textNew , String timeOld , String textOld) {
     final Pattern regex_day = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
     final Pattern regex_time = Pattern.compile("^\\d{2}:\\d{2}:\\d{2}$");
@@ -61,6 +66,7 @@ public String validateAll(String day,String timeNew,String textNew , String time
     String regexText=validateAll(date,newTime,newText,oldTime,oldText);
     if (!regexText.equals("true")){
         out.println("<script>alert('" + regexText + " 오류'); history.back();</script>");
+        return;
     }
     Connection connection = null;
     HttpSession session_profile = request.getSession(false);

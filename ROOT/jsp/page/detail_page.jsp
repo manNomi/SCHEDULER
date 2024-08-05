@@ -6,6 +6,8 @@
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
+<%@ page import=" java.util.regex.Pattern"%>
+<%@ page import=" java.util.regex.Matcher"%>
 
 <%!
 public class ScheduleResult {
@@ -156,6 +158,7 @@ public String validateAll(String day) {
     String regexText=validateAll(day);
     if (!regexText.equals("true")){
         out.println("<script>alert('" + regexText + " 오류'); history.back();</script>");
+        return;
     }   
     String checkSession="";
     try {

@@ -5,6 +5,8 @@
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="java.sql.*, java.util.*" %>
+<%@ page import=" java.util.regex.Pattern"%>
+<%@ page import=" java.util.regex.Matcher"%>
 
 <%!
 public String tryGetPW(Connection connection,String id,String phone) {
@@ -26,6 +28,9 @@ public String tryGetPW(Connection connection,String id,String phone) {
     }
     return userPW;
 }
+%>
+
+<%!
 public String validateAll(String id,String phone) {
     final Pattern regex_id = Pattern.compile("^[0-9]{6,20}$");
     final Pattern regex_phone = Pattern.compile("^01([0|1|6|7|8|9]?)([0-9]{3,4})([0-9]{4})$");
@@ -43,9 +48,10 @@ public String validateAll(String id,String phone) {
     request.setCharacterEncoding("utf-8");
     String id = request.getParameter("id");
     String phone = request.getParameter("phone");
-    String regexText=validateAll(id,phone)
+    String regexText=validateAll(id,phone);
     if (!regexText.equals("true")){
         out.println("<script>alert('" + regexText + " 오류'); history.back();</script>");
+        return;
     }   
     Connection connection = null;
     try {

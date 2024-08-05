@@ -4,6 +4,8 @@
 <%@ page import="java.sql.PreparedStatement" %>
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="java.sql.ResultSet" %>
+<%@ page import=" java.util.regex.Pattern"%>
+<%@ page import=" java.util.regex.Matcher"%>
 
 <%!
 public String tryUpdate(Connection connection,String userIDX,String colorCode) {
@@ -24,8 +26,11 @@ public String tryUpdate(Connection connection,String userIDX,String colorCode) {
     }
     return userSet;
 }
+%>
+
+<%!
 public String validateAll(String colorCode) {
-    final Pattern regex_color_code = Pattern.compile("^#([A-Fa-f0-9]{6})$"); 
+    final Pattern regex_color_code = Pattern.compile("^([A-Fa-f0-9]{6})$"); 
     if (!regex_color_code.matcher(colorCode).matches()) {
         return "컬로코드 오류";
     }
@@ -36,9 +41,10 @@ public String validateAll(String colorCode) {
 <%
     request.setCharacterEncoding("utf-8");
     String colorCode = request.getParameter("colorCode");
-    String regexText = validateAll(colorCode)
+    String regexText = validateAll(colorCode);
     if (!regexText.equals("true")){
         out.println("<script>alert('" + regexText + " 오류'); history.back();</script>");
+        return;
     }   
     Connection connection = null;
     HttpSession session_profile = request.getSession(false);

@@ -1,17 +1,11 @@
 <%@ page language= "java" contentType="text/html" pageEncoding="utf-8" %>
-
-<%-- 데이터 베이스 탐색 라이브러리 -> 커넥터를 찾는다 --%>
 <%@ page import="java.sql.DriverManager" %>
-<%-- 데이터 베이스 연결 lib --%>
 <%@ page import="java.sql.Connection" %>
-<%-- SQL 생성 및 전송 --%>
 <%@ page import="java.sql.PreparedStatement" %>
 <%@ page import="java.sql.SQLException" %>
-<%-- 셀렉트 할때만 필요하다  --%>
 <%@ page import="java.sql.ResultSet" %>
-
-
-
+<%@ page import=" java.util.regex.Pattern"%>
+<%@ page import=" java.util.regex.Matcher"%>
 
 <%!
 public class User {
@@ -88,6 +82,7 @@ public String validateAll(String day) {
     String regexText=validateAll(day);
     if (!regexText.equals("true")){
         out.println("<script>alert('" + regexText + " 오류'); history.back();</script>");
+        return;
     }   
 
     String watchState = request.getParameter("watchState");

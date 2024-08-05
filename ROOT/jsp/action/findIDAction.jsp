@@ -1,15 +1,12 @@
 <%@ page language= "java" contentType="text/html" pageEncoding="utf-8" %>
-<%-- 데이터 베이스 탐색 라이브러리 -> 커넥터를 찾는다 --%>
 <%@ page import="java.sql.DriverManager" %>
-<%-- 데이터 베이스 연결 lib --%>
 <%@ page import="java.sql.Connection" %>
-<%-- SQL 생성 및 전송 --%>
 <%@ page import="java.sql.PreparedStatement" %>
-<%-- SQL 예외처리  --%>
 <%@ page import="java.sql.SQLException" %>
-<%-- 셀렉트 할때만 필요하다  --%>
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="java.sql.*, java.util.*" %>
+<%@ page import=" java.util.regex.Pattern"%>
+<%@ page import=" java.util.regex.Matcher"%>
 
 <%!
 public String tryGetID(Connection connection,String phone) {
@@ -29,7 +26,9 @@ public String tryGetID(Connection connection,String phone) {
     }
     return userID;
 }
+%>
 
+<%!
 public String validateAll(String phone) {
     final Pattern regex_phone = Pattern.compile("^01([0|1|6|7|8|9]?)([0-9]{3,4})([0-9]{4})$");
     if (!regex_phone.matcher(phone).matches()) {
@@ -42,9 +41,10 @@ public String validateAll(String phone) {
 <%
     request.setCharacterEncoding("utf-8");
     String phone = request.getParameter("phone");
-    String regexText = validateAll(phone)
+    String regexText = validateAll(phone);
     if (!regexText.equals("true")){
         out.println("<script>alert('" + regexText + " 오류'); history.back();</script>");
+        return;
     }   
     Connection connection = null;
     try {

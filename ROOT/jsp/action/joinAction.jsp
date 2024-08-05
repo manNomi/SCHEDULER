@@ -56,7 +56,9 @@
         return "true";
     }
     }
+%>
 
+<%! 
 public String tryJoin(Connection connection, User user ) {
     String error="false";
     try{

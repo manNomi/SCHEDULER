@@ -1,17 +1,11 @@
 <%@ page language= "java" contentType="text/html" pageEncoding="utf-8" %>
-
-<%-- 데이터 베이스 탐색 라이브러리 -> 커넥터를 찾는다 --%>
 <%@ page import="java.sql.DriverManager" %>
-<%-- 데이터 베이스 연결 lib --%>
 <%@ page import="java.sql.Connection" %>
-<%-- SQL 생성 및 전송 --%>
 <%@ page import="java.sql.PreparedStatement" %>
-<%-- SQL 예외처리  --%>
 <%@ page import="java.sql.SQLException" %>
-
-<%-- 셀렉트 할때만 필요하다  --%>
 <%@ page import="java.sql.ResultSet" %>
-
+<%@ page import=" java.util.regex.Pattern"%>
+<%@ page import=" java.util.regex.Matcher"%>
 
 
 <%!
@@ -31,6 +25,9 @@ public String tryUpdate(Connection connection,String userIDX,String pwOld, Strin
     }
     return userPW;
 }
+%>
+
+<%!
 public String validateAll(String pwOld,String pwNew) {
     final Pattern regex_pw = Pattern.compile("^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z\\d]{6,20}$");
     if (!regex_pw.matcher(pwOld).matches()) {
@@ -48,9 +45,10 @@ public String validateAll(String pwOld,String pwNew) {
     request.setCharacterEncoding("utf-8");
     String pwOld = request.getParameter("old-pw");
     String pwNew = request.getParameter("new-pw");
-    String regexText=validateAll(pwOld,pwNew)
+    String regexText=validateAll(pwOld,pwNew);
     if (!regexText.equals("true")){
         out.println("<script>alert('" + regexText + " 오류'); history.back();</script>");
+        return;
     }
     Connection connection = null;
     HttpSession session_profile = request.getSession(false);

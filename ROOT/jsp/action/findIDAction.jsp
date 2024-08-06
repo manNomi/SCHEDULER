@@ -26,7 +26,6 @@ public String tryGetID(Connection connection,String phone) {
     }
     return userID;
 }
-%>
 
 <%!
 public String validateAll(String phone) {

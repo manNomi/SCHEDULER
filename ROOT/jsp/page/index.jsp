@@ -36,7 +36,6 @@ public String tryGetSelect(Connection connection) {
     // 세션이 있으면 스케줄 페이지로 이동 
     HttpSession session_index = request.getSession(false);
     if (session_index != null) {
-      String userIDX = (session_index != null) ? (String) session_index.getAttribute("idx") : null;
       if (userIDX!=null){
         out.println("<script>alert('세션 오류 스케줄입니다'); location.href='./schedule_page.jsp';</script>");
         return;

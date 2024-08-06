@@ -156,13 +156,11 @@ public String validateAll(String day) {
     request.setCharacterEncoding("utf-8");
     Connection connection = null;
     HttpSession session_detail = request.getSession(false);
-    
     String userIDX = (session_detail != null) ? (String) session_detail.getAttribute("idx") : null;
     if (userIDX==null){
       out.println("<script>alert('세션 오류'); location.href='../action/logoutAction.jsp';</script>");
       return;
     }
-
     String day = request.getParameter("day");
     String watchState = request.getParameter("watchState");
     String regexText=validateAll(day);

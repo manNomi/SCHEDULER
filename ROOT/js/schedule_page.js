@@ -12,8 +12,6 @@ function makeCalander(date, countDateList) {
   var year = date[0];
   var month = date[1];
   var day_format = date[2];
-
-  console.log(countDateList);
   chooseDate.value = `${year}-${month}-${day_format}`;
   // 데이트 객체는 month -1 해줘야 그 달임 0 부터 시작해서
   const dateObj = new Date(year, month - 1, 1);
@@ -230,4 +228,21 @@ function reSizeCalanderEvent() {
 // 달력 날짜 변경
 function setPresentDate(e) {
   location.href = "../../jsp/page/schedule_page.jsp?day=" + e.target.value;
+}
+
+function setCookie(userIDX) {
+  var x = document.cookie;
+  if (x != "") {
+    var value = x.split("=")[1];
+    if (value != userIDX) {
+      var modal = document.getElementById("modal_guide");
+      makeOpacityBox(modal, 0.5);
+      document.cookie = "user=" + userIDX + "; max-age=36000";
+    }
+    // 1시간 = 3600
+  } else {
+    var modal = document.getElementById("modal_guide");
+    makeOpacityBox(modal, 0.5);
+    document.cookie = "user=" + userIDX + "; max-age=36000";
+  }
 }

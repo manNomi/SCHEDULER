@@ -8,7 +8,6 @@ var back = document.getElementById("back_container");
 // 색상 설정
 function setColor(color) {
   color = "#" + color;
-  console.log(color);
   var backColor = [document.querySelector("body")];
   backColor.forEach(function (ele) {
     ele.style.backgroundColor = color;

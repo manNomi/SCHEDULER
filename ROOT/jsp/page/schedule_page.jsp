@@ -190,18 +190,8 @@ public String validateAll(String day,String watchState) {
 </html>
 
 <script>
-  var loginCheck= "<%=firstLogin%>";
-  var watchState= "<%=watchState%>";
-  var loginCheck= "T";
-  if (loginCheck=="F"){
-    var modal = document.getElementById("modal_guide");
-    makeOpacityBox(modal,0.5);
-  }
-  else if (loginCheck==""){
-    alert("잘못된 권한 입니다")
-    location.href="../action/logoutAction.jsp"
-  }
-
+  var userIDX="<%=userIDX%>"
+  setCookie(userIDX)
   var colocCode="<%=colorCode%>"
   setColor(colocCode);
 
@@ -209,6 +199,8 @@ public String validateAll(String day,String watchState) {
   if (position=="팀장"){
     document.getElementById("watch_all_box").style.display="flex"
   }
+
+  var watchState= "<%=watchState%>";
   var countDate=<%=countDateALL%>
   var day= "<%=date%>"
   initwatchAllBtn(watchState);

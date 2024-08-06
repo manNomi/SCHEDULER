@@ -100,6 +100,7 @@ public String validateAll(String day,String watchState) {
     }
     String position = (session_detail != null) ? (String) session_detail.getAttribute("position") : null;
     String colorCode = (session_detail != null) ? (String) session_detail.getAttribute("color") : null;
+    
     String day = request.getParameter("day");
     String watchState = request.getParameter("watchState");
     String regexText=validateAll(day,watchState);
@@ -115,17 +116,12 @@ public String validateAll(String day,String watchState) {
         e.printStackTrace();
     }
 
-    List<String> contentList = new ArrayList<>(); 
-    List<String> scheduleList = new ArrayList<>(); 
-    List<String> nameList = new ArrayList<>(); 
-    List<String> userIDXList = new ArrayList<>(); 
-    
-    // 유저 보기 상태이면 
-    TeamResult result = tryGetTeamSchedule(connection, userIDX, day,watchState);
-    contentList = result.getContentList();
-    scheduleList = result.getScheduleList();
-    nameList = result.getNameList();
-    userIDXList = result.getuserIDXList();
+  TeamResult result = tryGetTeamSchedule(connection, userIDX, day, watchState);
+
+  List<String> contentList = result.getContentList();
+  List<String> scheduleList = result.getScheduleList();
+  List<String> nameList = result.getNameList();
+  List<String> userIDXList = result.getuserIDXList();
 %>
 
 <!DOCTYPE html>

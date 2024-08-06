@@ -164,7 +164,6 @@ function checkJoinError() {
   var comparisonId = ["id", "pw", "pw-check"];
   var comparisonPrivacy = ["id", "pw", "pw-check", "name", "phone"];
   var comparisonProfile = ["id", "pw", "pw-check"];
-  console.log(errorCount);
   // 아이디 탭일때 증복체크
   if (tabState == "ID") {
     // 증복 제거

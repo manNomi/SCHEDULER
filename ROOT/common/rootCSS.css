@@ -1,0 +1,39 @@
+@import "../reset/reset.css";
+
+:root {
+  --color-white: white;
+  --color-black: black;
+
+  --header-btn-list: #425c73;
+
+  --file-shape-back: #758694;
+  --file-shpae-click: #373a40;
+
+  --select-back: #eeeeee;
+  --select-color: #999999;
+  --scroll-bar-back: #e1e1e1;
+
+  --menu-color: #757575;
+
+  --default-color: #ffcceb;
+
+  --input-time-shadow: 2px 2px 7px rgba(0, 0, 0, 0.08);
+  --input-date-shadow: 2px 2px 7px rgba(0, 0, 0, 0.2);
+  --input-date-color: #bbbbbb;
+
+  --btn-red: #f24822;
+  --btn-gray: #b3b3b3;
+  --btn-yellow: #ffcd29;
+  --btn-green: #14ae5c;
+
+  --schdeule-day-red: #f24822;
+  --schdeule-day-blue: #0d99ff;
+
+  --schdeule-back-red: #f4d4d4;
+  --schdeule-back-blue: #d2d8f4;
+
+  --font-size-large: 30px;
+  --font-size-medium: 15px;
+  --font-size-small: 15px;
+  --font-weight-large: 900;
+}

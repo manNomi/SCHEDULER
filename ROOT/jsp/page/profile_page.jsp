@@ -103,8 +103,8 @@ public User tryGetUserData(Connection connection, String userIDX) {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>스케줄러</title>
-    <link rel="stylesheet" type="text/css" href="../../reset/reset.css">
-    <link rel="stylesheet" type="text/css" href="../../rootCSS/rootCSS.css">
+    <link rel="stylesheet" type="text/css" href="../../common/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../common/rootCSS.css">
     <link rel="stylesheet" type="text/css" href="../../component/placeHorder/placeHorder.css">
     <link rel="stylesheet" type="text/css" href="../../component/button/button.css">
     <link rel="stylesheet" type="text/css" href="../../css/profile_page.css" />

@@ -56,7 +56,6 @@
   display: none;
 }
 #join_tab_id_back {
-  background-color: var(--file-shape-back);
   width: 120px;
   height: 25px;
   -webkit-transform: skew(-20deg);
@@ -78,7 +77,6 @@
 }
 
 #join_tab_privacy_back {
-  background-color: var(--file-shape-back);
   width: 120px;
   height: 25px;
   -webkit-transform: skew(-20deg);
@@ -311,4 +309,15 @@ input[type="radio"]:checked {
     opacity: 1;
     height: 90%;
   }
+}
+
+.font_size_medium {
+  font-size: var(--font-size-medium);
+}
+
+.tab_click {
+  background-color: var(--file-shpae-click);
+}
+.tab_non_click {
+  background-color: var(--file-shape-back);
 }

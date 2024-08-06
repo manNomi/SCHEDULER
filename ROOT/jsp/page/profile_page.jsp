@@ -115,7 +115,7 @@ public User tryGetUserData(Connection connection, String userIDX) {
       <div id="profile_btn_list" class="btn_list">
         <button id="red_btn" class="btn_red" onclick="exitEvent()"></button>
         <button id="yellow_btn" class="btn_yellow" onclick="reNameEvent() "></button>
-        <button id="green_btn" class="btn_green" onclick="deleteOpenEvent()"></button>
+        <button id="green_btn" class="btn_green" onclick="makeOpacityBoxEvent()"></button>
       </div>
       <div id="profile_content_container">
         <div id="back_container">

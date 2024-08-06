@@ -8,7 +8,9 @@ var clickText = "";
 var setTime = "";
 var setText = "";
 
+// 스크롤 영역 생성 / 데이터 포함
 function makeInputScroll(contentList, timeList, nameList, userIDXList) {
+  // 내용 / 시간 / 유저이름 / 유저 IDX 를 가져온다
   var scheduleScroll = document.getElementById("schedule_scroll");
 
   contentList.forEach(function (content, index) {
@@ -29,6 +31,7 @@ function makeInputScroll(contentList, timeList, nameList, userIDXList) {
     scheduleContainer.appendChild(scheduleText);
 
     var nameText = document.createElement("p");
+
     if (nameList[index] != null) {
       nameText.innerHTML = nameList[index];
       nameText.classList = "schedule_text";
@@ -76,6 +79,7 @@ function makeInputScroll(contentList, timeList, nameList, userIDXList) {
   }
 }
 
+// userId와 다를 경우 수정 삭제 버튼 제거
 function btnRemove(presentIDX) {
   var tagList = document.querySelectorAll(".schedule_box");
   tagList.forEach(function (tag) {
@@ -88,6 +92,7 @@ function btnRemove(presentIDX) {
   });
 }
 
+// 스케줄 버튼들 이벤트 등록
 function scheduleBtnEvent(renameBtn, deleteBtn, saveBtn, backBtn) {
   renameBtn.addEventListener("click", function () {
     renameBtn.style.display = "none";
@@ -130,6 +135,7 @@ function scheduleBtnEvent(renameBtn, deleteBtn, saveBtn, backBtn) {
   });
 }
 
+// 모달창 바깥부분 만들기
 function makeOpacityBox(text, btnText, opacityNumber) {
   document.getElementById("modal_text").innerHTML = text;
   document.getElementById("event_btn").innerHTML = btnText;
@@ -143,6 +149,7 @@ function makeOpacityBox(text, btnText, opacityNumber) {
   });
 }
 
+// 저장 클릭 이벤트
 function saveEvent() {
   var url =
     "../action/schUpdateAction.jsp?newTime=" +
@@ -160,6 +167,7 @@ function saveEvent() {
   location.href = url;
 }
 
+// 삭제 클릭 이벤트
 function deleteEvent() {
   var url =
     "../action/schDeleteAction.jsp?Time=" +
@@ -173,6 +181,7 @@ function deleteEvent() {
   location.href = url;
 }
 
+// 수정 , 삭제 버튼 클릭 시 모달 생성 이벤트
 function modalEvent(e) {
   if (e.target.innerHTML == "수정") {
     saveEvent();
@@ -181,12 +190,14 @@ function modalEvent(e) {
   }
 }
 
+// 모달창 닫기 이벤트
 function modalDoneEvnet() {
   modal.style.display = "none";
   var opacityBox = document.querySelector(".opacity_box");
   opacityBox.remove();
 }
 
+// 색상 설정 이벤트
 function setColor(color) {
   color = "#" + color;
   var changeColorListback = [
@@ -215,10 +226,12 @@ function setColor(color) {
   document.head.appendChild(style);
 }
 
+// 나가기 버튼 클릭 이벤트
 function exitBtnEvent() {
   location.href = "../../jsp/page/schedule_page.jsp?day=" + dateText;
 }
 
+// 시간 설정
 function initTime(date_day) {
   var now = new Date();
   var hours = now.getHours().toString().padStart(2, "0");
@@ -229,6 +242,7 @@ function initTime(date_day) {
   date.innerHTML = date_day;
 }
 
+// 스케줄 추가 이벤트
 function insertScheduleEvent() {
   var dateValue = document.getElementById("date").innerHTML;
   var timeValue = document.getElementById("time_input").value;
@@ -249,6 +263,7 @@ function insertScheduleEvent() {
   }
 }
 
+// 플레이스 홀더 생성 이벤트
 function setPlacehorderSchedule() {
   var placeHorderBox = document.getElementById("placehorder");
   placeHorderBox.replaceChild(

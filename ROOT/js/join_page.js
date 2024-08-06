@@ -14,7 +14,9 @@ var tapIDBox = document.getElementById("join_tab_id_back");
 var tapPrivacyBox = document.getElementById("join_tab_privacy_back");
 var tapProfileBox = document.getElementById("join_tab_profile_back");
 var classContainer = document.getElementById("class_container");
+var selectClass = document.querySelector(".class_select");
 
+// 플레이스 홀더 생성
 function initPlaceHorderJoin() {
   joinIDBox.replaceChild(
     makePlacehorder("join_id", "아이디", "#EEEEEE", "black"),
@@ -44,8 +46,8 @@ function initPlaceHorderJoin() {
     document.getElementById("tmp_join_phone")
   );
 }
-var selectClass = document.querySelector(".class_select");
 
+// 셀렉트 인풋 세팅
 function initSelectBox(team) {
   var classNameList = team;
   var classScroll = document.getElementById("class_scroll");
@@ -65,6 +67,7 @@ function initSelectBox(team) {
   document.getElementById("select_container").appendChild(classScroll);
 }
 
+// 라디오 버튼 세팅
 function initRadioBtn() {
   var classTextList = ["팀장", "팀원"];
   for (let i = 0; i < classTextList.length; i++) {
@@ -79,8 +82,7 @@ function initRadioBtn() {
     var classText = document.createElement("div");
     classText.classList.add("class_text");
     classText.innerHTML = classTextList[i];
-    classText.style.fontSize = "15px";
-
+    classText.classList.add("font_size_medium");
     classBox.appendChild(classRadio);
     classBox.appendChild(classText);
     classContainer.appendChild(classBox);
@@ -88,6 +90,7 @@ function initRadioBtn() {
   raidoBtnRepeatCheck();
 }
 
+// 라디오 버튼 증복 클릭 방지
 function raidoBtnRepeatCheck() {
   var radioBtns = document.querySelectorAll(".class_radio");
   radioBtns.forEach(function (radioBtn) {
@@ -105,9 +108,10 @@ function raidoBtnRepeatCheck() {
   });
 }
 
+// 아이디 탭 클릭 이벤트
 function setIdTabEvent() {
-  tapIDBox.style.backgroundColor = "#373A40";
-  tapPrivacyBox.style.backgroundColor = "#758694";
+  tapIDBox.classList = "tab_click";
+  tapPrivacyBox.classList = "tab_non_click";
   tapProfileBox.classList = "join_tab_profile_back";
   tabState = "ID";
   joinIDBox.style.display = "block";
@@ -115,9 +119,10 @@ function setIdTabEvent() {
   joinProfileBox.style.display = "none";
 }
 
+// 개인정보 탭 클릭 이벤트
 function setPrivacyTabEvent() {
-  tapIDBox.style.backgroundColor = "#758694";
-  tapPrivacyBox.style.backgroundColor = "#373A40";
+  tapIDBox.classList = "tab_non_click";
+  tapPrivacyBox.classList = "tab_click";
   tapProfileBox.classList = "join_tab_profile_back";
   tabState = "Privacy";
   joinIDBox.style.display = "none";
@@ -125,9 +130,10 @@ function setPrivacyTabEvent() {
   joinProfileBox.style.display = "none";
 }
 
+// 프로필 탭 클릭 이벤트
 function setProfileTabEvent() {
-  tapIDBox.style.backgroundColor = "#758694";
-  tapPrivacyBox.style.backgroundColor = "#758694";
+  tapIDBox.classList = "tab_non_click";
+  tapPrivacyBox.classList = "tab_non_click";
   tapProfileBox.classList = "join_tab_profile_back_click";
   tabState = "Profile";
   joinIDBox.style.display = "none";
@@ -135,11 +141,14 @@ function setProfileTabEvent() {
   joinProfileBox.style.display = "block";
 }
 
+// 나가기 이벤트
 function exitJoinBtnEvent() {
   location.href = "../../jsp/page/index.jsp";
 }
+
+// 인풋 셀렉트 클릭 이벤트
 function setSelectBoxEvnet() {
-  var scroll = document.getElementById("class_scroll"); // 첫 번째 자식 요소를 선택
+  var scroll = document.getElementById("class_scroll");
   if (scrollState == "block") {
     scroll.style.display = "none";
     scrollState = "none";
@@ -149,18 +158,25 @@ function setSelectBoxEvnet() {
   }
 }
 
+// 정규표현식 검사
 function checkJoinError() {
   var comparisonId = ["id", "pw", "pw-check"];
   var comparisonPrivacy = ["id", "pw", "pw-check", "name", "phone"];
   var comparisonProfile = ["id", "pw", "pw-check"];
   console.log(errorCount);
+  // 아이디 탭일때 증복체크
   if (tabState == "ID") {
+    // 증복 제거
+    // 플레이스 홀더에서 자체 적으로 error카운트 배열을 만든다
+    // 정규표현식에 맞을경우 errorCount에 자기 id를 add 해준다
     const inputSet = new Set(errorCount);
     const comparisonSet = new Set(comparisonId);
+    // 증복 제거 한 배열 배열화 후 값이 있는지 확인
     const additionalValues = [...comparisonSet].filter(
       (value) => !inputSet.has(value)
     );
-    if (errorCount.length >= 3) {
+    // 아이디 탭의 정규표현식 검사는 3개이므로 3이상이면 통과
+    if ([...inputSet].length >= 3) {
       setPrivacyTabEvent();
       tapPrivacyBox.addEventListener("click", setPrivacyTabEvent);
     } else {
@@ -172,7 +188,7 @@ function checkJoinError() {
     const additionalValues = [...comparisonSet].filter(
       (value) => !inputSet.has(value)
     );
-    if (errorCount.length >= 5) {
+    if ([...inputSet].length >= 5) {
       setProfileTabEvent();
       tapProfileBox.addEventListener("click", setProfileTabEvent);
     } else {
@@ -184,7 +200,7 @@ function checkJoinError() {
     const additionalValues = [...comparisonSet].filter(
       (value) => !inputSet.has(value)
     );
-    if (errorCount.length == 5 && teamValue != "") {
+    if ([...inputSet].length == 5 && teamValue != "") {
       var dataList = getPrsentData();
       var path = "../../jsp/action/joinAction.jsp?";
       for (const key in dataList) {
@@ -192,6 +208,7 @@ function checkJoinError() {
           path += `${key}=${dataList[key]}&`;
         }
       }
+      // & 잘라내기
       path = path.slice(0, -1);
       location.href = path;
     } else {
@@ -204,6 +221,7 @@ function checkJoinError() {
   }
 }
 
+// 현재 입력 데이터 가져오기
 function getPrsentData() {
   var radioText = "";
   var radios = document.querySelectorAll(".class_radio");
@@ -224,6 +242,7 @@ function getPrsentData() {
   return formData;
 }
 
+// 가입 페이지 닫기
 function joinBackEvent() {
   moveEvent(joinContainer, loginContainer);
   tapPrivacyBox.removeEventListener("click", setPrivacyTabEvent);

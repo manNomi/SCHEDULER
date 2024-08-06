@@ -5,6 +5,7 @@ var presentState = "default";
 var front = document.getElementById("front_container");
 var back = document.getElementById("back_container");
 
+// 색상 설정
 function setColor(color) {
   color = "#" + color;
   console.log(color);
@@ -14,6 +15,7 @@ function setColor(color) {
   });
 }
 
+// 수정 상태로 변경 이벤트
 function reNameEvent() {
   if (presentState == "default") {
     front.style.transform = "rotateY(-180deg)";
@@ -40,6 +42,7 @@ function reNameEvent() {
   }
 }
 
+// 플레이스 홀더 생성
 function initPlacehorder() {
   var btn = document.getElementById("rename_btn");
   renameContainer.insertBefore(
@@ -75,6 +78,7 @@ function initPlacehorder() {
   renameContainer.style.display = "none";
 }
 
+// 데이터 가져와서 프로필 텍스트 세팅
 function initText(id, name, phone, position, teamName) {
   var nameTag = document.getElementById("user_name");
   nameTag.innerHTML = name;
@@ -92,6 +96,7 @@ function initText(id, name, phone, position, teamName) {
   });
 }
 
+// 수정 버튼 클릭 이벤트
 function renameBtnEvent() {
   var oldPw = document.getElementById("profile_pw-old_box").value;
   var newPw = document.getElementById("profile_pw_box").value;
@@ -112,29 +117,28 @@ function renameBtnEvent() {
   }
 }
 
+// 나가기 버튼 이벤트
 function exitEvent() {
   location.href = "../../jsp/page/schedule_page.jsp";
 }
 
+// 모달창 닫기 이벤트
 function deleteDoneEvent() {
   var opa = document.querySelector(".opacity_box");
   modalDelete.style.display = "none";
   opa.remove();
 }
 
-function deleteOpenEvent() {
-  makeOpacityBox(0.5);
-}
-
 function deleteEvent() {
   location.href = "../../jsp/action/profileDeleteAction.jsp";
 }
 
-function makeOpacityBox(opacityNumber) {
+// 모달창 열기 이벤트
+function makeOpacityBoxEvent() {
   modalDelete.style.display = "flex";
   var opacityBox = document.createElement("div");
   opacityBox.classList = "opacity_box";
-  opacityBox.style.opacity = opacityNumber;
+  opacityBox.style.opacity = 0.5;
   document.querySelector("body").appendChild(opacityBox);
   opacityBox.addEventListener("click", function () {
     deleteDoneEvent();

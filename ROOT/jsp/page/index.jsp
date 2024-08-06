@@ -73,11 +73,11 @@ public String tryGetSelect(Connection connection) {
           <nav id="join_tab_box">
             <section id="join_tab_id_box" onclick="setIdTabEvent()">
               <p id="join_tab_id_content" >아이디</p>
-              <div id="join_tab_id_back"></div>
+              <div id="join_tab_id_back" class="tab_click"></div>
             </section>
             <section id="join_tab_privacy_box" >
               <p id="join_tab_privacy_content">개인정보</p>
-              <div id="join_tab_privacy_back"></div>
+              <div id="join_tab_privacy_back" class="tab_non_click"></div>
             </section>
             <section id="join_tab_profile_box">
               <p id="join_tab_profile_content">프로필</p>
@@ -147,9 +147,9 @@ public String tryGetSelect(Connection connection) {
         <button id="find_back_btn" onclick="findBackEvent()"></button>
         <article id="find_file_container">
           <header id="find_tab_box">
-            <nav id="find_tab_id_box" onclick="tabIdBoxClickEvent()">
+            <nav id="find_tab_id_box"  onclick="tabIdBoxClickEvent()">
               <p id="find_tab_id_content">아이디</p>
-              <div id="find_tab_id_back"></div>
+              <div id="find_tab_id_back" class="tab_non_click"></div>
             </nav>
             <nav id="find_tab_pw_box" onclick="tabPWBoxClickEvent()">
               <p id="find_tab_pw_content">비밀번호</p>

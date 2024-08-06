@@ -5,6 +5,7 @@ var tabPw = document.getElementById("find_tab_pw_back");
 var tapIDBox = document.getElementById("find_tab_id_box");
 var tapPWBox = document.getElementById("find_tab_pw_box");
 
+// 플레이스 홀더 생성
 function initPlaceHorder() {
   findIdContinaer.style.display = "none";
   findIdContinaer.replaceChild(
@@ -22,6 +23,7 @@ function initPlaceHorder() {
   );
 }
 
+// 인풋 태그 초기화
 function replaceTabEvent() {
   Array.from(document.querySelectorAll("input")).forEach(function (input) {
     input.value = "";
@@ -29,30 +31,34 @@ function replaceTabEvent() {
   errorCount = [];
 }
 
+// 아이디 탭 클릭 이벤트
 function tabIdBoxClickEvent() {
-  tapIDBox.style.paddingLeft = "5px";
-  tapPWBox.style.paddingLeft = "0px";
-  tabId.style.backgroundColor = "#373A40";
+  tapIDBox.classList = "tab_padding_click";
+  tapPWBox.classList = "tab_padding_none_click";
+  tabId.classList = "tab_click";
   tabPw.classList = "find_tab_pw";
   findIdContinaer.style.display = "block";
   findPwContainer.style.display = "none";
   replaceTabEvent();
 }
 
+// 비밀번호 탭 클릭 이벤트
 function tabPWBoxClickEvent() {
-  tapIDBox.style.paddingLeft = "0px";
-  tapPWBox.style.paddingLeft = "5px";
-  tabId.style.backgroundColor = "#758694";
+  tapIDBox.classList = "tab_padding_none_click";
+  tapPWBox.classList = "tab_padding_click";
+  tabId.classList = "tab_non_click";
   tabPw.classList = "find_tab_pw_click";
   findIdContinaer.style.display = "none";
   findPwContainer.style.display = "block";
   replaceTabEvent();
 }
 
+// 나가기 버튼
 function exitBtnClickEvent() {
   location.href = "../../jsp/page/index.jsp";
 }
 
+// 아이디 찾기 이벤트
 function setFindIDEvnet() {
   if (errorCount.length == 1) {
     var phone = document.getElementById("find_phone_box").value;
@@ -62,6 +68,7 @@ function setFindIDEvnet() {
   }
 }
 
+// 비밀번호 찾기 이벤트
 function setFindPWEvnet() {
   if (errorCount.length == 2) {
     var id = document.getElementById("find_id_box").value;
@@ -73,6 +80,7 @@ function setFindPWEvnet() {
   }
 }
 
+// 뒤로가기 이벤트
 function findBackEvent() {
   moveEvent(findContainer, loginContainer);
 }

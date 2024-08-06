@@ -189,3 +189,16 @@ th {
 #placehorder_box {
   width: 60%;
 }
+
+.back_red {
+  background-color: var(--schdeule-back-red);
+}
+.back_blue {
+  background-color: var(--schdeule-back-blue);
+}
+.day_red {
+  color: var(--schdeule-day-red);
+}
+.day_blue {
+  color: var(--schdeule-day-blue);
+}

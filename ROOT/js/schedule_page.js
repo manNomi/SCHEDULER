@@ -3,12 +3,17 @@ var watchState = "USER";
 var stateColor = "";
 var stateSize = "small";
 const chooseDate = document.getElementById("choose_date");
+var calander = document.getElementById("month");
+
 var countMyList = [];
 var countAllList = [];
 
-//
+//스케줄 개수 가져오기
 function getData(countDate) {
-  console.log(countDate);
+  // 모든 스케줄을 날짜 형식으로 -(하이픈)을 연결해서 가져온다
+  // 전제 스케줄과는 _(아래 하이폰으로 구분)
+  // 예시
+  // [본인]01-01-01-01-02-24-_[전체]01-01-01-01-01-01-01-01-02-02-24-
   var myCount = countDate.split("_")[0].split("]")[1];
   var allCount = "";
   if (countDate.split("_")[1] != null) {
@@ -17,62 +22,57 @@ function getData(countDate) {
   if (allCount != null) {
     allCount = allCount.split("-");
     allCount.pop();
+    // Set 객체는 증복을 허용하지 않는 점을 이용
     var processedCountsAll = new Set();
     for (var i = 0; i < allCount.length; i++) {
       var count = allCount[i];
-      // 이미 처리된 항목은 무시
-      if (processedCountsAll.has(count)) continue;
-      // 현재 항목과 일치하는 항목을 필터링하여 countList를 생성
+      // 증복체크
+      if (processedCountsAll.has(count)) {
+        continue;
+      }
+      // 현재 날짜와 같은 스케줄을 모두 찾는다
       var countList = allCount.filter(function (ele) {
+        return ele == count;
+      });
+      // 같은 스케줄을 리스트에서 삭제한다
+      allCount = allCount.filter(function (ele) {
+        return ele != count;
+      });
+      // 날짜와 날짜의 스케줄개수를 저장
+      countAllList.push([count, countList.length]);
+      // 증복체크 객체에 저장
+      processedCountsAll.add(count);
+      i = -1;
+    }
+
+    myCount = myCount.split("-");
+    myCount.pop();
+    var processedCountsMy = new Set();
+    for (var i = 0; i < myCount.length; i++) {
+      var count = myCount[i];
+      if (processedCountsMy.has(count)) continue;
+      var countList = myCount.filter(function (ele) {
         return ele === count;
       });
-      // allCount에서 countList 요소들을 제거합니다.
-      allCount = allCount.filter(function (ele) {
+      myCount = myCount.filter(function (ele) {
         return ele !== count;
       });
-      // countList와 해당 항목을 countAllList에 추가합니다.
-      countAllList.push([count, countList.length]);
-
-      // 현재 항목을 처리된 항목 세트에 추가합니다.
-      processedCountsAll.add(count);
-      // 배열의 인덱스를 다시 맞추기 위해 반복문을 조정합니다.
-      i = -1; // i를 -1로 설정하여 for 루프가 다시 시작할 때 0부터 시작하도록 합니다.
+      countMyList.push([count, countList.length]);
+      processedCountsMy.add(count);
+      i = -1;
     }
-  }
-  myCount = myCount.split("-");
-  myCount.pop();
-
-  var processedCountsMy = new Set();
-  // myCount 처리
-  for (var i = 0; i < myCount.length; i++) {
-    var count = myCount[i];
-    // 이미 처리된 항목은 무시
-    if (processedCountsMy.has(count)) continue;
-    // 현재 항목과 일치하는 항목을 필터링하여 countList를 생성
-    var countList = myCount.filter(function (ele) {
-      return ele === count;
-    });
-    // myCount에서 countList 요소들을 제거합니다.
-    myCount = myCount.filter(function (ele) {
-      return ele !== count;
-    });
-    // countList와 해당 항목을 countMyList에 추가합니다.
-    countMyList.push([count, countList.length]);
-
-    // 현재 항목을 처리된 항목 세트에 추가합니다.
-    processedCountsMy.add(count);
-    // 배열의 인덱스를 다시 맞추기 위해 반복문을 조정합니다.
-    i = -1; // i를 -1로 설정하여 for 루프가 다시 시작할 때 0부터 시작하도록 합니다.
   }
 }
 
+// 달력 만들기
 function makeCalander(date) {
   date = date.split("-");
   var year = date[0];
   var month = date[1];
   var day_format = date[2];
-
   var countDateList = [];
+
+  // getData로 가져온 데이터
   if (watchState == "TEAM") {
     countDateList = countAllList;
   } else {
@@ -80,16 +80,19 @@ function makeCalander(date) {
   }
 
   chooseDate.value = `${year}-${month}-${day_format}`;
+  // 데이트 객체는 month -1 해줘야 그 달임 0 부터 시작해서
   const dateObj = new Date(year, month - 1, 1);
   const days = ["일", "월", "화", "수", "목", "금", "토"];
-  var day = days[dateObj.getDay()];
+  // 그 달의 첫번째 날의 요일 인덱스를 가져옴
+  // 0 -> 일요일
   var daysNum = dateObj.getDay();
+  // 매달 마지막 날짜 저장
   var last = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
   var dayNumber = 1;
   var dayList = [];
   firstWeekList = [];
 
+  // 요일 숫자 보다 작으면 공백 아닐경우 숫자를 넣는다
   for (i = 0; i < last[month - 1] + daysNum; i++) {
     if (i < daysNum) {
       dayList.push("");
@@ -99,27 +102,30 @@ function makeCalander(date) {
     }
   }
   var weeks = [];
+  // 7일단위로 끊기
   for (var i = 0; i < dayList.length; i += 7) {
     weeks.push(dayList.slice(i, i + 7));
   }
 
-  var calander = document.getElementById("month");
-
+  // 캘린더 초기화
   Array.from(calander.children).forEach(function (child) {
     child.remove();
   });
 
+  // 요일 만들기
   days.forEach(function (day, index) {
     var weekOfDay = document.createElement("th");
     weekOfDay.innerHTML = day;
     weekOfDay.id = "day" + day;
     if (index == 0) {
-      weekOfDay.style.color = "#F24822";
+      weekOfDay.classList.add("day_red");
     } else if (index == 6) {
-      weekOfDay.style.color = "#0D99FF";
+      weekOfDay.classList.add("day_blue");
     }
     calander.appendChild(weekOfDay);
   });
+
+  // 날짜 만들기
   weeks.forEach(function (week) {
     var dayOfWeek = document.createElement("tr");
     week.forEach(function (present_week, index) {
@@ -133,10 +139,16 @@ function makeCalander(date) {
         if (present_week < 10) {
           idxText = "0" + present_week;
         }
+        // ele[0] 은 날짜 ele[0]은 값
         if (ele[0] == idxText) {
           plan = ele[1];
         }
       });
+      // 너무 크면 ... 처리
+      if (plan > 999) {
+        plan = "999...";
+      }
+      // 스케줄이 있으면 표시
       if (plan >= 1) {
         if (watchState == "TEAM") {
           day.innerHTML = `${present_week} <br><br>전체일정 : ${plan}`;
@@ -144,11 +156,13 @@ function makeCalander(date) {
           day.innerHTML = `${present_week} <br><br>개인일정 : ${plan}`;
         }
       }
+
       if ((index == 0) & (present_week != "")) {
-        day.style.backgroundColor = "#F4D4D4";
+        day.classList.add("back_red");
       } else if ((index == 6) & (present_week != "")) {
-        day.style.backgroundColor = "#D2D8F4";
+        day.classList.add("back_blue");
       }
+      // 클릭 이벤트 등록 디테일페이지 이동
       day.onclick = function (ele) {
         var chooseDateValue = chooseDate.value.split("-");
         var date = ele.target.id;
@@ -172,22 +186,25 @@ function makeCalander(date) {
   });
 }
 
+// 로그아웃
 function exitBtnEvent() {
   location.href = "../../jsp/action/logoutAction.jsp";
 }
 
+// 메뉴 모달창 생성
 function menuBtnEvent() {
   var speechMenu = document.getElementById("speech_icon");
   makeOpacityBox(speechMenu, 0.5);
 }
 
+// 프로필 페이지로 이동
 function setProfileMoveEvent() {
   location.href = "../../jsp/page/profile_page.jsp";
 }
 
+// 전체 보기 버튼 이벤트
 function whatchAllBtnEvent(e) {
   var date = chooseDate.value;
-
   if (watchState == "TEAM") {
     e.target.children[0].src = "../../image/schedule/full_battery.png";
     e.target.children[1].innerHTML = "전체 보기";
@@ -203,6 +220,7 @@ function whatchAllBtnEvent(e) {
   }
 }
 
+// 모달창 바깥 영역 생성
 function makeOpacityBox(modal, opacityNumber) {
   modal.style.display = "flex";
   var opacityBox = document.createElement("div");
@@ -215,6 +233,7 @@ function makeOpacityBox(modal, opacityNumber) {
   });
 }
 
+// 메뉴 모달창 닫기
 function opacitySpeachDone() {
   var speechMenu = document.getElementById("speech_icon");
   var opacityBox = document.querySelector(".opacity_box");
@@ -222,6 +241,7 @@ function opacitySpeachDone() {
   opacityBox.remove();
 }
 
+// 가이드 모달창 닫기
 function opacityGuideDone() {
   var modal = document.getElementById("modal_guide");
   modal.style.display = "none";
@@ -229,10 +249,12 @@ function opacityGuideDone() {
   opacityBox.remove();
 }
 
+// 컬레테마 페이지로 이동
 function colorThemeMove() {
   location.href = "../../jsp/page/theme_page.jsp";
 }
 
+// 색상 세팅
 function setColor(color) {
   color = "#" + color;
   var changeColorListBack = [
@@ -244,6 +266,7 @@ function setColor(color) {
   });
 }
 
+// 달력 키우기 버튼 이벤트
 function reSizeCalanderEvent() {
   var calander = document.getElementById("month");
   var inputClander = document.getElementById("choose_date");
@@ -259,6 +282,8 @@ function reSizeCalanderEvent() {
     inputClander.style.display = "block";
   }
 }
+
+// 달력 날짜 변경
 function setPresentDate(e) {
   location.href = "../../jsp/page/schedule_page.jsp?day=" + e.target.value;
 }

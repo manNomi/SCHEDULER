@@ -45,8 +45,20 @@
   cursor: pointer;
 }
 
-#find_tab_id_back {
+.tab_click {
+  background-color: var(--file-shpae-click);
+}
+.tab_non_click {
   background-color: var(--file-shape-back);
+}
+.tab_padding_click {
+  padding-left: 5px;
+}
+.tab_padding_none_click {
+  padding-left: 0px;
+}
+
+#find_tab_id_back {
   width: 160px;
   height: 25px;
   -webkit-transform: skew(-20deg);

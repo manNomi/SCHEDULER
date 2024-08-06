@@ -264,6 +264,9 @@ public String validateAll(String day) {
 </body>
 </html>
 
+
+
+<%-- 코드 정제가 너무 많음 / 데이터를 정제 하면 안된다 --%>
 <script>
 <%-- 배열 가져와서 자바스크립트 배열로 변환 --%>
   var nameList=[]

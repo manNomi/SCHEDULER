@@ -40,8 +40,7 @@ public String validateAll(String pwOld,String pwNew) {
 }
 %>
 
-
-<%
+    <%
     request.setCharacterEncoding("utf-8");
     Connection connection = null;
     HttpSession session_profile = request.getSession(false);

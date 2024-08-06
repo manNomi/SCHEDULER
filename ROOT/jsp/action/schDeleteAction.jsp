@@ -1,3 +1,4 @@
+<%@ page language= "java" contentType="text/html" pageEncoding="utf-8" %>
 <%@ page import="java.sql.DriverManager" %>
 <%@ page import="java.sql.Connection" %>
 <%@ page import="java.sql.PreparedStatement" %>
@@ -44,7 +45,7 @@ public String validateAll(String day,String time,String content) {
 %>
 
 <%
-    request.setCharacterEncoding("utf-8");
+    request.setCharacterEncoding("UTF-8");
     HttpSession session_detail = request.getSession(false);
     String userIDX = (session_detail != null) ? (String) session_detail.getAttribute("idx") : null;
     if (userIDX==null){

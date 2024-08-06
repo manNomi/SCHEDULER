@@ -108,6 +108,7 @@ function raidoBtnRepeatCheck() {
   });
 }
 
+// 이벤트가 클릭이면 클릭 단어를 넣어주는게 좋다
 // 아이디 탭 클릭 이벤트
 function setIdTabEvent() {
   tapIDBox.classList = "tab_click";
@@ -260,6 +261,8 @@ function joinBackEvent() {
   setIdTabEvent();
 }
 
+// -------------------------함수
 initPlaceHorderJoin();
 initRadioBtn();
+// -------------------------이벤트 함수
 setIdTabEvent();

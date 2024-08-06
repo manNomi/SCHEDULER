@@ -38,8 +38,8 @@ public ScheduleResult tryGetSchedule(Connection connection, String idx, String d
         while (result.next()) {
             String content = result.getString("content");
             String time = result.getString("schedule_time");
-            contentList.add(content);
-            scheduleList.add(time);
+            contentList.add("'"+content+"'");
+            scheduleList.add("'"+time+"'");
         }
     } catch (SQLException e) {
         e.printStackTrace(); // 예외를 로그로 기록합니다.
@@ -92,10 +92,10 @@ public TeamResult tryGetTeamSchedule(Connection connection, String idx, String d
             String time = result.getString("schedule_time");
             String name=result.getString("u.name");
             String userIDX=result.getString("u.idx");
-            contentList.add(content);
-            scheduleList.add(time);
-            nameList.add(name);
-            userIDXList.add(userIDX);
+            contentList.add("'"+content+"'");
+            scheduleList.add("'"+time+"'");
+            nameList.add("'"+name+"'");
+            userIDXList.add("'"+userIDX+"'");
         }
     } catch (SQLException e) {
         e.printStackTrace(); // 예외를 로그로 기록합니다.
@@ -264,34 +264,22 @@ public String validateAll(String day) {
 </body>
 </html>
 
-
-
-<%-- 코드 정제가 너무 많음 / 데이터를 정제 하면 안된다 --%>
 <script>
 <%-- 배열 가져와서 자바스크립트 배열로 변환 --%>
-  var nameList=[]
-  var userIDXList = [
-      <% for (int i = 0; i < userIDXList.size(); i++) { %>
-          "<%= userIDXList.get(i)%>"<%= i < userIDXList.size() - 1 ? "," : "" %>
-      <% } %>];
-  var contentList = [
-      <% for (int i = 0; i < contentList.size(); i++) { %>
-          "<%= contentList.get(i)%>"<%= i < contentList.size() - 1 ? "," : "" %>
-      <% } %>];
-  var scheduleList = [
-      <% for (int i = 0; i < scheduleList.size(); i++) { %>
-          "<%= scheduleList.get(i) %>"<%= i < scheduleList.size() - 1 ? "," : "" %>
-      <% } %>]
+  var userIDXList=<%=userIDXList%>
+  var contentList=<%=contentList%>
+  var scheduleList=<%=scheduleList%> 
+
   var watchState= "<%=watchState%>"
-  if (watchState=="TEAM"){
-    nameList = [
-      <% for (int i = 0; i < nameList.size(); i++) { %>
-          "<%= nameList.get(i) %>"<%= i < nameList.size() - 1 ? "," : "" %>
-      <% } %>]
-  }
   var date ="<%=day%>"
   var colorCode="<%=colorCode%>"
   var userIDX="<%=userIDX%>"
+
+  var nameList=[]
+  if (watchState=="TEAM"){
+    nameList=<%=nameList%>
+  }
+
   initTime(date)
   dateText=date
   stateColor="#"+colorCode

@@ -9,7 +9,8 @@
 <%@ page import="java.sql.SQLException" %>
 <%-- 셀렉트 할때만 필요하다  --%>
 <%@ page import="java.sql.ResultSet" %>
-
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
 
 <%-- 부서 가져오기 --%>
 <%!

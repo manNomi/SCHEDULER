@@ -7,6 +7,8 @@
 <%@ page import="java.time.LocalDate, java.time.YearMonth" %>
 <%@ page import=" java.util.regex.Pattern"%>
 <%@ page import=" java.util.regex.Matcher"%>
+
+<%-- 데이터 가져오기  --%>
 <%! 
 public String tryGetDate(Connection connection, String userIDX , String date, String position) {
     String year = date.split("-")[0];
@@ -31,6 +33,9 @@ public String tryGetDate(Connection connection, String userIDX , String date, St
             countDate =countDate+ result.getString("day").split("-")[2]+"-";
           }
         if ("팀장".equals(position)){
+          // 스케줄 테이블의 fk 인 user_idx User 테이블의 idx를 기준으로 조인 
+          // User 테이블의 idx의 team_name 가져와서 user테이블의 team_name과 일치하는 것들의
+          // day 컬럼을 가져온다 시간 순서로 
         String readerSQL = "SELECT day " +
                             "FROM Schedule s " +
                             "JOIN User u ON s.user_idx = u.idx " +
@@ -59,6 +64,7 @@ public String tryGetDate(Connection connection, String userIDX , String date, St
 }
 %>
 
+<%-- 유저 데이터 가져오는 클래스 --%>
 <%!
   public class User {
     String position="";
@@ -118,6 +124,8 @@ public String validateAll(String day) {
     String firstLogin ="";
     String date = request.getParameter("day");
     String countDateALL="";
+
+    // 페이지에 파라미터 없이 접속시 기본 날짜 설정 
     if(date==null){
       java.util.Calendar now = java.util.Calendar.getInstance();
       int year = now.get(java.util.Calendar.YEAR);
@@ -127,6 +135,8 @@ public String validateAll(String day) {
       String dayStr = String.format("%02d", day);
       date = year + "-" + monthStr + "-" + dayStr;
     }
+
+    // 이상하게 입력시 뒤로 가도록
     String regexText=validateAll(date);
     if (!regexText.equals("true")){
         out.println("<script>alert('" + regexText + " 오류'); history.back();</script>");
@@ -141,6 +151,7 @@ public String validateAll(String day) {
     colorCode= resultUser.getColorCode();
     firstLogin= resultUser.getFristLogin();
     countDateALL=tryGetDate(connection,userIDX,date,position);
+    // 첫 로그인 DB를 T -> F 로 변환 
     try {
       if ("T".equals(firstLogin)){
           String getSetSQL = "UPDATE User SET first_login = 'F' WHERE idx = ? ";

@@ -9,6 +9,7 @@
 <%@ page import=" java.util.regex.Pattern"%>
 <%@ page import=" java.util.regex.Matcher"%>
 
+<%-- 개인 데이터 가져오기 클래스 --%>
 <%!
 public class ScheduleResult {
     private List<String> contentList;
@@ -47,6 +48,7 @@ public ScheduleResult tryGetSchedule(Connection connection, String idx, String d
 }
 %>
 
+<%-- 팀 데이터 가져오기 클래스 --%>
 <%!
 public class TeamResult {
     private List<String> contentList;
@@ -102,6 +104,8 @@ public TeamResult tryGetTeamSchedule(Connection connection, String idx, String d
 }
 %>
 
+<%-- 유저 클래스 --%>
+<%-- 유저 데이터 가져옴 --%>
 <%!
   public class User {
     String position="";
@@ -185,11 +189,13 @@ public String validateAll(String day) {
     List<String> nameList = new ArrayList<>(); 
     List<String> userIDXList = new ArrayList<>(); 
     
+    // 유저 보기 상태이면 
     if (watchState.equals("USER")){
       ScheduleResult resultUser = tryGetSchedule(connection, userIDX, day);
       contentList = resultUser.getContentList();
       scheduleList = resultUser.getScheduleList();
     }
+    // 팀장보기 상태이면 팀장권한 있는지 확인 
     else if (watchState.equals("TEAM") & position.equals("팀장")){
       TeamResult result = tryGetTeamSchedule(connection, userIDX, day);
       contentList = result.getContentList();
@@ -259,6 +265,7 @@ public String validateAll(String day) {
 </html>
 
 <script>
+<%-- 배열 가져와서 자바스크립트 배열로 변환 --%>
   var nameList=[]
   var userIDXList = [
       <% for (int i = 0; i < userIDXList.size(); i++) { %>

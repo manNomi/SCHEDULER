@@ -10,6 +10,8 @@
 <%-- 셀렉트 할때만 필요하다  --%>
 <%@ page import="java.sql.ResultSet" %>
 
+
+<%-- 부서 가져오기 --%>
 <%!
 public String tryGetSelect(Connection connection) {
     String team = "";
@@ -32,11 +34,11 @@ public String tryGetSelect(Connection connection) {
 <%
     request.setCharacterEncoding("utf-8");
     Connection connection = null;
+    // 세션이 있으면 스케줄 페이지로 이동 
     HttpSession session_index = request.getSession(false);
-    String userIDX = null;
     if (session_index != null) {
-        userIDX = (String) session_index.getAttribute("idx");
-    }
+          out.println("<script>location.href='./schedule_page.jsp';</script>");
+        }
     try {
         Class.forName("org.mariadb.jdbc.Driver");
         connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
@@ -183,10 +185,6 @@ public String tryGetSelect(Connection connection) {
 </html>
 
 <script>
-  var userIDX= "<%=userIDX%>"
-  if (userIDX!="null"){
-    location.href = "./schedule_page.jsp"
-}
   var teamList = "<%=team%>".split("-")
   teamList.pop()
   initSelectBox(teamList)

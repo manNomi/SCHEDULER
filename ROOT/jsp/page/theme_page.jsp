@@ -5,6 +5,8 @@
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="java.sql.ResultSet" %>
 
+<%-- 유저 클래스 --%>
+<%-- 유저 데이터 가져오는 함수 --%>
 <%!
   public class User {
     String colorCode="";

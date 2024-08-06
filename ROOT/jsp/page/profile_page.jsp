@@ -7,6 +7,7 @@
 <%@ page import=" java.util.regex.Pattern"%>
 <%@ page import=" java.util.regex.Matcher"%>
 
+<%-- 유저 데이터 가져오기 --%>
 <%!
 public class User {
     String id;

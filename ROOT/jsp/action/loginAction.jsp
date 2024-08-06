@@ -12,18 +12,20 @@
 public String tryLogin(Connection connection,HttpServletRequest request,String id,String pw) {
     String userIDX = "";
     String userColor = "";
-    String first_login = "";
+    String userPosition = "";
 
     try {
         // 사용자 데이터 삽입 시도
-        String getSelectSQL = "SELECT idx, theme_color , first_login FROM User WHERE id = ? AND pw = ?";
+        String getSelectSQL = "SELECT idx, theme_color , position FROM User WHERE id = ? AND pw = ?";
         PreparedStatement stmt = connection.prepareStatement(getSelectSQL);
         stmt.setString(1,id);
         stmt.setString(2,pw);
         ResultSet result = stmt.executeQuery();
         if(result.next()){
             userIDX=result.getString("idx");
-            loginSession(connection,request,userIDX);
+            userColor=result.getString("theme_color");
+            userPosition=result.getString("position");
+            loginSession(request,userIDX,userColor,userPosition);
         }
     } 
     catch (SQLException e) {
@@ -35,9 +37,11 @@ public String tryLogin(Connection connection,HttpServletRequest request,String i
 %>
 
 <%!
-public void loginSession(Connection connection,HttpServletRequest request,String userIDX) {
+public void loginSession(HttpServletRequest request,String userIDX,String color , String position) {
     HttpSession session = request.getSession(true);
     session.setAttribute("idx", userIDX);
+    session.setAttribute("color", color);
+    session.setAttribute("position", position);
 }
 %>
 

@@ -1,84 +1,19 @@
 var color = ["body", "theme_btn"];
-var watchState = "USER";
 var stateColor = "";
 var stateSize = "small";
 const chooseDate = document.getElementById("choose_date");
 var calander = document.getElementById("month");
 
-var countMyList = [];
-var countAllList = [];
-
 //스케줄 개수 가져오기
-function getData(countDate) {
-  // 모든 스케줄을 날짜 형식으로 -(하이픈)을 연결해서 가져온다
-  // 전제 스케줄과는 _(아래 하이폰으로 구분)
-  // 예시
-  // [본인]01-01-01-01-02-24-_[전체]01-01-01-01-01-01-01-01-02-02-24-
-  var myCount = countDate.split("_")[0].split("]")[1];
-  var allCount = "";
-  if (countDate.split("_")[1] != null) {
-    allCount = countDate.split("_")[1].split("]")[1];
-  }
-  if (allCount != null) {
-    allCount = allCount.split("-");
-    allCount.pop();
-    // Set 객체는 증복을 허용하지 않는 점을 이용
-    var processedCountsAll = new Set();
-    for (var i = 0; i < allCount.length; i++) {
-      var count = allCount[i];
-      // 증복체크
-      if (processedCountsAll.has(count)) {
-        continue;
-      }
-      // 현재 날짜와 같은 스케줄을 모두 찾는다
-      var countList = allCount.filter(function (ele) {
-        return ele == count;
-      });
-      // 같은 스케줄을 리스트에서 삭제한다
-      allCount = allCount.filter(function (ele) {
-        return ele != count;
-      });
-      // 날짜와 날짜의 스케줄개수를 저장
-      countAllList.push([count, countList.length]);
-      // 증복체크 객체에 저장
-      processedCountsAll.add(count);
-      i = -1;
-    }
-
-    myCount = myCount.split("-");
-    myCount.pop();
-    var processedCountsMy = new Set();
-    for (var i = 0; i < myCount.length; i++) {
-      var count = myCount[i];
-      if (processedCountsMy.has(count)) continue;
-      var countList = myCount.filter(function (ele) {
-        return ele === count;
-      });
-      myCount = myCount.filter(function (ele) {
-        return ele !== count;
-      });
-      countMyList.push([count, countList.length]);
-      processedCountsMy.add(count);
-      i = -1;
-    }
-  }
-}
 
 // 달력 만들기
-function makeCalander(date) {
+function makeCalander(date, countDateList) {
   date = date.split("-");
   var year = date[0];
   var month = date[1];
   var day_format = date[2];
-  var countDateList = [];
 
-  // getData로 가져온 데이터
-  if (watchState == "TEAM") {
-    countDateList = countAllList;
-  } else {
-    countDateList = countMyList;
-  }
-
+  console.log(countDateList);
   chooseDate.value = `${year}-${month}-${day_format}`;
   // 데이트 객체는 month -1 해줘야 그 달임 0 부터 시작해서
   const dateObj = new Date(year, month - 1, 1);
@@ -135,12 +70,15 @@ function makeCalander(date) {
       var plan = 0;
 
       countDateList.forEach(function (ele) {
+        var eleDate = ele[0].split("-")[2];
         var idxText = "";
         if (present_week < 10) {
           idxText = "0" + present_week;
+        } else {
+          idxText = present_week;
         }
-        // ele[0] 은 날짜 ele[0]은 값
-        if (ele[0] == idxText) {
+        // ele[0] 은 날짜 ele[1]은 값
+        if (eleDate == idxText) {
           plan = ele[1];
         }
       });
@@ -203,20 +141,26 @@ function setProfileMoveEvent() {
 }
 
 // 전체 보기 버튼 이벤트
-function whatchAllBtnEvent(e) {
+function whatchAllBtnEvent() {
   var date = chooseDate.value;
-  if (watchState == "TEAM") {
-    e.target.children[0].src = "../../image/schedule/full_battery.png";
-    e.target.children[1].innerHTML = "전체 보기";
-    watchState = "USER";
+  if (watchState == "USER") {
     opacitySpeachDone();
-    makeCalander(date);
+    location.href =
+      "../page/schedule_page.jsp" + "?day=" + date + "&watchState=" + "TEAM";
   } else {
-    e.target.children[0].src = "../../image/schedule/empty_battery.png";
-    e.target.children[1].innerHTML = "나만 보기";
-    watchState = "TEAM";
     opacitySpeachDone();
-    makeCalander(date);
+    location.href =
+      "../page/schedule_page.jsp" + "?day=" + date + "&watchState=" + "USER";
+  }
+}
+function initwatchAllBtn(watchState) {
+  var watchBox = document.getElementById("watch_all_box");
+  if (watchState == "USER") {
+    watchBox.children[0].src = "../../image/schedule/full_battery.png";
+    watchBox.children[1].innerHTML = "전체 보기";
+  } else {
+    watchBox.children[0].src = "../../image/schedule/empty_battery.png";
+    watchBox.children[1].innerHTML = "나만 보기";
   }
 }
 

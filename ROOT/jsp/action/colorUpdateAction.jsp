@@ -41,8 +41,8 @@ public String validateAll(String colorCode) {
 <%
     request.setCharacterEncoding("utf-8");
     Connection connection = null;
-    HttpSession session_profile = request.getSession(false);
-    String userIDX = (session_profile != null) ? (String) session_profile.getAttribute("idx") : null;
+    HttpSession session_color = request.getSession(false);
+    String userIDX = (session_color != null) ? (String) session_color.getAttribute("idx") : null;
     if (userIDX==null){
       out.println("<script>alert('세션 오류'); location.href='../action/logoutAction.jsp';</script>");
       return;
@@ -53,7 +53,6 @@ public String validateAll(String colorCode) {
         out.println("<script>alert('" + regexText + " 오류'); history.back();</script>");
         return;
     }   
-
     try {
         Class.forName("org.mariadb.jdbc.Driver");
         connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
@@ -61,16 +60,11 @@ public String validateAll(String colorCode) {
         e.printStackTrace();
     }
     String check = tryUpdate(connection,userIDX,colorCode);
-%>
-
-<script>
-    var check = "<%=check%>"
     if (check==""){
-        alert("정보가 변경되었습니다")
-        location.href="../page/schedule_page.jsp";
+        out.println("<script>alert('정보가 변경되었습니다'); location.href='../page/schedule_page.jsp';</script>");
+        session_color.setAttribute("color", colorCode);
     }
     else{
-        alert("잘못된 입력")
-        history.back()
+        out.println("<script>alert('잘못된 입력'); history.back();</script>");
     }
-</script>
+%>

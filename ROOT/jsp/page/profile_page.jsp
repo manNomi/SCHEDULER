@@ -76,12 +76,12 @@ public User tryGetUserData(Connection connection, String userIDX) {
       out.println("<script>alert('세션 오류'); location.href='../action/logoutAction.jsp';</script>");
       return;
     }
+    String position = (session_detail != null) ? (String) session_detail.getAttribute("position") : null;
+    String colorCode = (session_detail != null) ? (String) session_detail.getAttribute("color") : null;
     String id = "";
     String pw = "";
     String name = "";
     String phone = "";
-    String position = "";
-    String colorCode = "";
     String teamName = "";
     try {
         Class.forName("org.mariadb.jdbc.Driver");
@@ -94,8 +94,6 @@ public User tryGetUserData(Connection connection, String userIDX) {
     pw = user.getPw();
     name = user.getName();
     phone = user.getPhone();
-    position = user.getPosition();
-    colorCode = user.getThemeColor();
     teamName = user.getTeamName();
 %>
 

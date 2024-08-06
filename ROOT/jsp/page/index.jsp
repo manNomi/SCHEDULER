@@ -39,7 +39,7 @@ public String tryGetSelect(Connection connection) {
     if (session_index != null) {
       String userIDX = (session_index != null) ? (String) session_index.getAttribute("idx") : null;
       if (userIDX!=null){
-        out.println("<script>alert('세션 오류 스케줄입니다'); location.href='./schedule_page.jsp';</script>");
+        out.println("<script>location.href='./schedule_page.jsp';</script>");
         return;
       }
     }

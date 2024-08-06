@@ -7,104 +7,68 @@
 <%@ page import="java.time.LocalDate, java.time.YearMonth" %>
 <%@ page import=" java.util.regex.Pattern"%>
 <%@ page import=" java.util.regex.Matcher"%>
-
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
 <%-- 데이터 가져오기  --%>
 <%! 
-public String tryGetDate(Connection connection, String userIDX , String date, String position) {
+public List<String> tryGetDate(Connection connection, String userIDX , String date, String position,String state) {
     String year = date.split("-")[0];
     String month = date.split("-")[1];
     YearMonth yearMonth = YearMonth.of(Integer.parseInt(year), Integer.parseInt(month));
-    String startDate = year + "-" + month + "-01";
+    String startDate = yearMonth.atDay(1).toString();
     String endDate = yearMonth.atEndOfMonth().toString();
-    String countDate="";
-      try {
-        String meSQL="SELECT day "+
+    List<String> dayList = new ArrayList<>(); 
+    String sql="";
+    if (state.equals("TEAM") && position.equals("팀장")){
+              sql="SELECT day , COUNT(*) " +
+              "FROM Schedule s " +
+              "JOIN User u ON s.user_idx = u.idx " +
+              "WHERE u.team_name = ( " +
+              "    SELECT team_name " +
+              "    FROM User " +
+              "    WHERE idx = ? " +
+              ") " +
+              "AND s.day BETWEEN ? AND ? " +
+              "GROUP BY day "+
+              "ORDER BY s.day ASC;";
+    }
+    else if (state.equals("USER")){
+        sql="SELECT day , COUNT(*) "+
               "FROM Schedule "+
               "WHERE user_idx = ? "+
               "AND day BETWEEN ? AND ? " +
+              "GROUP BY day "+
               "ORDER BY day ASC;";
-        PreparedStatement post = connection.prepareStatement(meSQL);
+    }
+      try {
+        PreparedStatement post = connection.prepareStatement(sql);
         post.setString(1,userIDX);
         post.setString(2,startDate);
         post.setString(3,endDate);
         ResultSet result = post.executeQuery();
-        countDate+="[본인]";
         while (result.next()) {
-            countDate =countDate+ result.getString("day").split("-")[2]+"-";
+            String day ="'"+result.getString("day")+"'";
+            String dayCount = "'"+result.getString("COUNT(*)")+"'";
+            dayList.add("["+day+","+dayCount+"]");
           }
-        if ("팀장".equals(position)){
-          // 스케줄 테이블의 fk 인 user_idx User 테이블의 idx를 기준으로 조인 
-          // User 테이블의 idx의 team_name 가져와서 user테이블의 team_name과 일치하는 것들의
-          // day 컬럼을 가져온다 시간 순서로 
-        String readerSQL = "SELECT day " +
-                            "FROM Schedule s " +
-                            "JOIN User u ON s.user_idx = u.idx " +
-                            "WHERE u.team_name = ( " +
-                            "    SELECT team_name " +
-                            "    FROM User " +
-                            "    WHERE idx = ? " +
-                            ") " +
-                            "AND s.day BETWEEN ? AND ? " +
-                            "ORDER BY s.day ASC;";
-          PreparedStatement postTeam = connection.prepareStatement(readerSQL);
-          postTeam.setString(1,userIDX);
-          postTeam.setString(2,startDate);
-          postTeam.setString(3,endDate);
-          ResultSet resultTeam = postTeam.executeQuery();
-          countDate+="_[전체]";
-          while (resultTeam.next()) {
-              countDate = countDate + resultTeam.getString("day").split("-")[2] + "-";
-            }
-        }
       }
     catch (SQLException e) {
-      countDate = e.getMessage();
+      dayList.add(e.getMessage());
     }
-    return countDate;
+    return dayList;
 }
 %>
 
 <%-- 유저 데이터 가져오는 클래스 --%>
 <%!
-  public class User {
-    String position="";
-    String colorCode="";
-    String firstLogin="";
-        public User(String pos,String col, String log) {
-        this.position = pos;
-        this.colorCode = col;
-        this.firstLogin = log;
-    }
-    String getPostion() { return position; }
-    String getColorCode() { return colorCode; }
-    String getFristLogin() { return firstLogin; }
-}
-
-  public User tryGetUserData(Connection connection,String userIDX) {
-      String position="";
-      String colorCode="";
-      String firstLogin="";
-      try {
-        String positionSQL = "SELECT position , theme_color , first_login FROM User WHERE idx = ? ";
-        PreparedStatement post = connection.prepareStatement(positionSQL);
-        post.setString(1,userIDX);
-        ResultSet result = post.executeQuery();
-        if (result.next()) {
-            position = result.getString("position");
-            colorCode = result.getString("theme_color");
-            firstLogin = result.getString("first_login");
-          }
-          post.close();
-        }
-      catch (SQLException e) {
-        e.printStackTrace();
-      }
-      return new User(position,colorCode,firstLogin);
-    }
-public String validateAll(String day) {
+public String validateAll(String day,String watchState) {
     final Pattern regex_day = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
     if (!regex_day.matcher(day).matches()) {
         return "날짜 오류";
+    }
+    if (watchState.equals("USER") || watchState.equals("TEAM")){}
+    else{
+      return "상태 오류";
     }
     return "true";
 }
@@ -119,12 +83,17 @@ public String validateAll(String day) {
       out.println("<script>alert('세션 오류'); location.href='../action/logoutAction.jsp';</script>");
       return;
     }
-    String position="";
-    String colorCode= "";
-    String firstLogin ="";
+    String position = (session_schedule != null) ? (String) session_schedule.getAttribute("position") : null;
+    String colorCode = (session_schedule != null) ? (String) session_schedule.getAttribute("color") : null;
     String date = request.getParameter("day");
-    String countDateALL="";
+    String watchState = request.getParameter("watchState");
+    String firstLogin ="";
+    List<String> countDateALL = new ArrayList<>(); 
 
+    // 페이지에 파라미터 없이 접속시 기본은 USER 
+    if (watchState==null){
+      watchState="USER";
+    }
     // 페이지에 파라미터 없이 접속시 기본 날짜 설정 
     if(date==null){
       java.util.Calendar now = java.util.Calendar.getInstance();
@@ -135,36 +104,15 @@ public String validateAll(String day) {
       String dayStr = String.format("%02d", day);
       date = year + "-" + monthStr + "-" + dayStr;
     }
-
     // 이상하게 입력시 뒤로 가도록
-    String regexText=validateAll(date);
+    String regexText=validateAll(date,watchState);
     if (!regexText.equals("true")){
         out.println("<script>alert('" + regexText + " 오류'); history.back();</script>");
         return;
     }   
-    
     Class.forName("org.mariadb.jdbc.Driver");
     connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
-    
-    User resultUser = tryGetUserData(connection, userIDX);
-    position= resultUser.getPostion();
-    colorCode= resultUser.getColorCode();
-    firstLogin= resultUser.getFristLogin();
-    countDateALL=tryGetDate(connection,userIDX,date,position);
-    // 첫 로그인 DB를 T -> F 로 변환 
-    try {
-      if ("T".equals(firstLogin)){
-          String getSetSQL = "UPDATE User SET first_login = 'F' WHERE idx = ? ";
-          PreparedStatement stmt = connection.prepareStatement(getSetSQL);
-          session.setAttribute("login", "F");
-          stmt.setString(1,userIDX);
-          stmt.executeUpdate();
-          stmt.close(); 
-      }
-    }
-    catch (SQLException e) {
-        e.printStackTrace();
-    }
+    countDateALL=tryGetDate(connection,userIDX,date,position,watchState);
 %>
 
 <!DOCTYPE html>
@@ -243,7 +191,9 @@ public String validateAll(String day) {
 
 <script>
   var loginCheck= "<%=firstLogin%>";
-  if (loginCheck=="T"){
+  var watchState= "<%=watchState%>";
+  var loginCheck= "T";
+  if (loginCheck=="F"){
     var modal = document.getElementById("modal_guide");
     makeOpacityBox(modal,0.5);
   }
@@ -259,11 +209,8 @@ public String validateAll(String day) {
   if (position=="팀장"){
     document.getElementById("watch_all_box").style.display="flex"
   }
-  var countDate="<%=countDateALL%>"
-  getData(countDate)
-
+  var countDate=<%=countDateALL%>
   var day= "<%=date%>"
-  makeCalander(day)
-
-
+  initwatchAllBtn(watchState);
+  makeCalander(day,countDate)
 </script>

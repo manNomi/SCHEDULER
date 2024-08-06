@@ -228,7 +228,11 @@ function setColor(color) {
 
 // 나가기 버튼 클릭 이벤트
 function exitBtnEvent() {
-  location.href = "../../jsp/page/schedule_page.jsp?day=" + dateText;
+  location.href =
+    "../../jsp/page/schedule_page.jsp?day=" +
+    dateText +
+    "&watchState=" +
+    watchState;
 }
 
 // 시간 설정

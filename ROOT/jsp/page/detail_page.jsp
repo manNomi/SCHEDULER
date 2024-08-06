@@ -104,45 +104,7 @@ public TeamResult tryGetTeamSchedule(Connection connection, String idx, String d
 }
 %>
 
-<%-- 유저 클래스 --%>
-<%-- 유저 데이터 가져옴 --%>
 <%!
-  public class User {
-    String position="";
-    String colorCode="";
-    String name="";
-        public User(String pos,String col, String myName) {
-        this.position = pos;
-        this.colorCode = col;
-        this.name = myName;
-    }
-    String getPostion() { return position; }
-    String getColorCode() { return colorCode; }
-    String getName() { return name; }
-}
-
-  public User tryGetUserData(Connection connection,String userIDX) {
-      String position="";
-      String colorCode="";
-      String name="";
-      try {
-        String positionSQL = "SELECT position , theme_color , name  FROM User WHERE idx = ? ";
-        PreparedStatement post = connection.prepareStatement(positionSQL);
-        post.setString(1,userIDX);
-        ResultSet result = post.executeQuery();
-        if (result.next()) {
-            position = result.getString("position");
-            colorCode = result.getString("theme_color");
-            name = result.getString("name");
-          }
-          post.close();
-        }
-      catch (SQLException e) {
-        e.getMessage();
-      }
-      return new User(position,colorCode,name);
-    }
-
 public String validateAll(String day) {
     final Pattern regex_day = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
     if (!regex_day.matcher(day).matches()) {
@@ -161,6 +123,8 @@ public String validateAll(String day) {
       out.println("<script>alert('세션 오류'); location.href='../action/logoutAction.jsp';</script>");
       return;
     }
+    String position = (session_detail != null) ? (String) session_detail.getAttribute("position") : null;
+    String colorCode = (session_detail != null) ? (String) session_detail.getAttribute("color") : null;
     String day = request.getParameter("day");
     String watchState = request.getParameter("watchState");
     String regexText=validateAll(day);
@@ -175,14 +139,6 @@ public String validateAll(String day) {
     } catch (Exception e) {
         e.printStackTrace();
     }
-    String position="";
-    String colorCode= "";
-    String name ="";
-
-    User resultUserData = tryGetUserData(connection, userIDX);
-    position= resultUserData.getPostion();
-    colorCode= resultUserData.getColorCode();
-    name= resultUserData.getName();
 
     List<String> contentList = new ArrayList<>(); 
     List<String> scheduleList = new ArrayList<>(); 
@@ -265,7 +221,6 @@ public String validateAll(String day) {
 </html>
 
 <script>
-<%-- 배열 가져와서 자바스크립트 배열로 변환 --%>
   var userIDXList=<%=userIDXList%>
   var contentList=<%=contentList%>
   var scheduleList=<%=scheduleList%> 
@@ -279,7 +234,6 @@ public String validateAll(String day) {
   if (watchState=="TEAM"){
     nameList=<%=nameList%>
   }
-
   initTime(date)
   dateText=date
   stateColor="#"+colorCode

@@ -5,52 +5,23 @@
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="java.sql.ResultSet" %>
 
-<%-- 유저 클래스 --%>
-<%-- 유저 데이터 가져오는 함수 --%>
-<%!
-  public class User {
-    String colorCode="";
-        public User(String col) {
-        this.colorCode = col;
-    }
-    String getColorCode() { return colorCode; }
-}
-  public User tryGetUserData(Connection connection,String userIDX) {
-      String colorCode="";
-      try {
-        String positionSQL = "SELECT theme_color FROM User WHERE idx = ? ";
-        PreparedStatement post = connection.prepareStatement(positionSQL);
-        post.setString(1,userIDX);
-        ResultSet result = post.executeQuery();
-        if (result.next()) {
-            colorCode = result.getString("theme_color");
-          }
-          post.close();
-        }
-      catch (SQLException e) {
-        e.printStackTrace();
-      }
-      return new User(colorCode);
-    }
-%>
-
 <%
     request.setCharacterEncoding("utf-8");
     Connection connection = null;
-    HttpSession session_index = request.getSession(false);
-    String userIDX = (session_index != null) ? (String) session_index.getAttribute("idx") : null;
+    HttpSession session_theme = request.getSession(false);
+    String userIDX = (session_theme != null) ? (String) session_theme.getAttribute("idx") : null;
     if (userIDX==null){
       out.println("<script>alert('세션 오류'); location.href='../action/logoutAction.jsp';</script>");
        return;
     }
+    String position = (session_theme != null) ? (String) session_theme.getAttribute("position") : null;
+    String colorCode = (session_theme != null) ? (String) session_theme.getAttribute("color") : null;
     try {
         Class.forName("org.mariadb.jdbc.Driver");
         connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");
     } catch (Exception e) {
         e.printStackTrace();
     }
-    User user = tryGetUserData(connection,userIDX);
-    String colorCode=user.getColorCode();
 %>
 
 <!DOCTYPE html>

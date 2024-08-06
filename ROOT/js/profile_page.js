@@ -138,7 +138,6 @@ function makeOpacityBoxEvent() {
   modalDelete.style.display = "flex";
   var opacityBox = document.createElement("div");
   opacityBox.classList = "opacity_box";
-  opacityBox.style.opacity = 0.5;
   document.querySelector("body").appendChild(opacityBox);
   opacityBox.addEventListener("click", function () {
     deleteDoneEvent();

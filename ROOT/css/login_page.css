@@ -62,3 +62,28 @@ body {
     opacity: 1;
   }
 }
+@keyframes width_to_0 {
+  from {
+    width: 90%;
+    height: 90%;
+    opacity: 1;
+  }
+  to {
+    width: 0%;
+    opacity: 0;
+    height: 90%;
+  }
+}
+
+@keyframes width_to_100 {
+  from {
+    width: 0%;
+    opacity: 0;
+    height: 90%;
+  }
+  to {
+    width: 90%;
+    opacity: 1;
+    height: 90%;
+  }
+}

@@ -16,7 +16,6 @@
 public String tryGetSelect(Connection connection) {
     String team = "";
     try {
-        // 사용자 데이터 삽입 시도
         String getSelectSQL = "SELECT name FROM Team";
         PreparedStatement stmt = connection.prepareStatement(getSelectSQL);
         ResultSet result = stmt.executeQuery();
@@ -37,8 +36,12 @@ public String tryGetSelect(Connection connection) {
     // 세션이 있으면 스케줄 페이지로 이동 
     HttpSession session_index = request.getSession(false);
     if (session_index != null) {
-          out.println("<script>location.href='./schedule_page.jsp';</script>");
-        }
+      String userIDX = (session_index != null) ? (String) session_index.getAttribute("idx") : null;
+      if (userIDX!=null){
+        out.println("<script>alert('세션 오류 스케줄입니다'); location.href='./schedule_page.jsp';</script>");
+        return;
+      }
+    }
     try {
         Class.forName("org.mariadb.jdbc.Driver");
         connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");

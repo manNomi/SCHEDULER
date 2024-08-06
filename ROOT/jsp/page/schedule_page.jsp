@@ -116,7 +116,7 @@ public String validateAll(String day) {
     HttpSession session_schedule = request.getSession(false);
     String userIDX = (session_schedule != null) ? (String) session_schedule.getAttribute("idx") : null;
     if (userIDX==null){
-      out.println("<script>alert('세션 오류'); location.href='../action/logoutAction.jsp';</script>");
+      out.println("<script>alert('세션 오류 스케줄입니다'); location.href='../action/logoutAction.jsp';</script>");
       return;
     }
     String position="";

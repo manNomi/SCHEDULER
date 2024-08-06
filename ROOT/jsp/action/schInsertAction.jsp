@@ -48,7 +48,6 @@ public String validateAll(String day,String time,String content) {
     request.setCharacterEncoding("utf-8");
     HttpSession session_detail = request.getSession(false);
     String userIDX = (session_detail != null) ? (String) session_detail.getAttribute("idx") : null;
-    String userIDX = (session_schedule != null) ? (String) session_schedule.getAttribute("idx") : null;
     if (userIDX==null){
       out.println("<script>alert('세션 오류'); location.href='../action/logoutAction.jsp';</script>");
       return;

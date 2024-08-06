@@ -63,19 +63,22 @@ public String validateAll(String day,String timeNew,String textNew , String time
     String oldText = request.getParameter("oldText");
     String date = request.getParameter("date");
     String watchState = request.getParameter("watchState");
-
-    String regexText=validateAll(date,newTime,newText,oldTime,oldText);
-    if (!regexText.equals("true")){
-        out.println("<script>alert('" + regexText + " 오류'); history.back();</script>");
-        return;
-    }
     Connection connection = null;
+
     HttpSession session_profile = request.getSession(false);
     String userIDX = (session_schedule != null) ? (String) session_schedule.getAttribute("idx") : null;
     if (userIDX==null){
       out.println("<script>alert('세션 오류'); location.href='../action/logoutAction.jsp';</script>");
       return;
     }
+    
+    String regexText=validateAll(date,newTime,newText,oldTime,oldText);
+    if (!regexText.equals("true")){
+        out.println("<script>alert('" + regexText + " 오류'); history.back();</script>");
+        return;
+    }
+
+
     try {
         Class.forName("org.mariadb.jdbc.Driver");
         connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/web", "mannomi", "1234");

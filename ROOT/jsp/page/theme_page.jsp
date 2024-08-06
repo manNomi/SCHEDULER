@@ -13,7 +13,6 @@
     }
     String getColorCode() { return colorCode; }
 }
-
   public User tryGetUserData(Connection connection,String userIDX) {
       String colorCode="";
       try {
@@ -38,8 +37,8 @@
     Connection connection = null;
     HttpSession session_index = request.getSession(false);
     String userIDX = (session_index != null) ? (String) session_index.getAttribute("idx") : null;
-    if (userIDX.equals(null)){
-      out.println("<script>alert('세션 오류'); history.back();</script>");
+    if (userIDX==null){
+      out.println("<script>alert('세션 오류'); location.href='../action/logoutAction.jsp';</script>");
        return;
     }
     try {

@@ -3,10 +3,12 @@ var watchState = "USER";
 var stateColor = "";
 var stateSize = "small";
 const chooseDate = document.getElementById("choose_date");
-
 var countMyList = [];
 var countAllList = [];
+
+//
 function getData(countDate) {
+  console.log(countDate);
   var myCount = countDate.split("_")[0].split("]")[1];
   var allCount = "";
   if (countDate.split("_")[1] != null) {

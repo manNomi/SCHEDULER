@@ -109,9 +109,9 @@ public String validateAll(String day) {
     Connection connection = null;
     HttpSession session_schedule = request.getSession(false);
     String userIDX = (session_schedule != null) ? (String) session_schedule.getAttribute("idx") : null;
-    if (userIDX.equals(null)){
-      out.println("<script>alert('세션 오류'); history.back();</script>");
-       return;
+    if (userIDX==null){
+      out.println("<script>alert('세션 오류'); location.href='../action/logoutAction.jsp';</script>");
+      return;
     }
     String position="";
     String colorCode= "";

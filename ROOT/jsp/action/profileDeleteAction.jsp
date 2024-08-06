@@ -24,6 +24,11 @@ public String tryDelete(Connection connection,String userIDX) {
 
 <%
     request.setCharacterEncoding("utf-8");
+    String userIDX = (session_schedule != null) ? (String) session_schedule.getAttribute("idx") : null;
+    if (userIDX==null){
+      out.println("<script>alert('세션 오류'); location.href='../action/logoutAction.jsp';</script>");
+      return;
+    }
     Connection connection = null;
     HttpSession session_profile = request.getSession(false);
     String userIDX = (session_profile != null) ? (String) session_profile.getAttribute("idx") : null;

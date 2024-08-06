@@ -1,5 +1,6 @@
 var modal = document.getElementById("modal_container");
 var dateText = "";
+var stateColor = "";
 
 var clickTime = "";
 var clickText = "";

@@ -101,11 +101,11 @@ public String tryJoin(Connection connection, User user ) {
     var errorMessage="<%=joinError%>"
     if (errorMessage=="false"){
         alert("회원가입 성공")
-        <%-- location.href="../page/index.jsp" --%>
+        location.href="../page/index.jsp"
     }
     else{
         var text =errorMessage.split("key")[1].trim()
         alert(text+`가 중복입니다`)
-        <%-- window.history.back() --%>
+        window.history.back()
     }
 </script>

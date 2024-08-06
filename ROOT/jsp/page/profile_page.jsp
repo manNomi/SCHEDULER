@@ -71,9 +71,9 @@ public User tryGetUserData(Connection connection, String userIDX) {
     Connection connection = null;
     HttpSession session_detail = request.getSession(false);
     String userIDX = (session_detail != null) ? (String) session_detail.getAttribute("idx") : null;
-    if (userIDX.equals(null)){
-      out.println("<script>alert('세션 오류'); history.back();</script>");
-       return;
+    if (userIDX==null){
+      out.println("<script>alert('세션 오류'); location.href='../action/logoutAction.jsp';</script>");
+      return;
     }
     String id = "";
     String pw = "";

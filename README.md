@@ -1,7 +1,9 @@
 # 스케줄러 
 
-## 회사 내 팀원들의 스케줄을 부서별로 확인
-   
+#### 목적 : 회사 내 팀원들의 스케줄을 부서별로 확인
+
+## 사용한 기술스택 모음 
+
 ## JSP 코드 사용 예시 
 
 ### 커넥션 생성 및 연결
@@ -44,8 +46,6 @@ public String tryJoin(Connection connection, User user ) {
 }
 %>
 ```
-
-총정리 코드 
 
 위 와같이 선언식에 써두고 필요할때마다 꺼내서 썼음
 
@@ -94,6 +94,7 @@ public String tryJoin(Connection connection, User user ) {
     - SQL 질의의 결과로 생성된 데이터를 읽고 처리하는 데 사용\
     - 읽기용
 
+## 세션 사용 
 
 ```java
 HttpSession session = request.getSession();
@@ -123,7 +124,7 @@ if (sessionLogout != null) {
 
 → 세션을 가져오고 있으면 무효화 시킨다
 
-### 쿠키 사용 코드
+## 쿠키 사용 코드
 
 ```java
 function setCookie(userIDX) {
@@ -141,15 +142,13 @@ function setCookie(userIDX) {
 
 ```
 
+##정규표현식 
 import 모듈 
 
 ```java
 <%@ page import=" java.util.regex.Pattern"%>
 <%@ page import=" java.util.regex.Matcher"%>
 ```
-
-정규표현식 
-
 → pattern : 정규표현식 객체이다 
 
 ```java

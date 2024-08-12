@@ -9,7 +9,7 @@
 ### 커넥션 생성 및 연결
 
 ![리드미](/ROOT/readme/content.gif)
-![리드미](/ROOT/readme/figma.gif)
+![리드미](/ROOT/readme/figma.png)
 
 
 

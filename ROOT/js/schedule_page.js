@@ -240,9 +240,5 @@ function setCookie(userIDX) {
       document.cookie = "user=" + userIDX + "; max-age=36000";
     }
     // 1시간 = 3600
-  } else {
-    var modal = document.getElementById("modal_guide");
-    makeOpacityBox(modal, 0.5);
-    document.cookie = "user=" + userIDX + "; max-age=36000";
   }
 }

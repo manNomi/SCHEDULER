@@ -18,10 +18,11 @@ function makePlacehorder(name, placeText, color, text, inputType) {
 
   container.appendChild(palcehorderText);
 
-  placehorderBox.addEventListener("input", handleInputBlur);
   placehorderBox.addEventListener("focus", handleInputBlur);
   placehorderBox.addEventListener("blur", handleInputBlur);
   placehorderBox.addEventListener("change", handleInputBlur);
+
+  placehorderBox.addEventListener("input", handleInputBlur);
 
   function handleInputBlur() {
     palcehorderText.style.animation = "placehorder_to_small 0.3s forwards";
